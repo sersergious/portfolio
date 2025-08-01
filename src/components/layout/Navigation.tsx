@@ -8,9 +8,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sun, Moon } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import {ThemeToggle} from "@/components/theme/theme-toggle";
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -25,7 +25,6 @@ const navItems = [
 export function Navigation() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
 
   return (
     <motion.nav
@@ -47,7 +46,7 @@ export function Navigation() {
                 <span className="text-sm font-bold text-primary-foreground">S</span>
               </div>
               <span className="font-bold text-xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Sersergious
+                SerSergious
               </span>
             </motion.div>
           </Link>
@@ -80,16 +79,7 @@ export function Navigation() {
           {/* Theme Toggle & Mobile Menu */}
           <div className="flex items-center gap-2">
             {/* Theme Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </motion.button>
+            <ThemeToggle/>
 
             {/* Mobile Menu Button */}
             <motion.button

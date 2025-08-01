@@ -10,11 +10,18 @@ import { getAllProjects, getAllBlogPosts, getAllResearch } from '@/lib/content'
 import { ProjectCard } from '@/components/content/ProjectCard'
 import { BlogCard } from '@/components/content/BlogCard'
 import { ResearchCard } from '@/components/content/ResearchCard'
+import {Button} from "@/components/ui/button"
 
 export const metadata = {
-  title: 'Sersergious - Research. Develop. Innovate.',
+  title: 'SerSergious - Research. Develop. Innovate.',
   description: 'Portfolio showcasing cutting-edge research, innovative development projects, and insights into the intersection of technology and science.',
 }
+
+const socials = [
+  { href: 'https://github.com/sersergious', icon: Github, label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/sersergious-dev', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'mailto:hello@sersergious.dev', icon: Mail, label: 'Email' },
+]
 
 export default async function HomePage() {
   // Fetch content
@@ -101,21 +108,21 @@ export default async function HomePage() {
             {/* Social Links */}
             <StaggerItem delay={0.9}>
               <div className="flex justify-center gap-4">
-                {[
-                  { href: 'https://github.com/sersergious', icon: Github, label: 'GitHub' },
-                  { href: 'https://linkedin.com/in/sersergious', icon: Linkedin, label: 'LinkedIn' },
-                  { href: 'mailto:hello@sersergious.dev', icon: Mail, label: 'Email' },
-                ].map((social) => (
+                {socials.map((social) => (
                   <ScaleOnHover key={social.label}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-                    >
-                      <social.icon className="w-5 h-5" />
-                      <span className="sr-only">{social.label}</span>
-                    </a>
+                    <Link href={social.href} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        asChild
+                        variant="ghost"
+                        size="icon"
+                        className="w-11 h-11 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                      >
+                        <span>
+                          <social.icon className="w-5 h-5" />
+                          <span className="sr-only">{social.label}</span>
+                        </span>
+                      </Button>
+                    </Link>
                   </ScaleOnHover>
                 ))}
               </div>

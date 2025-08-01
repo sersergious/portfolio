@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} min-h-screen antialiased bg-background text-foreground`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="system" >
           {/* Site structure */}
           <div className="flex min-h-screen flex-col">
             {/* Navigation */}

@@ -197,7 +197,7 @@ export async function getAllProjects() {
   // Ensure directory exists
   ensureDirectoryExists(projectsDirectory)
 
-  // Check if directory is empty and create sample content
+  // Check if the directory is empty and create sample content
   const files = fs.readdirSync(projectsDirectory)
   const mdxFiles = files.filter(name => name.endsWith('.mdx'))
 

@@ -1,14 +1,14 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { useEffect, useRef } from 'react';
 import {Bot} from "lucide-react";
-import {AiMessage} from "@/components/chat/AiMessage";
+import {ClaudeMessage} from "@/components/chat/ClaudeMessage";
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
-import {AiChatInput} from "@/components/chat/AiChatInput";
+import {ClaudeChatInput} from "@/components/chat/ClaudeChatInput";
 
-export function AiChat() {
+export function ClaudeChat() {
   const {
     messages,
     input,
@@ -95,7 +95,7 @@ export function AiChat() {
 
         {/* Message List */}
         {messages.map((message, index) => (
-          <AiMessage
+          <ClaudeMessage
             key={message.id}
             message={message}
             isLoading={isLoading && index === messages.length - 1 && message.role === 'assistant'}
@@ -131,7 +131,7 @@ export function AiChat() {
       )}
 
       {/* Chat Input */}
-      <AiChatInput
+      <ClaudeChatInput
         input={input}
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}

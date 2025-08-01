@@ -11,7 +11,7 @@ interface ClaudeMessageProps {
   onFeedback?: (type: 'up' | 'down') => void;
 }
 
-export function AiMessage({
+export function ClaudeMessage({
   message,
   isLoading,
   onCopy,

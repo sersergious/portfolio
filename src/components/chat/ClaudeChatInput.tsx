@@ -18,7 +18,7 @@ interface AiChatInputProps {
   disabled?: boolean;
 }
 
-export function AiChatInput({
+export function ClaudeChatInput({
   input,
   handleInputChange,
   handleSubmit,

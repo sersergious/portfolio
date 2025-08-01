@@ -1,6 +1,7 @@
 // =======================================
 // components/notion/NotionBlock.tsx
 // =======================================
+"use client"
 
 import { useState } from 'react'
 import { ChevronRight, ChevronDown, AlertCircle, Lightbulb, Info, AlertTriangle } from 'lucide-react'
