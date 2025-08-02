@@ -1,7 +1,4 @@
-// =======================================
 // components/transitions/FadeInWhenVisible.tsx
-// =======================================
-
 'use client'
 
 import { motion, useInView } from 'framer-motion'
