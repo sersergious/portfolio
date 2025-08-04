@@ -43,12 +43,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Navigation */}
             <Navigation />
 
-            {/* Main content with page transitions */}
-            <PageTransition>
+            {/* Main content */}
+
               <main className="flex-1">
                 {children}
               </main>
-            </PageTransition>
 
             {/* Footer */}
             <Footer />

@@ -1,23 +1,23 @@
 'use client'
+import {ErrorDisplay} from "@/components/ui/error-display";
 
-export default function ProjectsError({
-        error,
-        reset,
-      }: {
-        error: Error & { digest?: string }
-        reset: () => void
-      }) {
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-xl font-semibold text-destructive mb-4">
-              Something went wrong!
-            </h2>
-            <button
-              onClick={() => reset()}
-              className="btn-primary"
-            >
-              Try again
-            </button>
-          </div>
-        )
-      }
+export default function ProjectError({
+                                      error,
+                                      reset,
+                                  }: {
+    error: Error & { digest?: string }
+    reset: () => void
+}) {
+    return (
+        <ErrorDisplay
+            error={error}
+            reset={reset}
+            title="Project Error"
+            description="We encountered an error while loading the project. This could be temporary, so please try again."
+            backLink={{
+                href: "/project",
+                label: "Back to Blog"
+            }}
+        />
+    )
+}

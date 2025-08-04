@@ -5,6 +5,7 @@ import path from 'path'
 import matter from 'gray-matter'
 
 export interface ProjectMeta {
+  category: never[];
   title: string
   description: string
   date: string
@@ -17,6 +18,7 @@ export interface ProjectMeta {
 }
 
 export interface BlogMeta {
+  readingTime: string;
   title: string
   description: string
   date: string

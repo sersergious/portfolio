@@ -211,14 +211,6 @@
 
 /* Custom Component Classes */
 @layer components {
-  /* Notion Page Layout */
-  .notion-page {
-    @apply max-w-4xl mx-auto px-6 py-8;
-  }
-
-  .notion-content {
-    @apply space-y-4;
-  }
 
   /* Prose Styling */
   .prose {

@@ -1,242 +1,177 @@
 // app/blog/[slug]/page.tsx
-import { Metadata } from 'next'
+import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/content'
+import { ContentHeader } from '@/components/content/ContentHeader'
+import { Button } from '@/components/ui/button'
+import { Share2, Bookmark, MessageCircle, Twitter, Linkedin } from 'lucide-react'
+import { MDXRemote } from 'next-mdx-remote/rsc'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowLeft, Calendar, Clock, Tag, Share2, Bookmark, MessageCircle } from 'lucide-react'
-import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/content'
-import { NotionBlock } from '@/components/notion/NotionBlock'
-import { FadeInWhenVisible } from '@/components/transitions/FadeInWhenVisible'
-import { StaggerContainer } from '@/components/transitions/StaggerContainer'
-import { StaggerItem } from '@/components/transitions/StaggerItem'
-import { TableOfContents } from '@/components/content/TableOfContents'
-import { AuthorCard } from '@/components/content/AuthorCard'
-import { RelatedPosts } from '@/components/content/RelatedPosts'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-interface BlogPostPageProps {
-    params: {
-        slug: string
-    }
+export async function generateStaticParams() {
+    const posts = await getAllBlogPosts()
+    return posts.map(post => ({
+        slug: post.slug
+    }))
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
     const post = await getBlogPostBySlug(params.slug)
-
-    if (!post) {
-        return {
-            title: 'Post Not Found',
-        }
-    }
-
     return {
-        title: post.meta.title,
+        title: `${post.meta.title} - Blog`,
         description: post.meta.description,
         openGraph: {
             title: post.meta.title,
             description: post.meta.description,
             type: 'article',
-            publishedTime: post.meta.publishedAt,
-            authors: post.meta.author ? [post.meta.author.name] : undefined,
-            images: post.meta.coverImage ? [post.meta.coverImage] : undefined,
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: post.meta.title,
-            description: post.meta.description,
-            images: post.meta.coverImage ? [post.meta.coverImage] : undefined,
-        },
+            publishedTime: post.meta.date,
+        }
     }
 }
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-    const posts = await getAllBlogPosts()
-    return posts.map((post) => ({
-        slug: post.slug,
-    }))
-}
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+    try {
+        const post = await getBlogPostBySlug(params.slug)
+        const allPosts = await getAllBlogPosts()
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-    const post = await getBlogPostBySlug(params.slug)
+        // Get related posts
+        const relatedPosts = allPosts
+            .filter(p => p.slug !== post.slug)
+            .filter(p =>
+                p.meta.category === post.meta.category ||
+                p.meta.tags?.some((tag: string) => post.meta.tags?.includes(tag))
+            )
+            .slice(0, 3)
 
-    if (!post) {
-        notFound()
-    }
+        const readingTime = post.meta.readingTime || '5 min read'
 
-    // Get related posts (same category or tags)
-    const allPosts = await getAllBlogPosts()
-    const relatedPosts = allPosts
-        .filter(p => p.slug !== post.slug)
-        .filter(p =>
-            p.meta.category === post.meta.category ||
-            p.meta.tags?.some(tag => post.meta.tags?.includes(tag))
-        )
-        .slice(0, 3)
+        return (
+            <article className="min-h-screen">
+                <div className="container mx-auto px-4 py-12 max-w-4xl">
+                    <ContentHeader
+                        title={post.meta.title}
+                        subtitle={post.meta.description}
+                        backLink={{
+                            href: '/blog',
+                            label: 'Back to Blog'
+                        }}
+                        meta={{
+                            date: post.meta.date,
+                            author: post.meta.author?.name,
+                            readingTime: readingTime,
+                            tags: post.meta.tags
+                        }}
+                        actions={
+                            <div className="flex gap-2">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="outline" size="sm">
+                                            <Share2 className="w-4 h-4 mr-2" />
+                                            Share
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent>
+                                        <DropdownMenuItem>
+                                            <Twitter className="w-4 h-4 mr-2" />
+                                            Share on Twitter
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <Linkedin className="w-4 h-4 mr-2" />
+                                            Share on LinkedIn
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
 
-    return (
-        <article className="min-h-screen">
-            {/* Hero Section with Cover Image */}
-            {post.meta.coverImage && (
-                <div className="relative h-[400px] md:h-[500px] w-full">
-                    <Image
-                        src={post.meta.coverImage}
-                        alt={post.meta.title}
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                </div>
-            )}
-
-            {/* Article Header */}
-            <FadeInWhenVisible direction="up">
-                <header className={`container mx-auto px-4 ${post.meta.coverImage ? '-mt-32 relative z-10' : 'pt-20'}`}>
-                    <div className="max-w-4xl mx-auto">
-                        {/* Back to Blog */}
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
-                        >
-                            <ArrowLeft className="w-4 h-4" />
-                            Back to Blog
-                        </Link>
-
-                        {/* Title */}
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-                            {post.meta.title}
-                        </h1>
-
-                        {/* Meta Information */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8">
-                            {post.meta.author && (
-                                <div className="flex items-center gap-2">
-                                    {post.meta.author.avatar && (
-                                        <Image
-                                            src={post.meta.author.avatar}
-                                            alt={post.meta.author.name}
-                                            width={24}
-                                            height={24}
-                                            className="rounded-full"
-                                        />
-                                    )}
-                                    <span>{post.meta.author.name}</span>
-                                </div>
-                            )}
-
-                            <div className="flex items-center gap-1">
-                                <Calendar className="w-4 h-4" />
-                                <time dateTime={post.meta.publishedAt}>
-                                    {new Date(post.meta.publishedAt).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}
-                                </time>
+                                <Button variant="outline" size="sm">
+                                    <Bookmark className="w-4 h-4 mr-2" />
+                                    Save
+                                </Button>
                             </div>
+                        }
+                    />
 
-                            <div className="flex items-center gap-1">
-                                <Clock className="w-4 h-4" />
-                                <span>{post.meta.readingTime || '5 min read'}</span>
+                    {/* Cover Image */}
+                    {post.meta.image && (
+                        <div className="mb-12 rounded-lg overflow-hidden border">
+                            <img
+                                src={post.meta.image}
+                                alt={post.meta.title}
+                                className="w-full"
+                            />
+                        </div>
+                    )}
+
+                    {/* MDX Content */}
+                    <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-a:text-primary hover:prose-a:text-primary/80 prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-muted prose-pre:border prose-blockquote:border-l-primary prose-blockquote:italic prose-img:rounded-lg mb-12">
+                        <MDXRemote source={post.content} />
+                    </div>
+
+                    {/* Author Bio */}
+                    {post.meta.author && (
+                        <div className="p-6 bg-muted/50 rounded-lg border mb-12">
+                            <div className="flex items-start gap-4">
+                                {post.meta.author.avatar && (
+                                    <img
+                                        src={post.meta.author.avatar}
+                                        alt={post.meta.author.name}
+                                        className="w-16 h-16 rounded-full"
+                                    />
+                                )}
+                                <div>
+                                    <h3 className="font-semibold mb-2">About the Author</h3>
+                                    <p className="text-muted-foreground">
+                                        {post.meta.author.bio || `${post.meta.author.name} is a developer and researcher passionate about technology.`}
+                                    </p>
+                                </div>
                             </div>
                         </div>
+                    )}
 
-                        {/* Tags */}
-                        {post.meta.tags && post.meta.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-8">
-                                {post.meta.tags.map((tag) => (
+                    {/* Comments Placeholder */}
+                    <div className="p-8 bg-muted/30 rounded-lg border text-center mb-12">
+                        <MessageCircle className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                        <h3 className="text-lg font-semibold mb-2">Comments</h3>
+                        <p className="text-muted-foreground">
+                            Comments are coming soon! Check back later to join the discussion.
+                        </p>
+                    </div>
+
+                    {/* Related Posts */}
+                    {relatedPosts.length > 0 && (
+                        <div className="mt-16 pt-8 border-t">
+                            <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
+                            <div className="grid md:grid-cols-3 gap-6">
+                                {relatedPosts.map(related => (
                                     <Link
-                                        key={tag}
-                                        href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                        className="inline-flex items-center gap-1 px-3 py-1 bg-muted hover:bg-muted/80 rounded-full text-sm transition-colors"
+                                        key={related.slug}
+                                        href={`/blog/${related.slug}`}
+                                        className="group block"
                                     >
-                                        <Tag className="w-3 h-3" />
-                                        {tag}
+                                        <article className="h-full border rounded-lg p-4 hover:shadow-md transition-all">
+                                            <h3 className="font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
+                                                {related.meta.title}
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
+                                                {related.meta.description}
+                                            </p>
+                                            <time className="text-xs text-muted-foreground">
+                                                {new Date(related.meta.date).toLocaleDateString()}
+                                            </time>
+                                        </article>
                                     </Link>
                                 ))}
                             </div>
-                        )}
-
-                        {/* Share and Save */}
-                        <div className="flex gap-4 pb-8 border-b border-border">
-                            <button className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded-lg transition-colors">
-                                <Share2 className="w-4 h-4" />
-                                Share
-                            </button>
-                            <button className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded-lg transition-colors">
-                                <Bookmark className="w-4 h-4" />
-                                Save
-                            </button>
                         </div>
-                    </div>
-                </header>
-            </FadeInWhenVisible>
-
-            {/* Article Content */}
-            <div className="container mx-auto px-4 py-12">
-                <div className="max-w-4xl mx-auto lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
-                    {/* Main Content */}
-                    <FadeInWhenVisible direction="up" delay={0.2}>
-                        <div className="prose prose-lg max-w-none">
-                            {post.content.map((block) => (
-                                <NotionBlock key={block.id} block={block} />
-                            ))}
-                        </div>
-                    </FadeInWhenVisible>
-
-                    {/* Sidebar */}
-                    <aside className="mt-12 lg:mt-0">
-                        <StaggerContainer>
-                            {/* Table of Contents */}
-                            <StaggerItem>
-                                <div className="sticky top-24">
-                                    <TableOfContents blocks={post.content} />
-                                </div>
-                            </StaggerItem>
-                        </StaggerContainer>
-                    </aside>
+                    )}
                 </div>
-            </div>
-
-            {/* Author Card */}
-            {post.meta.author && (
-                <FadeInWhenVisible direction="up" delay={0.3}>
-                    <section className="container mx-auto px-4 py-12">
-                        <div className="max-w-4xl mx-auto">
-                            <AuthorCard author={post.meta.author} />
-                        </div>
-                    </section>
-                </FadeInWhenVisible>
-            )}
-
-            {/* Comments Section */}
-            <FadeInWhenVisible direction="up" delay={0.4}>
-                <section className="container mx-auto px-4 py-12 border-t border-border">
-                    <div className="max-w-4xl mx-auto">
-                        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                            <MessageCircle className="w-6 h-6" />
-                            Comments
-                        </h2>
-                        <div className="bg-muted/50 rounded-lg p-8 text-center">
-                            <p className="text-muted-foreground">
-                                Comments are coming soon! Check back later to join the discussion.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-            </FadeInWhenVisible>
-
-            {/* Related Posts */}
-            {relatedPosts.length > 0 && (
-                <FadeInWhenVisible direction="up" delay={0.5}>
-                    <section className="container mx-auto px-4 py-12">
-                        <div className="max-w-6xl mx-auto">
-                            <RelatedPosts posts={relatedPosts} />
-                        </div>
-                    </section>
-                </FadeInWhenVisible>
-            )}
-        </article>
-    )
+            </article>
+        )
+    } catch (error) {
+        notFound()
+    }
 }
