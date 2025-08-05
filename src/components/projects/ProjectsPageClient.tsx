@@ -3,19 +3,11 @@
 
 import { motion } from 'framer-motion'
 import { ProjectCard } from '@/components/projects/ProjectCard'
+import {Project} from "@/lib/contentlayer";
 
-interface Project {
-    slug: string
-    meta: {
-        category?: string[]
-        tags?: string[]
-        [key: string]: any
-    }
-    [key: string]: any
-}
 
 interface ProjectsPageClientProps {
-    projects: Project[]
+    projects: Project[] // Import Project from '@/lib/contentlayer'
 }
 
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {

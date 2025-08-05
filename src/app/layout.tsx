@@ -5,8 +5,9 @@ import { ThemeProvider } from "@/components/theme/theme-provider"
 import { PageTransition } from "@/components/transitions/PageTransition"
 import { Navigation } from "@/components/layout/Navigation"
 import { Footer } from "@/components/layout/Footer"
+import {Metadata} from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: 'Portfolio - Research. Develop. Innovate.',
     template: '%s - Portfolio'

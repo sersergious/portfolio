@@ -1,21 +1,11 @@
-import withMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeHighlight from 'rehype-highlight';
-import type { NextConfig } from 'next';
-
-const withMDXConfig = withMDX({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, rehypeHighlight],
-  },
-});
+import { withContentlayer } from 'next-contentlayer'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-};
+  images: {
+    domains: ['localhost', 'your-domain.com'],
+  },
+}
 
-export default withMDXConfig(nextConfig);
-
+export default withContentlayer(nextConfig)

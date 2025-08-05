@@ -1,29 +1,28 @@
 // app/projects/page.tsx (Updated)
-import { getAllProjects } from '@/lib/content'
+import { getAllProjects, getUniqueCategories, getUniqueTags } from '@/lib/contentlayer'
 import { ContentFilter } from '@/components/content/ContentFilter'
 import { ProjectsHeader } from '@/components/projects/ProjectsHeader'
 import { ProjectsPageClient } from '@/components/projects/ProjectsPageClient'
+import {Metadata} from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'Projects',
     description: 'A collection of my development work, from web applications to research tools.'
 }
 
-export default async function ProjectsPage() {
-    const projects = await getAllProjects()
+export default function ProjectsPage() {
+    const projects = getAllProjects()
 
-    // Extract unique categories and tags
-    const categories = Array.from(new Set(projects.flatMap(p => p.meta.category || [])))
-    const tags = Array.from(new Set(projects.flatMap(p => p.meta.tags || [])))
+    // Extract unique categories and tags using helper functions
+    const categories = getUniqueCategories(projects)
+    const tags = getUniqueTags(projects)
 
     return (
         <div className="min-h-screen">
-            {/* Page Header */}
             <ProjectsHeader />
 
-            {/* Filters Section */}
-
-                <div className="container border-b mx-auto px-4 py-6">
+            <div className="border-b">
+                <div className="container mx-auto px-4 py-6">
                     <ContentFilter
                         searchPlaceholder="Search projects..."
                         categories={categories}
@@ -35,9 +34,8 @@ export default async function ProjectsPage() {
                         ]}
                     />
                 </div>
+            </div>
 
-
-            {/* Projects Grid */}
             <ProjectsPageClient projects={projects} />
         </div>
     )

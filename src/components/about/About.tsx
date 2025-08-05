@@ -191,7 +191,7 @@ export function About() {
 
                     <StaggerContainer className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                         {researchInterests.map((interest, index) => (
-                            <StaggerItem key={index} delay={index * 0.1}>
+                            <StaggerItem  key={index} delay={index * 0.1}>
                                 <ScaleOnHover scale={1.02}>
                                     <div className="bg-card border border-border rounded-lg p-6 h-full hover:border-primary/50 transition-colors">
                                         <interest.icon className={`w-12 h-12 ${interest.color} mb-4`} />

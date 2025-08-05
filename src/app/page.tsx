@@ -1,18 +1,24 @@
 // app/page.tsx - Portfolio Homepage
-import { Home} from "@/components/homepage/Home";
-
-export const metadata = {
-  title: 'SerSergious - Research. Develop. Innovate.',
-  description: 'Portfolio showcasing cutting-edge research, innovative development projects, and insights into the intersection of technology and science.',
-}
-
-
+import { Hero } from '@/components/homepage/Hero'
+import { Preview } from '@/components/homepage/Preview'
+import { getAllProjects, getAllBlogPosts, getAllResearch } from '@/lib/contentlayer'
 
 export default async function HomePage() {
+  // Fetch data in the page component (server component)
+  const [projects, blogPosts, research] = await Promise.all([
+    getAllProjects(),
+    getAllBlogPosts(),
+    getAllResearch()
+  ])
 
   return (
-    <div className="min-h-screen">
-      <Home/>
-    </div>
+      <main className="flex-1">
+        <Hero />
+        <Preview
+            projects={projects}
+            blogPosts={blogPosts}
+            research={research}
+        />
+      </main>
   )
 }
