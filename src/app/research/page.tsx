@@ -1,9 +1,8 @@
 // app/research/page.tsx (Updated)
-import { getAllResearch, getUniqueTags } from '@/lib/contentlayer'
+import { getAllResearch, getUniqueTags } from '@/lib/mdx-content'
 import { ContentFilter } from '@/components/content/ContentFilter'
-import { ResearchHeader } from '@/components/research/ResearchHeader'
+import { ResearchPageHeader } from '@/components/research/ResearchPageHeader'
 import { ResearchPageClient } from '@/components/research/ResearchPageClient'
-import { PlaceholderAwards } from '@/components/research/PlaceHolderAwards'
 import {Metadata} from "next";
 
 export const metadata: Metadata = {
@@ -11,8 +10,8 @@ export const metadata: Metadata = {
     description: 'Academic papers and research findings in AI, quantum computing, and cryptography'
 }
 
-export default function ResearchPage() {
-    const papers = getAllResearch()
+export default async function ResearchPage() {
+    const papers = await getAllResearch()
 
     // Extract unique topics and years
     const topics = getUniqueTags(papers)
@@ -20,13 +19,7 @@ export default function ResearchPage() {
 
     return (
         <div className="min-h-screen">
-            <ResearchHeader />
-
-            <div className="border-b">
-                <div className="container mx-auto px-4 py-6">
-                    <PlaceholderAwards />
-                </div>
-            </div>
+            <ResearchPageHeader />
 
             <div className="border-b">
                 <div className="container mx-auto px-4 py-6">

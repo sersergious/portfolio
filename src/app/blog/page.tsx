@@ -1,7 +1,7 @@
 // app/blog/page.tsx (Updated)
-import { getAllBlogPosts, getUniqueCategories, getUniqueTags } from '@/lib/contentlayer'
+import { getAllBlogPosts, getUniqueCategories, getUniqueTags } from '@/lib/mdx-content'
 import { ContentFilter } from '@/components/content/ContentFilter'
-import { BlogHeader } from '@/components/blog/BlogHeader'
+import { BlogPageHeader } from '@/components/blog/BlogPageHeader'
 import { BlogPageClient } from '@/components/blog/BlogPageClient'
 import {Metadata} from "next";
 
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     description: 'Thoughts on software development, AI, and technology'
 }
 
-export default function BlogPage() {
-    const posts = getAllBlogPosts()
+export default async function BlogPage() {
+    const posts = await getAllBlogPosts()
 
     // Extract unique categories and tags
     const categories = getUniqueCategories(posts)
@@ -19,7 +19,7 @@ export default function BlogPage() {
 
     return (
         <div className="min-h-screen">
-            <BlogHeader/>
+            <BlogPageHeader />
 
             <div className="border-b">
                 <div className="container mx-auto px-4 py-6">
@@ -28,15 +28,15 @@ export default function BlogPage() {
                         categories={categories}
                         tags={tags}
                         sortOptions={[
-                            {value: 'date-desc', label: 'Newest First'},
-                            {value: 'date-asc', label: 'Oldest First'},
-                            {value: 'popular', label: 'Most Popular'}
+                            { value: 'date-desc', label: 'Newest First' },
+                            { value: 'date-asc', label: 'Oldest First' },
+                            { value: 'popular', label: 'Most Popular' }
                         ]}
                     />
                 </div>
             </div>
 
-            <BlogPageClient posts={posts}/>
+            <BlogPageClient posts={posts} />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 // app/projects/page.tsx (Updated)
-import { getAllProjects, getUniqueCategories, getUniqueTags } from '@/lib/contentlayer'
+import { getAllProjects, getUniqueCategories, getUniqueTags } from '@/lib/mdx-content'
 import { ContentFilter } from '@/components/content/ContentFilter'
 import { ProjectsHeader } from '@/components/projects/ProjectsHeader'
 import { ProjectsPageClient } from '@/components/projects/ProjectsPageClient'
@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     description: 'A collection of my development work, from web applications to research tools.'
 }
 
-export default function ProjectsPage() {
-    const projects = getAllProjects()
+export default async function ProjectsPage() {
+    const projects = await getAllProjects()
 
     // Extract unique categories and tags using helper functions
-    const categories = getUniqueCategories(projects)
-    const tags = getUniqueTags(projects)
+    const categories =  getUniqueCategories(projects)
+    const tags =  getUniqueTags(projects)
 
     return (
         <div className="min-h-screen">

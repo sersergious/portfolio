@@ -1,9 +1,10 @@
+// components/content/RelatedContent.tsx
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, Clock } from 'lucide-react'
-import type { Project, BlogPost, ResearchPaper } from '@/lib/contentlayer'
+import type { Project, BlogPost, ResearchPaper } from '@/lib/mdx-content'
 
 interface RelatedContentProps {
     title: string
@@ -19,13 +20,10 @@ export function RelatedContent({ title, items, type }: RelatedContentProps) {
     }
 
     const getItemDescription = (item: Project | BlogPost | ResearchPaper): string => {
-        // Handle different content types properly
         if ('abstract' in item) {
-            // This is a ResearchPaper
-            return item.abstract
+            return item.abstract // ResearchPaper
         } else {
-            // This is a Project or BlogPost (both have description)
-            return item.description
+            return item.description // Project or BlogPost
         }
     }
 

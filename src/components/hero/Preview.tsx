@@ -1,4 +1,4 @@
-// components/homepage/Preview.tsx - Fixed version
+// components/hero/Preview.tsx - Fixed version
 import {FadeInWhenVisible} from "@/components/transitions/FadeInWhenVisible";
 import {ScaleOnHover} from "@/components/transitions/ScaleOnHover";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import {StaggerItem} from "@/components/transitions/StaggerItem";
 import {ResearchCard} from "@/components/research/ResearchCard";
 import {BlogCard} from "@/components/blog/BlogCard";
 import {ProjectCard} from "@/components/projects/ProjectCard";
-import type { Project, BlogPost, ResearchPaper } from '@/lib/contentlayer';
+import type { Project, BlogPost, ResearchPaper } from '@/lib/mdx-content';
 
 interface PreviewProps {
     projects: Project[]
@@ -17,7 +17,7 @@ interface PreviewProps {
 }
 
 export function Preview({ projects, blogPosts, research }: PreviewProps) {
-    // Access properties directly (not via .meta)
+    // Access properties directly
     const featuredProjects = projects.filter(p => p.featured).slice(0, 3)
     const featuredBlogPosts = blogPosts.filter(p => p.featured).slice(0, 2)
     const featuredResearch = research.filter(p => p.featured).slice(0, 2)
@@ -249,7 +249,6 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     </div>
                 </section>
             </FadeInWhenVisible>
-
         </div>
     );
 }

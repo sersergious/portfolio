@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+/* Math rendering with KaTeX */
+@import 'katex/dist/katex.min.css';
+
+/* Code syntax highlighting */
+@import 'highlight.js/styles/github-dark.css';
+
+/* Custom heading link styles */
+.heading-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.heading-link:hover {
+    text-decoration: underline;
+}
+
+/* Math display styles */
+.katex-display {
+    margin: 1.5em 0;
+}
+
 /* Custom variant for dark mode support */
 @custom-variant dark (&:is(.dark *));
 
