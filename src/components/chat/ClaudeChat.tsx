@@ -34,35 +34,64 @@ export function ClaudeChat() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Show error if there is one
+  useEffect(() => {
+    if (error) {
+      console.error("Chat error:", error);
+    }
+  }, [error]);
+
   return (
     <div className="flex h-screen flex-col bg-background">
-      {/* Messages Area - No borders */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-3xl px-4 py-8">
+      {/* Messages Area */}
+      <main className="flex-1 overflow-y-auto pb-28">
+        <div className="mx-auto max-w-3xl px-4 pt-4">
           <div className="space-y-6">
             {messages.map((message, index) => (
               <ClaudeMessage
                 key={message.id}
                 message={message}
-                isLoading={isLoading && index === messages.length - 1}
+                isLoading={
+                  isLoading &&
+                  index === messages.length - 1 &&
+                  message.role === "assistant"
+                }
                 onRegenerate={reload}
               />
             ))}
+            {/* Show loading state for assistant's response */}
+            {isLoading && messages[messages.length - 1]?.role === "user" && (
+              <ClaudeMessage
+                message={{
+                  id: "loading",
+                  role: "assistant",
+                  content: "",
+                }}
+                isLoading={true}
+              />
+            )}
+            {error && (
+              <div className="text-red-500 text-sm p-4 border border-red-200 rounded-lg">
+                Error: {error.message}
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
         </div>
       </main>
 
-      {/* Chat Input - No top border, floating style */}
-      <div className="w-full bg-background pb-6">
-        <ClaudeChatInput
-          input={input}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          isLoading={isLoading}
-          stop={stop}
-          reload={reload}
-        />
+      {/* Chat Input - Sticky at bottom */}
+      <div className="fixed bottom-0 left-0 w-full bg-background px-4 pb-5">
+        <div className="mx-auto max-w-3xl">
+          <ClaudeChatInput
+            input={input}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+            stop={stop}
+            reload={reload}
+          />
+        </div>
       </div>
     </div>
   );

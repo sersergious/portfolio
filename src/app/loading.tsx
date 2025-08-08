@@ -1,8 +1,10 @@
 // app/loading.tsx
+import { LoadingPage } from "@/components/ui/loading-page";
+
 export default function Loading() {
   return (
     <div className="h-screen flex items-center justify-center">
-      <p className="text-lg text-muted-foreground">Loading...</p>
+      <LoadingPage />
     </div>
-  )
+  );
 }

@@ -2,22 +2,22 @@
 // components/transitions/StaggerItem.tsx
 // =======================================
 
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 interface StaggerItemProps {
-  children: ReactNode
-  className?: string
-  delay?: number
+  children: ReactNode;
+  className?: string;
+  delay?: number;
 }
 
 const itemVariants = {
   initial: {
     opacity: 0,
     y: 20,
-    scale: 0.95
+    scale: 0.95,
   },
   animate: {
     opacity: 1,
@@ -25,19 +25,23 @@ const itemVariants = {
     scale: 1,
     transition: {
       duration: 0.4,
-      ease: [0.25, 0.25, 0, 1]
-    }
-  }
-}
+      ease: [0.25, 0.25, 0, 1],
+    },
+  },
+};
 
-export function StaggerItem({ children, className = '', delay = 0 }: StaggerItemProps) {
+export function StaggerItem({
+  children,
+  className = "",
+  delay = 0,
+}: StaggerItemProps) {
   return (
     <motion.div
-      variants={itemVariants}
+      variants={itemVariants as any}
       className={className}
-      style={{ '--delay': `${delay}s` } as any}
+      style={{ "--delay": `${delay}s` } as any}
     >
       {children}
     </motion.div>
-  )
+  );
 }

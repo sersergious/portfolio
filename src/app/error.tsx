@@ -1,12 +1,25 @@
 // app/error.tsx
-"use client"
+"use client";
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+import { ErrorDisplay } from "@/components/ui/error-display";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   return (
-    <div className="h-screen flex items-center justify-center flex-col space-y-4">
-      <h1 className="text-2xl font-bold text-red-500">Something went wrong!</h1>
-      <pre className="text-sm text-muted-foreground">{error.message}</pre>
-      <button onClick={reset} className="text-blue-600 underline">Try Again</button>
-    </div>
-  )
+    <ErrorDisplay
+      error={error}
+      reset={reset}
+      title="Page Error"
+      description="We encountered an error while loading the page. This could be temporary, so please try again."
+      backLink={{
+        href: "/",
+        label: "Back to Home",
+      }}
+    />
+  );
 }

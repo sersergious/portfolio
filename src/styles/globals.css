@@ -21,6 +21,11 @@
     margin: 1.5em 0;
 }
 
+textarea:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 /* Custom variant for dark mode support */
 @custom-variant dark (&:is(.dark *));
 
@@ -216,6 +221,14 @@
     /* Focus States */
     :focus-visible {
         @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    }
+
+    .no-scrollbar {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
 
     /* Selection */

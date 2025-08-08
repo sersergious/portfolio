@@ -1,11 +1,22 @@
 // ClaudeMessage.tsx
-import { Bot, User, Copy, RotateCcw, ThumbsUp, ThumbsDown, CheckCircle } from "lucide-react";
+"use client";
+
+import {
+  Bot,
+  User,
+  Copy,
+  RotateCcw,
+  ThumbsUp,
+  ThumbsDown,
+  CheckCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import type { Message } from "ai";
 
 interface ClaudeMessageProps {
   message: Message;
@@ -29,20 +40,11 @@ export function ClaudeMessage({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const messageVariants = {
-    initial: { opacity: 0, y: 10 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  };
-
   return (
     <motion.div
-      variants={messageVariants}
-      initial="initial"
-      animate="animate"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       className={cn(
         "group relative flex gap-3",
         isUser ? "flex-row-reverse" : "flex-row",
@@ -64,16 +66,18 @@ export function ClaudeMessage({
       </div>
 
       {/* Message Content */}
-      <div className={cn("flex-1 space-y-2 min-w-0", isUser && "flex justify-end")}>
+      <div
+        className={cn("flex-1 space-y-2 min-w-0", isUser && "flex justify-end")}
+      >
         <div
           className={cn(
             "relative rounded-[1.25rem] px-4 py-3 border break-words overflow-hidden",
             isUser
-              ? "bg-primary text-primary-foreground border-primary/30 max-w-[85%] inline-block"
-              : "bg-card text-card-foreground border-border/40 max-w-full w-full",
+              ? "bg-card text-primary-foreground border-border/30 max-w-[85%] inline-block"
+              : "bg-card text-card-foreground border-border/40 max-w-full",
           )}
         >
-          {isLoading ? (
+          {isLoading && !content ? (
             <div className="flex items-center gap-1.5 py-1">
               <motion.div
                 animate={{ opacity: [0.5, 1, 0.5] }}
@@ -94,26 +98,26 @@ export function ClaudeMessage({
           ) : (
             <div
               className={cn(
-                "prose prose-sm max-w-none break-words overflow-wrap-anywhere",
+                "prose prose-sm max-w-none break-words",
                 isUser && "prose-invert",
-                "prose-p:leading-relaxed prose-p:mb-2 prose-p:last:mb-0 prose-p:break-words",
-                "prose-pre:bg-background/10 prose-pre:border prose-pre:border-border/20 prose-pre:overflow-x-auto prose-pre:max-w-full",
-                "prose-code:text-[13px] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:break-all",
+                "prose-p:leading-relaxed prose-p:mb-0",
+                "prose-pre:bg-background/10 prose-pre:border prose-pre:border-border/20",
+                "prose-code:text-[13px] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md",
                 "prose-code:bg-background/10 prose-code:before:content-none prose-code:after:content-none",
-                "prose-ul:my-2 prose-ol:my-2 prose-li:my-0 prose-li:break-words",
-                "prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-headings:break-words",
-                "prose-table:overflow-x-auto prose-table:max-w-full",
+                "prose-ul:my-2 prose-ol:my-2 prose-li:my-0",
+                "prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2",
+                "[&>*:last-child]:mb-0",
               )}
             >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {content}
+              <ReactMarkdown remarkPlugins={[remarkGfm as any]}>
+                {content || ""}
               </ReactMarkdown>
             </div>
           )}
         </div>
 
         {/* Action buttons for assistant messages */}
-        {!isUser && !isLoading && (
+        {!isUser && !isLoading && content && (
           <AnimatePresence>
             {showActions && (
               <motion.div

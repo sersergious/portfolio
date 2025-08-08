@@ -1,39 +1,73 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText, convertToCoreMessages } from 'ai';
+// app/api/chat/route.ts
+import { openai } from "@ai-sdk/openai";
+import { streamText } from "ai";
+
+// Allow streaming responses
+export const runtime = "edge";
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  try {
+    const { messages } = await req.json();
 
-  const result = await streamText({
-    model: openai('gpt-4o-mini'), 
-    system: `You are an AI assistant representing a researcher and developer's portfolio.
-             Help users learn about projects, research, experience, and navigate the portfolio.
+    // Validate messages
+    if (!messages || !Array.isArray(messages)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid messages format" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
 
-             PERSONALITY:
-             - Professional but friendly and approachable
-             - Knowledgeable about web development, AI/ML, and research
-             - Enthusiastic about the work showcased
-             - Helpful in guiding visitors to relevant sections
+    // Create the stream - don't await it
+    const result = streamText({
+      model: openai("gpt-4o-mini"),
+      system: `You are an AI assistant representing a researcher and developer's portfolio.
+               Help users learn about projects, research, experience, and navigate the portfolio.
 
-             RESPONSE STYLE:
-             - Keep responses concise but informative (2-3 sentences usually)
-             - Use a conversational tone
-             - Always encourage exploration of specific portfolio sections
-             - Be engaging and show personality
+               PERSONALITY:
+               - Professional but friendly and approachable
+               - Knowledgeable about web development, AI/ML, and research
+               - Enthusiastic about the work showcased
+               - Helpful in guiding visitors to relevant sections
+               - Keep in mind that you're a beginner and continue
+                 to learn while being eager to apply your skills
 
-             PORTFOLIO CONTEXT:
-             This portfolio showcases work in:
-             - Next.js and modern web development
-             - AI/ML applications and research
-             - Clean, professional design with Solarized theme
-             - Interactive chat interface (which you're powering!)
+               RESPONSE STYLE:
+               - Keep responses concise but informative (2-3 sentences usually)
+               - Use a conversational tone
+               - Always encourage exploration of specific portfolio sections
+               - Be engaging and show personality
 
-             When users ask about specific areas, provide helpful overviews and
-             direct them to explore the relevant portfolio sections.`,
-    messages: convertToCoreMessages(messages),
-    temperature: 0.7, // Slightly creative but focused
-    maxTokens: 500,   // Keep responses concise
-  });
+               PORTFOLIO CONTEXT:
+               This portfolio showcases work in:
+               - Web development
+               - AI/ML applications and research in applied mathematics
+               - Interactive chat interface (which you're powering!)
 
-  return result.toDataStreamResponse();
+               When users ask about specific areas, provide helpful overviews and
+               direct them to explore the relevant portfolio sections.`,
+      messages: messages,
+      temperature: 0.7,
+      maxTokens: 500,
+    });
+
+    // Return the stream response
+    return result.toDataStreamResponse();
+  } catch (error) {
+    console.error("Chat API error:", error);
+
+    // Return a proper error response
+    return new Response(
+      JSON.stringify({
+        error: "Failed to process chat request",
+        details: error instanceof Error ? error.message : "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
 }
