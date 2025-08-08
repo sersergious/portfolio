@@ -12,7 +12,6 @@ import {
   FileText,
   Github,
   Globe,
-  Share2,
   Tag,
   User,
   Users,
@@ -35,9 +34,9 @@ interface ContentHeaderProps {
 const contentConfig = {
   blog: {
     icon: FileText,
-    color: "from-blue-500 to-indigo-600",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-600",
+    color: "from-emerald-500 to-green-600",
+    bgColor: "bg-emerald-50",
+    textColor: "text-emerald-600",
     backLink: "/blog",
     backText: "All Posts",
   },
@@ -51,9 +50,9 @@ const contentConfig = {
   },
   research: {
     icon: BookOpen,
-    color: "from-emerald-500 to-green-600",
-    bgColor: "bg-emerald-50",
-    textColor: "text-emerald-600",
+    color: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-600",
     backLink: "/research",
     backText: "All Research",
   },
@@ -178,177 +177,157 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
             <Icon className="h-12 w-12 text-white" />
           </motion.div>
 
-          {/* Content */}
-          <motion.div
-            className="flex-grow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <motion.h1
-              className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              {content.title}
-            </motion.h1>
-
-            <motion.p
-              className="mb-6 max-w-3xl text-lg leading-relaxed text-muted-foreground"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              {"description" in content && content.description}
-              {"abstract" in content && content.abstract}
-            </motion.p>
-
-            {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/50 pt-6">
-              {"author" in content &&
-                renderMetaItem(User, content.author.name, 0.7)}
-              {"authors" in content &&
-                renderMetaItem(Users, content.authors.join(", "), 0.7)}
-              {renderMetaItem(
-                Calendar,
-                new Date(content.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                }),
-                0.8,
-              )}
-              {"readingTime" in content &&
-                renderMetaItem(Clock, content.readingTime, 0.9)}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Action Buttons */}
-        <motion.div
-          className="mt-8 flex flex-wrap gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-        >
-          {"github" in content && content.github && (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild variant="outline" className="group">
-                <a
-                  href={content.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Github className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                  GitHub
-                </a>
-              </Button>
-            </motion.div>
-          )}
-          {"demo" in content && content.demo && (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild className="group">
-                <a
-                  href={content.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ExternalLink className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                  Live Demo
-                </a>
-              </Button>
-            </motion.div>
-          )}
-          {"pdf" in content && content.pdf && (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild className="group">
-                <a href={content.pdf} target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 h-4 w-4 transition-transform group-hover:translate-y-[-2px]" />
-                  PDF
-                </a>
-              </Button>
-            </motion.div>
-          )}
-          {"doi" in content && content.doi && (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild variant="outline" className="group">
-                <a
-                  href={`https://doi.org/${content.doi}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Globe className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                  DOI
-                </a>
-              </Button>
-            </motion.div>
-          )}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button onClick={handleShare} variant="outline" className="group">
-              <Share2 className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-              Share
-            </Button>
-          </motion.div>
-        </motion.div>
-
-        {/* Tags */}
-        {"tags" in content && content.tags && content.tags.length > 0 && (
-          <motion.div
-            className="mt-6 flex flex-wrap gap-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.1 }}
-          >
-            {content.tags.map((tag: string, index: number) => (
-              <motion.div
-                key={tag}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Badge
-                  variant="secondary"
-                  className="flex items-center gap-1.5 px-3 py-1.5"
-                >
-                  <Tag className="h-3 w-3" />
-                  {tag}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-
-        {/* Tech Stack */}
-        {"techStack" in content &&
-          content.techStack &&
-          content.techStack.length > 0 && (
+          {/* Content Section - Contains everything else */}
+          <div className="flex-grow">
             <motion.div
-              className="mt-4 flex flex-wrap gap-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              {content.techStack.map((tech: string, index: number) => (
-                <motion.div
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.3 + index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Badge
-                    variant="outline"
-                    className="flex items-center gap-1.5 px-3 py-1.5"
-                  >
-                    <Zap className="h-3 w-3" />
-                    {tech}
-                  </Badge>
-                </motion.div>
-              ))}
+              <motion.h1
+                className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                {content.title}
+              </motion.h1>
+
+              <motion.p
+                className="mb-6 max-w-3xl text-lg leading-relaxed text-muted-foreground"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                {"description" in content && content.description}
+                {"abstract" in content && content.abstract}
+              </motion.p>
+
+              {/* Meta Information */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/50 pt-6">
+                {"author" in content &&
+                  renderMetaItem(User, content.author.name, 0.7)}
+                {"authors" in content &&
+                  renderMetaItem(Users, content.authors.join(", "), 0.7)}
+                {renderMetaItem(
+                  Calendar,
+                  new Date(content.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }),
+                  0.8,
+                )}
+                {"readingTime" in content &&
+                  renderMetaItem(Clock, content.readingTime, 0.9)}
+              </div>
             </motion.div>
-          )}
+
+            {/* Tags - Now inside the content section */}
+            {"tags" in content && content.tags && content.tags.length > 0 && (
+              <motion.div
+                className="mt-6 flex flex-wrap gap-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.1 }}
+              >
+                {content.tags.map((tag: string, index: number) => (
+                  <motion.div
+                    key={tag}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.2 + index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <Badge
+                      variant="secondary"
+                      className="flex items-center gap-1.5 px-3 py-1.5"
+                    >
+                      {tag}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Action Buttons - Now inside the content section */}
+            <motion.div
+              className="mt-8 flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+            >
+              {"github" in content && content.github && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button asChild variant="outline" className="group">
+                    <a
+                      href={content.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                      GitHub
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+              {"demo" in content && content.demo && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button asChild className="group">
+                    <a
+                      href={content.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                      Live Demo
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+              {"pdf" in content && content.pdf && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button asChild className="group">
+                    <a
+                      href={content.pdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download className="mr-2 h-4 w-4 transition-transform group-hover:translate-y-[-2px]" />
+                      PDF
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+              {"doi" in content && content.doi && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button asChild variant="outline" className="group">
+                    <a
+                      href={`https://doi.org/${content.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Globe className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                      DOI
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
+          </div>
+        </div>
       </div>
     </header>
   );

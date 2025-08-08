@@ -1,3 +1,4 @@
+// ClaudeChat.tsx
 "use client";
 
 import { useChat } from "@ai-sdk/react";
@@ -34,24 +35,26 @@ export function ClaudeChat() {
   }, [messages]);
 
   return (
-    <div className="no-footer flex h-screen flex-col bg-background">
-      {/* Messages Area */}
-      <main className="flex-1 overflow-y-auto pb-32">
-        <div className="mx-auto max-w-4xl px-6 py-8 space-y-6">
-          {messages.map((message, index) => (
-            <ClaudeMessage
-              key={message.id}
-              message={message}
-              isLoading={isLoading && index === messages.length - 1}
-              onRegenerate={reload}
-            />
-          ))}
-          <div ref={messagesEndRef} />
+    <div className="flex h-screen flex-col bg-background">
+      {/* Messages Area - No borders */}
+      <main className="flex-1 overflow-y-auto">
+        <div className="mx-auto max-w-3xl px-4 py-8">
+          <div className="space-y-6">
+            {messages.map((message, index) => (
+              <ClaudeMessage
+                key={message.id}
+                message={message}
+                isLoading={isLoading && index === messages.length - 1}
+                onRegenerate={reload}
+              />
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
         </div>
       </main>
 
-      {/* Chat Input - Sticky to bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border/20">
+      {/* Chat Input - No top border, floating style */}
+      <div className="w-full bg-background pb-6">
         <ClaudeChatInput
           input={input}
           handleInputChange={handleInputChange}

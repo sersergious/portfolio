@@ -57,7 +57,7 @@ export function ResearchInterests() {
             ({ title, description, icon: Icon, color }, index) => (
               <StaggerItem key={title} delay={index * 0.1}>
                 <ScaleOnHover scale={1.02}>
-                  <div className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-colors aspect-square flex flex-col">
+                  <div className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-colors sm:aspect-square flex flex-col">
                     <div className="flex-1 flex flex-col items-center justify-center text-center">
                       <Icon className={`w-12 h-12 ${color} mb-4`} />
                       <h3 className="text-lg font-semibold mb-3">{title}</h3>
@@ -68,10 +68,9 @@ export function ResearchInterests() {
                   </div>
                 </ScaleOnHover>
               </StaggerItem>
-            ),
+            )
           )}
         </StaggerContainer>
       </div>
     </section>
   );
-}

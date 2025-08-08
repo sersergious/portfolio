@@ -33,10 +33,10 @@ export function AboutOrigin() {
 
               {/* Text on the right */}
               <div className="order-1 lg:order-2">
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-xl text-muted-foreground leading-relaxed">
                   Since childhood, I've been fascinated by technology. As a kid,
                   I wanted to be like Iron Man. However, it wasn't just about
-                  being a superhero. It was about being a person with a genius
+                  being a superhero. It wa, s about being a person with a genius
                   and unique mind who can push boundaries of what's possible.
                   That became my mission and has shaped me into who I am today.
                   I continue to excel in multiple disciplines in Computer

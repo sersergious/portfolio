@@ -14,8 +14,8 @@ export function About() {
       <Skills />
       <ResearchInterests />
       <Achievements />
-      <Vision />
       <Philosophy />
+      <Vision />
     </div>
   );
 }

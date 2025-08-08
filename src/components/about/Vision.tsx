@@ -6,7 +6,7 @@ import Link from "next/link";
 export function Vision() {
   return (
     /* Vision Section */
-    <section className="py-20 bg-muted/20">
+    <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible direction="up">
           <div className="max-w-4xl mx-auto text-center">
