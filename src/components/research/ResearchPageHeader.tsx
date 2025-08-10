@@ -2,11 +2,11 @@
 "use client";
 
 import { BookOpen } from "lucide-react";
-import { ListPageHeader } from "@/components/content/ListPageHeader";
+import { ClientPageHeader } from "@/components/content/ClientPageHeader";
 
 export function ResearchPageHeader() {
   return (
-    <ListPageHeader
+    <ClientPageHeader
       title="Research"
       description="Exploring the frontiers of AI, quantum computing, and cryptography through rigorous academic research."
       icon={<BookOpen className="h-8 w-8 text-white" />}

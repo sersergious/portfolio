@@ -1,12 +1,12 @@
-// ClaudeChat.tsx
+// AssistantChat.tsx
 "use client";
 
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef } from "react";
-import { ClaudeMessage } from "@/components/chat/ClaudeMessage";
-import { ClaudeChatInput } from "@/components/chat/ClaudeChatInput";
+import { AssistantMessage } from "@/components/chat/AssistantMessage";
+import { AssistantChatInput } from "@/components/chat/AssistantChatInput";
 
-export function ClaudeChat() {
+export function AssistantChat() {
   const {
     messages,
     input,
@@ -48,7 +48,7 @@ export function ClaudeChat() {
         <div className="mx-auto max-w-3xl px-4 pt-4">
           <div className="space-y-6">
             {messages.map((message, index) => (
-              <ClaudeMessage
+              <AssistantMessage
                 key={message.id}
                 message={message}
                 isLoading={
@@ -61,7 +61,7 @@ export function ClaudeChat() {
             ))}
             {/* Show loading state for assistant's response */}
             {isLoading && messages[messages.length - 1]?.role === "user" && (
-              <ClaudeMessage
+              <AssistantMessage
                 message={{
                   id: "loading",
                   role: "assistant",
@@ -83,7 +83,7 @@ export function ClaudeChat() {
       {/* Chat Input - Sticky at bottom */}
       <div className="fixed bottom-0 left-0 w-full bg-background px-4 pb-5">
         <div className="mx-auto max-w-3xl">
-          <ClaudeChatInput
+          <AssistantChatInput
             input={input}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}

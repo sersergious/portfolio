@@ -1,13 +1,12 @@
-// ClaudeChatInput.tsx
 "use client";
 
 import { useState, useRef, useEffect } from "react";
 import { Send, Square } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-interface ClaudeChatInputProps {
+interface AssistantChatInputProps {
   input: string;
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -16,14 +15,14 @@ interface ClaudeChatInputProps {
   reload: () => void;
 }
 
-export function ClaudeChatInput({
+export function AssistantChatInput({
   input,
   handleInputChange,
   handleSubmit,
   isLoading,
   stop,
   reload,
-}: ClaudeChatInputProps) {
+}: AssistantChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isFocused, setIsFocused] = useState(false);
 

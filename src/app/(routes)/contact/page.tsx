@@ -5,9 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
-  MessageSquare,
   Send,
-  User,
   Loader2,
   CheckCircle,
   AlertCircle,
@@ -18,7 +16,6 @@ import {
   Phone,
   Clock,
 } from "lucide-react";
-import Link from "next/link";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -168,7 +165,7 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             Have a question or want to work together? I'd love to hear from you.
-            Send me a message and I'll get back to you as soon as possible.
+            Send me a message and I&apos;ll get back to you as soon as possible.
           </motion.p>
         </motion.div>
 

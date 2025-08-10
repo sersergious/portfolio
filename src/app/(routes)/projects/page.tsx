@@ -4,7 +4,6 @@ import {
   getUniqueCategories,
   getUniqueTags,
 } from "@/lib/mdx-content";
-import { ContentFilter } from "@/components/content/ContentFilter";
 import { ProjectsHeader } from "@/components/projects/ProjectsHeader";
 import { ProjectsPageClient } from "@/components/projects/ProjectsPageClient";
 import { Metadata } from "next";

@@ -1,9 +1,13 @@
-import { FadeInWhenVisible } from "../transitions/FadeInWhenVisible";
+// components/about/HeroTLDR.tsx
+import {
+  FadeInWhenVisible,
+  AnimatedBackground,
+  SlideIn,
+} from "@/components/transitions";
 import Image from "next/image";
 
 export function HeroTLDR() {
   return (
-    /* Hero Section with TL;DR */
     <section className="py-16 md:py-24 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
@@ -28,7 +32,7 @@ export function HeroTLDR() {
           <FadeInWhenVisible direction="up" delay={0.2}>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Text Content */}
-              <div>
+              <SlideIn from="left">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   About Me
                 </h1>
@@ -56,10 +60,10 @@ export function HeroTLDR() {
                     interests.
                   </p>
                 </div>
-              </div>
+              </SlideIn>
 
               {/* Image */}
-              <div className="relative">
+              <SlideIn from="right" delay={0.3}>
                 <div className="relative aspect-square w-full max-w-[500px] mx-auto rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="/images/about-hero.png"
@@ -69,17 +73,14 @@ export function HeroTLDR() {
                     priority
                   />
                 </div>
-              </div>
+              </SlideIn>
             </div>
           </FadeInWhenVisible>
         </div>
       </div>
 
       {/* Background decoration */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-2xl" />
-      </div>
+      <AnimatedBackground />
     </section>
   );
 }

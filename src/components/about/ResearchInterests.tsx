@@ -1,8 +1,11 @@
+// components/about/ResearchInterests.tsx
 import { Brain, Cpu, Shield, Target } from "lucide-react";
-import { FadeInWhenVisible } from "../transitions/FadeInWhenVisible";
-import { ScaleOnHover } from "../transitions/ScaleOnHover";
-import { StaggerContainer } from "../transitions/StaggerContainer";
-import { StaggerItem } from "../transitions/StaggerItem";
+import {
+  FadeInWhenVisible,
+  ScaleOnHover,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/transitions";
 
 export function ResearchInterests() {
   const researchInterests = [
@@ -68,9 +71,10 @@ export function ResearchInterests() {
                   </div>
                 </ScaleOnHover>
               </StaggerItem>
-            )
+            ),
           )}
         </StaggerContainer>
       </div>
     </section>
   );
+}

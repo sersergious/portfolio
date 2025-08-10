@@ -5,18 +5,12 @@ import { motion } from "framer-motion";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogPost } from "@/lib/mdx-content";
 import { useState } from "react";
-import { Grid, List, Calendar, Clock, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface BlogPageClientProps {
   posts: BlogPost[];
 }
 
-type ViewMode = "list" | "grid";
-
 export function BlogPageClient({ posts }: BlogPageClientProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const containerVariants = {
@@ -50,11 +44,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={
-            viewMode === "grid"
-              ? "grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-              : "space-y-8"
-          }
+          className={"space-y-8"}
         >
           {posts.map((post, index) => (
             <motion.article

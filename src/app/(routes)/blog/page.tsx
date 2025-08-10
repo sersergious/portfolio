@@ -4,7 +4,6 @@ import {
   getUniqueCategories,
   getUniqueTags,
 } from "@/lib/mdx-content";
-import { ContentFilter } from "@/components/content/ContentFilter";
 import { BlogPageHeader } from "@/components/blog/BlogPageHeader";
 import { BlogPageClient } from "@/components/blog/BlogPageClient";
 import { Metadata } from "next";
@@ -24,7 +23,6 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen">
       <BlogPageHeader />
-
       <BlogPageClient posts={posts} />
     </div>
   );

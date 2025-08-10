@@ -4,20 +4,12 @@
 import { motion } from "framer-motion";
 import { ResearchCard } from "@/components/research/ResearchCard";
 import { ResearchPaper } from "@/lib/mdx-content";
-import { useState } from "react";
-import { Grid, List } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface ResearchPageClientProps {
   papers: ResearchPaper[];
 }
 
-type ViewMode = "list" | "grid";
-
 export function ResearchPageClient({ papers }: ResearchPageClientProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>("list");
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -49,9 +41,7 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={
-            viewMode === "grid" ? "grid md:grid-cols-2 gap-6" : "space-y-6"
-          }
+          className={"space-y-6"}
         >
           {papers.map((paper) => (
             <motion.div

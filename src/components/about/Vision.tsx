@@ -1,16 +1,21 @@
+// components/about/Vision.tsx
 import { Rocket, FileText, ArrowRight, Mail } from "lucide-react";
-import { FadeInWhenVisible } from "@/components/transitions/FadeInWhenVisible";
-import { ScaleOnHover } from "@/components/transitions/ScaleOnHover";
+import {
+  FadeInWhenVisible,
+  ScaleOnHover,
+  Pulse,
+} from "@/components/transitions";
 import Link from "next/link";
 
 export function Vision() {
   return (
-    /* Vision Section */
     <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible direction="up">
           <div className="max-w-4xl mx-auto text-center">
-            <Rocket className="w-16 h-16 text-primary mx-auto mb-8" />
+            <Pulse duration={3}>
+              <Rocket className="w-16 h-16 text-primary mx-auto mb-8" />
+            </Pulse>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Looking Forward
             </h2>
@@ -34,7 +39,7 @@ export function Vision() {
                 >
                   <FileText className="w-5 h-5" />
                   View My Research
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </ScaleOnHover>
 

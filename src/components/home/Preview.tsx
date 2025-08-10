@@ -1,6 +1,12 @@
 // components/hero/Preview.tsx
-import { FadeInWhenVisible } from "@/components/transitions/FadeInWhenVisible";
-import { ScaleOnHover } from "@/components/transitions/ScaleOnHover";
+import {
+  FadeInWhenVisible,
+  ScaleOnHover,
+  StaggerContainer,
+  StaggerItem,
+  SlideIn,
+  FadeInScroll,
+} from "@/components/transitions";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,8 +16,6 @@ import {
   MessageCircle,
   Code,
 } from "lucide-react";
-import { StaggerContainer } from "@/components/transitions/StaggerContainer";
-import { StaggerItem } from "@/components/transitions/StaggerItem";
 import { ResearchCard } from "@/components/research/ResearchCard";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -36,21 +40,18 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
         <FadeInWhenVisible direction="up" delay={0.2}>
           <section className="py-20 bg-muted/20">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                {/* Icon + Header on one centered line */}
+              <FadeInScroll className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <Code className="w-6 h-6 text-violet-500" />
                   <h2 className="text-3xl md:text-4xl font-bold">
                     Latest Projects
                   </h2>
                 </div>
-
-                {/* Centered description */}
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                   Showcasing innovative solutions and cutting-edge development
                   work
                 </p>
-              </div>
+              </FadeInScroll>
 
               <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                 {latestProjects.map((project, index) => (
@@ -62,8 +63,8 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 ))}
               </StaggerContainer>
 
-              <div className="text-center">
-                <ScaleOnHover>
+              <FadeInScroll className="text-center">
+                <ScaleOnHover className="inline-block">
                   <Link
                     href="/projects"
                     className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium group"
@@ -72,18 +73,18 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </ScaleOnHover>
-              </div>
+              </FadeInScroll>
             </div>
           </section>
         </FadeInWhenVisible>
       )}
 
-      {/*About Preview*/}
+      {/* About Preview */}
       <FadeInWhenVisible direction="up" delay={0.3}>
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
+              <SlideIn from="left">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Building the Future
                 </h2>
@@ -102,7 +103,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                   </p>
                 </div>
                 <div className="mt-8">
-                  <ScaleOnHover>
+                  <ScaleOnHover className="inline-block">
                     <Link
                       href="/about"
                       className="btn-primary group flex items-center gap-2 w-fit"
@@ -112,9 +113,9 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     </Link>
                   </ScaleOnHover>
                 </div>
-              </div>
+              </SlideIn>
 
-              <div className="space-y-6">
+              <SlideIn from="right" className="space-y-6">
                 {/* Stats Cards */}
                 <StaggerContainer className="grid grid-cols-2 gap-4">
                   <StaggerItem>
@@ -158,7 +159,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     </div>
                   </StaggerItem>
                 </StaggerContainer>
-              </div>
+              </SlideIn>
             </div>
           </div>
         </section>
@@ -169,19 +170,19 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
         <section className="py-24 bg-muted/20">
           <div className="container mx-auto px-4">
             {/* Centered header and text */}
-            <div className="text-center mb-16">
+            <FadeInScroll className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 My Recent Publications
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Check out my recent research work and my personal blog
               </p>
-            </div>
+            </FadeInScroll>
 
             <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
               {/* Research Preview */}
               {latestResearch.length > 0 && (
-                <div>
+                <SlideIn from="left">
                   <div className="flex items-center gap-3 mb-8">
                     <BookOpen className="w-6 h-6 text-primary" />
                     <h3 className="text-2xl font-bold">Recent Research</h3>
@@ -200,7 +201,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                   </StaggerContainer>
 
                   <div className="mt-8">
-                    <ScaleOnHover>
+                    <ScaleOnHover className="inline-block">
                       <Link
                         href="/research"
                         className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium group"
@@ -210,12 +211,12 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                       </Link>
                     </ScaleOnHover>
                   </div>
-                </div>
+                </SlideIn>
               )}
 
               {/* Blog Preview */}
               {latestBlogPosts.length > 0 && (
-                <div>
+                <SlideIn from="right">
                   <div className="flex items-center gap-3 mb-8">
                     <FileText className="w-6 h-6 text-accent" />
                     <h3 className="text-2xl font-bold">Recent Blog Posts</h3>
@@ -234,7 +235,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                   </StaggerContainer>
 
                   <div className="mt-8">
-                    <ScaleOnHover>
+                    <ScaleOnHover className="inline-block">
                       <Link
                         href="/blog"
                         className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium group"
@@ -244,7 +245,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                       </Link>
                     </ScaleOnHover>
                   </div>
-                </div>
+                </SlideIn>
               )}
             </div>
           </div>

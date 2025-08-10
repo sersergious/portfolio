@@ -1,5 +1,5 @@
 import { Zap } from "lucide-react";
-import { FadeInWhenVisible } from "../transitions/FadeInWhenVisible";
+import { FadeInWhenVisible, SlideIn } from "@/components/transitions";
 import Image from "next/image";
 
 export function AboutOrigin() {
@@ -19,7 +19,7 @@ export function AboutOrigin() {
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Image on the left */}
-              <div className="order-2 lg:order-1">
+              <SlideIn from="left" className="order-2 lg:order-1">
                 <div className="relative aspect-square w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src="/images/iron-man.png"
@@ -29,21 +29,21 @@ export function AboutOrigin() {
                     priority
                   />
                 </div>
-              </div>
+              </SlideIn>
 
               {/* Text on the right */}
-              <div className="order-1 lg:order-2">
+              <SlideIn from="right" delay={0.2} className="order-1 lg:order-2">
                 <p className="text-xl text-muted-foreground leading-relaxed">
                   Since childhood, I've been fascinated by technology. As a kid,
                   I wanted to be like Iron Man. However, it wasn't just about
-                  being a superhero. It wa, s about being a person with a genius
+                  being a superhero. It was about being a person with a genius
                   and unique mind who can push boundaries of what's possible.
                   That became my mission and has shaped me into who I am today.
                   I continue to excel in multiple disciplines in Computer
                   Science and Math, mastering programming and problem solving,
                   and exploring the cutting edge of technology.
                 </p>
-              </div>
+              </SlideIn>
             </div>
           </div>
         </FadeInWhenVisible>

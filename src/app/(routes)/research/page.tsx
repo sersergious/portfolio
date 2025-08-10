@@ -1,6 +1,5 @@
 // app/research/page.tsx (Updated)
 import { getAllResearch, getUniqueTags } from "@/lib/mdx-content";
-import { ContentFilter } from "@/components/content/ContentFilter";
 import { ResearchPageHeader } from "@/components/research/ResearchPageHeader";
 import { ResearchPageClient } from "@/components/research/ResearchPageClient";
 import { Metadata } from "next";

@@ -18,17 +18,17 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Message } from "ai";
 
-interface ClaudeMessageProps {
+interface AssistantMessageProps {
   message: Message;
   isLoading?: boolean;
   onRegenerate?: () => void;
 }
 
-export function ClaudeMessage({
+export function AssistantMessage({
   message,
   isLoading,
   onRegenerate,
-}: ClaudeMessageProps) {
+}: AssistantMessageProps) {
   const { role, content } = message;
   const isUser = role === "user";
   const [showActions, setShowActions] = useState(false);
@@ -69,33 +69,33 @@ export function ClaudeMessage({
       <div
         className={cn("flex-1 space-y-2 min-w-0", isUser && "flex justify-end")}
       >
-        <div
-          className={cn(
-            "relative rounded-[1.25rem] px-4 py-3 border break-words overflow-hidden",
-            isUser
-              ? "bg-card text-primary-foreground border-border/30 max-w-[85%] inline-block"
-              : "bg-card text-card-foreground border-border/40 max-w-full",
-          )}
-        >
-          {isLoading && !content ? (
-            <div className="flex items-center gap-1.5 py-1">
-              <motion.div
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="h-2 w-2 rounded-full bg-current opacity-50"
-              />
-              <motion.div
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-                className="h-2 w-2 rounded-full bg-current opacity-50"
-              />
-              <motion.div
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-                className="h-2 w-2 rounded-full bg-current opacity-50"
-              />
-            </div>
-          ) : (
+        {isLoading && !content ? (
+          <div className="flex items-center gap-1.5 py-1">
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="h-2 w-2 rounded-full bg-current opacity-50"
+            />
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+              className="h-2 w-2 rounded-full bg-current opacity-50"
+            />
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+              className="h-2 w-2 rounded-full bg-current opacity-50"
+            />
+          </div>
+        ) : (
+          <div
+            className={cn(
+              "relative rounded-[1.25rem] px-4 py-3 border break-words overflow-hidden",
+              isUser
+                ? "bg-card text-primary-foreground border-border/30 max-w-[85%] inline-block"
+                : "bg-card text-card-foreground border-border/40 max-w-full",
+            )}
+          >
             <div
               className={cn(
                 "prose prose-sm max-w-none break-words",
@@ -113,8 +113,8 @@ export function ClaudeMessage({
                 {content || ""}
               </ReactMarkdown>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Action buttons for assistant messages */}
         {!isUser && !isLoading && content && (

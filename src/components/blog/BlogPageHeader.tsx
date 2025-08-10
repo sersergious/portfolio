@@ -2,11 +2,11 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { ListPageHeader } from "@/components/content/ListPageHeader";
+import { ClientPageHeader } from "@/components/content/ClientPageHeader";
 
 export function BlogPageHeader() {
   return (
-    <ListPageHeader
+    <ClientPageHeader
       title="Blog"
       description="Thoughts on software development, AI research, and building innovative technology."
       icon={<FileText className="h-8 w-8 text-white" />}

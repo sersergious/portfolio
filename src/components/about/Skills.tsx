@@ -1,7 +1,11 @@
+// components/about/Skills.tsx
 import { Code, Brain, Cog } from "lucide-react";
-import { FadeInWhenVisible } from "../transitions/FadeInWhenVisible";
-import { StaggerContainer } from "../transitions/StaggerContainer";
-import { StaggerItem } from "../transitions/StaggerItem";
+import {
+  FadeInWhenVisible,
+  StaggerContainer,
+  StaggerItem,
+  FadeInScroll,
+} from "@/components/transitions";
 
 export function Skills() {
   const skills = [
@@ -13,7 +17,6 @@ export function Skills() {
   ];
 
   return (
-    /* Skills Section - 3 Column Grid */
     <section className="py-20">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible direction="up">
@@ -36,87 +39,93 @@ export function Skills() {
         <FadeInWhenVisible direction="up" delay={0.2}>
           <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {/* Software Development Skills */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Code className="w-5 h-5 text-primary" />
-                Software Development
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Web development (Next.js, React, Node.js)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>
-                    Database design and optimization (PostgreSQL, SQLite)
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Docker and Git</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Systems design</span>
-                </li>
-              </ul>
-            </div>
+            <FadeInScroll>
+              <div className="bg-card border border-border rounded-lg p-6 h-full">
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Code className="w-5 h-5 text-primary" />
+                  Software Development
+                </h3>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Web development (Next.js, React, Node.js)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>
+                      Database design and optimization (PostgreSQL, SQLite)
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Docker and Git</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Systems design</span>
+                  </li>
+                </ul>
+              </div>
+            </FadeInScroll>
 
             {/* Mathematical Expertise */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Brain className="w-5 h-5 text-accent" />
-                Mathematical Expertise
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Applied Combinatorics</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Calculus & Linear Algebra</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Mathematical Proofwriting</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Cryptographic protocols</span>
-                </li>
-              </ul>
-            </div>
+            <FadeInScroll>
+              <div className="bg-card border border-border rounded-lg p-6 h-full">
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-accent" />
+                  Mathematical Expertise
+                </h3>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Applied Combinatorics</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Calculus & Linear Algebra</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Mathematical Proofwriting</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span>Cryptographic protocols</span>
+                  </li>
+                </ul>
+              </div>
+            </FadeInScroll>
 
             {/* Programming Languages Progress Bars */}
-            <div className="bg-card border border-border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">
-                Programming Languages
-              </h3>
-              <StaggerContainer className="space-y-4">
-                {skills.map((skill, index) => (
-                  <StaggerItem key={index} delay={index * 0.05}>
-                    <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">
-                          {skill.name}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {skill.level}%
-                        </span>
+            <FadeInScroll>
+              <div className="bg-card border border-border rounded-lg p-6 h-full">
+                <h3 className="text-xl font-semibold mb-4">
+                  Programming Languages
+                </h3>
+                <StaggerContainer className="space-y-4">
+                  {skills.map((skill, index) => (
+                    <StaggerItem key={index} delay={index * 0.05}>
+                      <div>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm font-medium">
+                            {skill.name}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {skill.level}%
+                          </span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className={`h-full ${skill.color} transition-all duration-1000 ease-out`}
+                            style={{ width: `${skill.level}%` }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${skill.color} transition-all duration-1000 ease-out`}
-                          style={{ width: `${skill.level}%` }}
-                        />
-                      </div>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </div>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </div>
+            </FadeInScroll>
           </div>
         </FadeInWhenVisible>
       </div>

@@ -4,20 +4,12 @@
 import { motion } from "framer-motion";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Project } from "@/lib/mdx-content";
-import { useState } from "react";
-import { Grid, List } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface ProjectsPageClientProps {
   projects: Project[];
 }
 
-type ViewMode = "grid" | "list";
-
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -49,11 +41,7 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={
-            viewMode === "grid"
-              ? "grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-              : "space-y-6"
-          }
+          className={"grid md:grid-cols-2 lg:grid-cols-3 gap-8"}
         >
           {projects.map((project) => (
             <motion.div
