@@ -23,6 +23,7 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
+    website: "",
   });
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -46,13 +47,12 @@ export default function ContactPage() {
     setErrorMessage("");
 
     try {
-      // Simulate API call - replace with your actual endpoint
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), // formData contains name, email, subject, message
       });
 
       if (!response.ok) {
@@ -65,9 +65,9 @@ export default function ContactPage() {
         email: "",
         subject: "",
         message: "",
+        website: "",
       });
 
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setStatus("idle");
       }, 5000);
@@ -75,7 +75,6 @@ export default function ContactPage() {
       setStatus("error");
       setErrorMessage("Failed to send message. Please try again later.");
 
-      // Reset error message after 5 seconds
       setTimeout(() => {
         setStatus("idle");
         setErrorMessage("");
@@ -86,23 +85,22 @@ export default function ContactPage() {
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   ];
 
   const contactInfo = [
     {
       icon: Mail,
       label: "Email",
-      value: "hello@example.com",
-      href: "mailto:hello@example.com",
+      value: "serhii.kuzmin@scranton.edu",
+      href: "mailto:serhii.kuzmin@scranton.edu",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      value: "+1 (570) 335-0487",
+      href: "tel:+15703350487",
     },
-    { icon: MapPin, label: "Location", value: "San Francisco, CA", href: null },
+    { icon: MapPin, label: "Location", value: "Scranton, PA", href: null },
     {
       icon: Clock,
       label: "Response Time",
@@ -339,6 +337,17 @@ export default function ContactPage() {
                     placeholder="Your message..."
                   />
                 </div>
+
+                {/* Honeypot field - hidden from users */}
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={(e) =>
+                    setFormData({ ...formData, website: e.target.value })
+                  }
+                  style={{ display: "none" }}
+                />
 
                 {/* Status Messages */}
                 {status === "success" && (

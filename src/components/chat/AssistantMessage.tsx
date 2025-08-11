@@ -1,4 +1,4 @@
-// ClaudeMessage.tsx
+// AssistantMessage.tsx
 "use client";
 
 import {

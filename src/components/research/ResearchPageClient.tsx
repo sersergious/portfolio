@@ -46,7 +46,7 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
           {papers.map((paper) => (
             <motion.div
               key={paper.slug}
-              variants={itemVariants}
+              variants={itemVariants as any}
               whileHover={{
                 scale: 1.02,
                 boxShadow: "0px 8px 30px rgba(0,0,0,0.08)",

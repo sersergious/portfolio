@@ -32,8 +32,7 @@ export function ResearchInterests() {
     },
     {
       title: "Applied Mathematics",
-      description:
-        "Applied mathematics in computational contexts like algorithms and optimizations",
+      description: "Applied mathematics in computational contexts",
       icon: Target,
       color: "text-gb-purple",
     },

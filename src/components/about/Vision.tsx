@@ -1,5 +1,5 @@
 // components/about/Vision.tsx
-import { Rocket, FileText, ArrowRight, Mail } from "lucide-react";
+import { Rocket, Code, ArrowRight, Mail } from "lucide-react";
 import {
   FadeInWhenVisible,
   ScaleOnHover,
@@ -34,11 +34,11 @@ export function Vision() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ScaleOnHover>
                 <Link
-                  href="/research"
+                  href="/projects"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
                 >
-                  <FileText className="w-5 h-5" />
-                  View My Research
+                  <Code className="w-5 h-5" />
+                  View My Projects
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </ScaleOnHover>

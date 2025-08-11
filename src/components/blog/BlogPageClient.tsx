@@ -49,7 +49,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
           {posts.map((post, index) => (
             <motion.article
               key={post.slug}
-              variants={itemVariants}
+              variants={itemVariants as any}
               whileHover={{
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 300, damping: 20 },
