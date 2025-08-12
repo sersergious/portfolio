@@ -1,9 +1,9 @@
 // app/chat/page.tsx
-import { AssistantChat } from "@/components/chat/AssitantChat";
+import { AssistantChat } from "@/components/_chat/AssitantChat";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Chat - Portfolio Assistant",
+  title: "Portfolio Assistant",
   description: "Chat with my AI assistant about my projects and research",
 };
 

@@ -11,7 +11,6 @@ import {
   AlertCircle,
   Github,
   Linkedin,
-  Twitter,
   MapPin,
   Phone,
   Clock,

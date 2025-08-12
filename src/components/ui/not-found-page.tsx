@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertCircle, Home } from "lucide-react";
 
 export const NotFoundPage = ({

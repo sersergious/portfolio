@@ -72,7 +72,13 @@ export interface ResearchPaper {
 
 // Simplified MDX options to avoid plugin version conflicts
 const mdxOptions = {
-  // Start with basic options only
+  development: process.env.NODE_ENV === 'development',
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    format: 'mdx' as const,
+  },
+  parseFrontmatter: false, // We handle this with gray-matter
 };
 
 // Helper functions
@@ -102,8 +108,15 @@ export async function getAllProjects(): Promise<Project[]> {
       const fileContent = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContent);
 
-      // Serialize MDX with basic options
-      const serializedContent = await serialize(content, mdxOptions);
+      // Serialize MDX with basic options - with error handling
+      let serializedContent;
+      try {
+        serializedContent = await serialize(content, mdxOptions);
+      } catch (error) {
+        console.error(`Failed to serialize MDX for project ${slug}:`, error);
+        // Fallback to empty serialization
+        serializedContent = await serialize('', mdxOptions);
+      }
 
       return {
         slug,

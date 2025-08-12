@@ -83,7 +83,7 @@ export default function ResearchLayout({
             <div>
               <h3 className="text-lg font-semibold mb-4">Collaboration</h3>
               <p className="text-muted-foreground mb-4">
-                Interested in collaborating on research? I&apos;m always open to
+                Interested in collaborating on research? I'm always open to
                 discussing new ideas and potential partnerships.
               </p>
               <a

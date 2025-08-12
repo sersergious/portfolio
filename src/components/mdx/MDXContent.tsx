@@ -4,6 +4,7 @@
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
 
 // Custom components for MDX
 const mdxComponents = {

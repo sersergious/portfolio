@@ -1,7 +1,7 @@
 // components/projects/ProjectsPageClient.tsx
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Project } from "@/lib/mdx-content";
 
@@ -10,7 +10,7 @@ interface ProjectsPageClientProps {
 }
 
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -20,13 +20,13 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 12,
       },
@@ -49,7 +49,7 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
               variants={itemVariants}
               whileHover={{
                 y: -5,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
+                transition: { type: "spring" as const, stiffness: 300, damping: 20 },
               }}
               className="h-full"
             >

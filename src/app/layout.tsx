@@ -7,27 +7,32 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Portfolio - Research. Develop. Innovate.",
+    default: "Portfolio",
     template: "%s - Portfolio",
   },
   description: "Portfolio showcasing research and development work",
   keywords: ["portfolio", "research", "development", "software engineering"],
-  authors: [{ name: "Your Name" }],
+  authors: [{ name: "Serhii Kuzmin" }],
   openGraph: {
     title: "Portfolio",
     description: "Research. Develop. Innovate.",
     url: "https://sersergious.dev",
     siteName: "Portfolio",
-    images: ["/og-image.jpg"],
+    images: ["/images/og-image.png"],
     locale: "en-US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Portfolio",
-    description: "Research. Develop. Innovate.",
-    images: ["/og-image.jpg"],
+  icons: {
+    icon: "/images/logo.svg",
+    shortcut: "/images/logo.svg",
+    //apple: "/apple-touch-icon.png", // Optional: for iOS
   },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   title: "Portfolio",
+  //   description: "Research. Develop. Innovate.",
+  //   images: ["/og-image.jpg"],
+  // },
 };
 
 export default function RootLayout({

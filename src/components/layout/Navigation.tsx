@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import Image from "next/image";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -44,18 +45,31 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link
+            href="/"
+            className="flex items-center space-x-3 group"
+            aria-label="SerSergious - Home"
+          >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-3"
             >
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-sm font-bold text-primary-foreground">
-                  S
-                </span>
+              {/* SVG Logo with Next.js Image optimization */}
+              <div className="relative h-8 w-8 flex items-center justify-center">
+                <Image
+                  src="/images/logo.svg"
+                  alt="SerSergious Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain transition-transform duration-200 group-hover:brightness-110"
+                  priority // Load immediately since it's above the fold
+                  unoptimized // SVGs don't need Next.js optimization
+                />
               </div>
-              <span className="font-bold text-xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+
+              {/* Brand Text with hover effect */}
+              <span className="font-bold text-xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent transition-all duration-200 group-hover:from-primary group-hover:to-primary/70">
                 SerSergious
               </span>
             </motion.div>
