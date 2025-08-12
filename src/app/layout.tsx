@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   description: "Portfolio showcasing research and development work",
   keywords: ["portfolio", "research", "development", "software engineering"],
   authors: [{ name: "Serhii Kuzmin" }],
+  metadataBase: new URL("https://sersergious.dev"),
   openGraph: {
     title: "Portfolio",
     description: "Research. Develop. Innovate.",
