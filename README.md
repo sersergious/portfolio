@@ -1,20 +1,23 @@
 # 🚀 Personal Portfolio Website
 
-A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features an AI-powered chat assistant, MDX-powered content management, and beautiful animations.
+A modern, responsive portfolio website built with Next.js 15.4.5, React 19, TypeScript 5, and Tailwind CSS 4. Features an AI-powered chat assistant using Groq/LLaMA models, MDX-powered content management, beautiful animations with Framer Motion, and a custom Gruvbox-inspired theme system.
 
-![Portfolio Preview](https://img.shields.io/badge/Next.js-15.0-black?style=for-the-badge&logo=next.js)
+![Portfolio Preview](https://img.shields.io/badge/Next.js-15.4.5-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.11-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Node.js](https://img.shields.io/badge/Node.js-24.2.0-339933?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 ## ✨ Features
 
 ### 🎨 **Modern Design**
 - Fully responsive design that works on all devices
-- Dark/Light mode support with system preference detection
-- Smooth animations using Framer Motion
-- Beautiful UI components from shadcn/ui
-- Consistent design system with rounded corners and glass morphism effects
+- Dark/Light mode support with system preference detection and custom Gruvbox color palette
+- Smooth animations using Framer Motion 12.23.11
+- Beautiful UI components from shadcn/ui (New York style)
+- Consistent design system with custom Gruvbox-inspired theme
+- Tailwind CSS 4.x with @theme inline configuration
 
 ### 📝 **Content Management**
 - **MDX-powered** blog, projects, and research sections
@@ -24,10 +27,13 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 - Tag-based categorization
 
 ### 🤖 **AI Chat Assistant**
-- Interactive Claude-inspired chat interface
-- Powered by OpenAI GPT-4
+- Interactive chat interface with intelligent model selection
+- Powered by Groq with multiple LLaMA models:
+  - LLaMA 3.1 8B Instant for simple queries
+  - LLaMA 3.3 70B Versatile for technical questions
+  - LLaMA Guard 4 12B for general interactions
 - Context-aware responses about portfolio content
-- Streaming responses for better UX
+- Streaming responses for better UX with Vercel AI SDK
 - Clean, modern chat UI with message history
 
 ### 🎯 **Key Sections**
@@ -51,22 +57,20 @@ A modern, responsive portfolio website built with Next.js 15, TypeScript, and Ta
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or pnpm package manager
-- Git
+- **Node.js 24.2.0+** (latest LTS recommended)
+- **pnpm 10.14.0+** (primary package manager)
+- **Git**
 
 ### Installation
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/portfolio.git
-cd portfolio
+git clone https://github.com/yourusername/sersergious-website.git
+cd sersergious-website
 ```
 
 2. **Install dependencies**
 ```bash
-npm install
-# or
 pnpm install
 ```
 
@@ -75,10 +79,10 @@ pnpm install
 Create a `.env.local` file in the root directory:
 
 ```env
-# OpenAI API Key for chat functionality
-OPENAI_API_KEY=sk-...
+# Groq API Key for AI chat functionality
+GROQ_API_KEY=gsk_...
 
-# Resend API Key for contact form
+# Resend API Key for contact form emails
 RESEND_API_KEY=re_...
 
 # Optional: Vercel Analytics
@@ -87,10 +91,10 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=...
 
 4. **Run the development server**
 ```bash
-npm run dev
-# or
 pnpm dev
 ```
+
+The development server uses Turbopack for faster builds and hot reloading.
 
 Open [http://localhost:3000](http://localhost:3000) to see your portfolio.
 
@@ -133,21 +137,27 @@ Project details...
 
 ### Styling
 
-The portfolio uses Tailwind CSS with a custom configuration:
+The portfolio uses Tailwind CSS 4.x with a custom Gruvbox-inspired theme:
 
-- Edit `tailwind.config.ts` for theme customization
-- Modify CSS variables in `globals.css` for colors
-- Components use shadcn/ui - customize in `components/ui/`
+- Custom Gruvbox color palette with light/dark mode support
+- Tailwind CSS 4.x with `@theme inline` configuration in `src/styles/globals.css`
+- shadcn/ui components (New York style) - customize in `components/ui/`
+- Math rendering with KaTeX and code highlighting with highlight.js
 
 ### Theme Colors
 
-Update CSS variables in `styles/globals.css`:
+The theme uses a complete Gruvbox color system defined in `src/styles/globals.css`:
 
 ```css
 :root {
-  --primary: 220 90% 56%;
-  --accent: 160 84% 39%;
-  /* ... other variables */
+  /* Gruvbox Color Palette */
+  --gb-dark: #282828;
+  --gb-light: #fbf1c7;
+  --gb-blue: #83a598;
+  --gb-aqua: #8ec07c;
+  --gb-red: #fb4934;
+  --gb-green: #b8bb26;
+  /* ... complete Gruvbox palette */
 }
 ```
 
@@ -173,39 +183,40 @@ Update CSS variables in `styles/globals.css`:
 ### Available Scripts
 
 ```bash
-# Development server
-npm run dev
+# Development server (with Turbopack)
+pnpm dev
 
 # Build for production
-npm run build
+pnpm build
 
 # Start production server
-npm run start
+pnpm start
 
 # Lint code
-npm run lint
-
-# Type check
-npm run type-check
+pnpm lint
 ```
 
 ### Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Content**: [MDX](https://mdxjs.com/)
-- **Chat**: [Vercel AI SDK](https://sdk.vercel.ai/)
+- **Framework**: [Next.js 15.4.5](https://nextjs.org/) with App Router and Turbopack
+- **Runtime**: [React 19.1.0](https://react.dev/) with Server Components
+- **Language**: [TypeScript 5](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4.1.11](https://tailwindcss.com/) with custom Gruvbox theme
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/) (New York style)
+- **Animations**: [Framer Motion 12.23.11](https://www.framer.com/motion/)
+- **Content**: [MDX](https://mdxjs.com/) with [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- **AI Chat**: [Vercel AI SDK](https://sdk.vercel.ai/) with [Groq](https://groq.com/)
 - **Email**: [Resend](https://resend.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Math**: [KaTeX](https://katex.org/) for LaTeX rendering
+- **Code Highlighting**: [highlight.js](https://highlightjs.org/)
+- **Package Manager**: [pnpm](https://pnpm.io/)
 
 ## 📝 Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `OPENAI_API_KEY` | OpenAI API key for chat | Yes |
+| `GROQ_API_KEY` | Groq API key for AI chat | Yes |
 | `RESEND_API_KEY` | Resend API key for emails | Yes |
 | `NEXT_PUBLIC_VERCEL_ANALYTICS_ID` | Vercel Analytics | No |
 
@@ -227,15 +238,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [shadcn/ui](https://ui.shadcn.com/) for beautiful UI components
 - [Vercel](https://vercel.com) for hosting and deployment
-- [OpenAI](https://openai.com) for GPT API
+- [Groq](https://groq.com) for fast AI inference
 - [Tailwind CSS](https://tailwindcss.com) for styling
 - [Next.js](https://nextjs.org) team for the amazing framework
+- [Gruvbox](https://github.com/morhetz/gruvbox) for the inspiring color palette
 
 ## 📧 Contact
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Serhii Kuzmin - [sergeykuzmin495@gmail.com](mailto:sergeykuzmin495@gmail.com)
 
-Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)
+Project Link: [https://github.com/yourusername/sersergious-website](https://github.com/yourusername/sersergious-website)
 
 ---
 
