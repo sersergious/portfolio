@@ -29,11 +29,11 @@ export default function ResearchLayout({
       {children}
 
       {/* Research-specific resources */}
-      <aside className="border-t border-border bg-muted/20">
+      {/*<aside className="border-t border-border bg-muted/20">
         <div className="container mx-auto px-4 py-12">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-            {/* Research Profiles */}
-            <div>
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">*/}
+      {/* Research Profiles */}
+      {/*<div>
               <h3 className="text-lg font-semibold mb-4">Research Profiles</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>
@@ -77,10 +77,10 @@ export default function ResearchLayout({
                   </a>
                 </li>
               </ul>
-            </div>
+            </div>*/}
 
-            {/* Collaboration */}
-            <div>
+      {/* Collaboration */}
+      {/*<div>
               <h3 className="text-lg font-semibold mb-4">Collaboration</h3>
               <p className="text-muted-foreground mb-4">
                 Interested in collaborating on research? I'm always open to
@@ -95,7 +95,7 @@ export default function ResearchLayout({
             </div>
           </div>
         </div>
-      </aside>
+      </aside>*/}
     </div>
   );
 }
