@@ -1,9 +1,9 @@
 // components/projects/ProjectsPageClient.tsx
-"use client";
+'use client';
 
-import { motion, Variants } from "framer-motion";
-import { ProjectCard } from "@/components/projects/ProjectCard";
-import { Project } from "@/lib/mdx-content";
+import { motion, Variants } from 'framer-motion';
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import { Project } from '@/lib/mdx-content';
 
 interface ProjectsPageClientProps {
   projects: Project[];
@@ -26,7 +26,7 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring" as const,
+        type: 'spring' as const,
         stiffness: 100,
         damping: 12,
       },
@@ -41,15 +41,19 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={"grid md:grid-cols-2 lg:grid-cols-3 gap-8"}
+          className={'grid md:grid-cols-2 lg:grid-cols-3 gap-8'}
         >
-          {projects.map((project) => (
+          {projects.map(project => (
             <motion.div
               key={project.slug}
               variants={itemVariants}
               whileHover={{
                 y: -5,
-                transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+                transition: {
+                  type: 'spring' as const,
+                  stiffness: 300,
+                  damping: 20,
+                },
               }}
               className="h-full"
             >

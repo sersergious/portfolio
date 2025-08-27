@@ -1,18 +1,18 @@
 // components/home/Hero.tsx
-import { TypewriterText, AnimatedBackground } from "@/components/transitions";
-import Link from "next/link";
-import { Download, Github, Linkedin, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { TypewriterText, AnimatedBackground } from '@/components/transitions';
+import Link from 'next/link';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 const socials = [
-  { href: "https://github.com/sersergious", icon: Github, label: "GitHub" },
+  { href: 'https://github.com/sersergious', icon: Github, label: 'GitHub' },
   {
-    href: "https://www.linkedin.com/in/sersergious-dev",
+    href: 'https://www.linkedin.com/in/sersergious-dev',
     icon: Linkedin,
-    label: "LinkedIn",
+    label: 'LinkedIn',
   },
-  { href: "mailto:serhii.kuzmin@scranton.edu", icon: Mail, label: "Email" },
+  { href: 'mailto:serhii.kuzmin@scranton.edu', icon: Mail, label: 'Email' },
 ];
 
 export function Hero() {
@@ -50,8 +50,8 @@ export function Hero() {
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-3xl lg:max-w-none">
               I'm a researcher and developer passionate about creating
-              innovative solutions at the intersection of{" "}
-              <span className="text-primary font-semibold">technology</span> and{" "}
+              innovative solutions at the intersection of{' '}
+              <span className="text-primary font-semibold">technology</span> and{' '}
               <span className="text-accent font-semibold">science</span>.
             </p>
 
@@ -80,7 +80,7 @@ export function Hero() {
 
             {/* Social Links */}
             <div className="flex justify-center lg:justify-start gap-4">
-              {socials.map((social) => (
+              {socials.map(social => (
                 <Link
                   key={social.label}
                   href={social.href}

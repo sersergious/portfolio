@@ -1,10 +1,10 @@
 // components/blog/BlogPageClient.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { BlogCard } from "@/components/blog/BlogCard";
-import { BlogPost } from "@/lib/mdx-content";
-import { useState } from "react";
+import { motion } from 'framer-motion';
+import { BlogCard } from '@/components/blog/BlogCard';
+import { BlogPost } from '@/lib/mdx-content';
+import { useState } from 'react';
 
 interface BlogPageClientProps {
   posts: BlogPost[];
@@ -29,7 +29,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
         damping: 12,
       },
@@ -44,7 +44,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={"space-y-8"}
+          className={'space-y-8'}
         >
           {posts.map((post, index) => (
             <motion.article
@@ -52,7 +52,7 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
               variants={itemVariants as any}
               whileHover={{
                 scale: 1.02,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
+                transition: { type: 'spring', stiffness: 300, damping: 20 },
               }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}

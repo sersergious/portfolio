@@ -1,11 +1,11 @@
 // components/about/Vision.tsx
-import { Rocket, Code, ArrowRight, Mail } from "lucide-react";
+import { Rocket, Code, ArrowRight, Mail } from 'lucide-react';
 import {
   FadeInWhenVisible,
   ScaleOnHover,
   Pulse,
-} from "@/components/transitions";
-import Link from "next/link";
+} from '@/components/transitions';
+import Link from 'next/link';
 
 export function Vision() {
   return (

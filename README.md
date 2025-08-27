@@ -12,6 +12,7 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 ## ✨ Features
 
 ### 🎨 **Modern Design**
+
 - Fully responsive design that works on all devices
 - Dark/Light mode support with system preference detection and custom Gruvbox color palette
 - Smooth animations using Framer Motion 12.23.11
@@ -20,6 +21,7 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 - Tailwind CSS 4.x with @theme inline configuration
 
 ### 📝 **Content Management**
+
 - **MDX-powered** blog, projects, and research sections
 - Frontmatter metadata for SEO and organization
 - Syntax highlighting for code blocks
@@ -27,6 +29,7 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 - Tag-based categorization
 
 ### 🤖 **AI Chat Assistant**
+
 - Interactive chat interface with intelligent model selection
 - Powered by Groq with multiple LLaMA models:
   - LLaMA 3.1 8B Instant for simple queries
@@ -37,6 +40,7 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 - Clean, modern chat UI with message history
 
 ### 🎯 **Key Sections**
+
 - **Home**: Hero section with animated text and preview of featured content
 - **Projects**: Showcase of development work with live demos and GitHub links
 - **Research**: Academic papers and publications with PDF links
@@ -46,6 +50,7 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 - **Chat**: AI assistant for portfolio navigation
 
 ### 🛠️ **Technical Features**
+
 - Static Site Generation (SSG) for optimal performance
 - Image optimization with Next.js Image component
 - SEO optimized with meta tags and Open Graph
@@ -64,12 +69,14 @@ A modern, responsive portfolio website built with Next.js 15.4.5, React 19, Type
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/yourusername/sersergious-website.git
 cd sersergious-website
 ```
 
 2. **Install dependencies**
+
 ```bash
 pnpm install
 ```
@@ -90,6 +97,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=...
 ```
 
 4. **Run the development server**
+
 ```bash
 pnpm dev
 ```
@@ -98,20 +106,20 @@ The development server uses Turbopack for faster builds and hot reloading.
 
 Open [http://localhost:3000](http://localhost:3000) to see your portfolio.
 
-
 ## 🎨 Customization
 
 ### Adding Content
 
 #### Blog Posts
+
 Create a new MDX file in `content/blog/`:
 
 ```mdx
 ---
-title: "Your Blog Post Title"
-description: "A brief description"
-date: "2024-01-01"
-tags: ["nextjs", "react", "web-dev"]
+title: 'Your Blog Post Title'
+description: 'A brief description'
+date: '2024-01-01'
+tags: ['nextjs', 'react', 'web-dev']
 featured: true
 ---
 
@@ -119,16 +127,17 @@ Your content here...
 ```
 
 #### Projects
+
 Create a new MDX file in `content/projects/`:
 
 ```mdx
 ---
-title: "Project Name"
-description: "Project description"
-date: "2024-01-01"
-tags: ["typescript", "react", "tailwind"]
-github: "https://github.com/..."
-demo: "https://..."
+title: 'Project Name'
+description: 'Project description'
+date: '2024-01-01'
+tags: ['typescript', 'react', 'tailwind']
+github: 'https://github.com/...'
+demo: 'https://...'
 featured: true
 ---
 
@@ -214,11 +223,11 @@ pnpm lint
 
 ## 📝 Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `GROQ_API_KEY` | Groq API key for AI chat | Yes |
-| `RESEND_API_KEY` | Resend API key for emails | Yes |
-| `NEXT_PUBLIC_VERCEL_ANALYTICS_ID` | Vercel Analytics | No |
+| Variable                          | Description               | Required |
+| --------------------------------- | ------------------------- | -------- |
+| `GROQ_API_KEY`                    | Groq API key for AI chat  | Yes      |
+| `RESEND_API_KEY`                  | Resend API key for emails | Yes      |
+| `NEXT_PUBLIC_VERCEL_ANALYTICS_ID` | Vercel Analytics          | No       |
 
 ## 🤝 Contributing
 

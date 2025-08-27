@@ -1,5 +1,5 @@
 // app/not-found.tsx
-import { NotFoundPage } from "@/components/ui/not-found-page";
+import { NotFoundPage } from '@/components/ui/not-found-page';
 
 export default function NotFound() {
   return (

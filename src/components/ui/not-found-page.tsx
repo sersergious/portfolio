@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { AlertCircle, Home } from "lucide-react";
+import { AlertCircle, Home } from 'lucide-react';
 
 export const NotFoundPage = ({
-  title = "Page Not Found",
+  title = 'Page Not Found',
   message = "Sorry, we couldn't find the page you're looking for.",
   showHomeButton = true,
   onHomeClick = () => window.history.back(),

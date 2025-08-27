@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 // Types for our content - simplified to avoid conflicts
 export interface Project {
@@ -13,7 +13,7 @@ export interface Project {
   tags: string[];
   category: string[];
   featured: boolean;
-  status: "completed" | "in-progress" | "archived";
+  status: 'completed' | 'in-progress' | 'archived';
   github?: string;
   demo?: string;
   image?: string;
@@ -52,7 +52,7 @@ export interface ResearchPaper {
   date: string;
   tags: string[];
   featured: boolean;
-  status: "published" | "preprint" | "in-review" | "draft";
+  status: 'published' | 'preprint' | 'in-review' | 'draft';
   journal?: string;
   conference?: string;
   volume?: string;
@@ -91,7 +91,7 @@ const calculateReadingTime = (content: string): string => {
 
 // Projects
 export async function getAllProjects(): Promise<Project[]> {
-  const contentDir = path.join(process.cwd(), "content", "projects");
+  const contentDir = path.join(process.cwd(), 'content', 'projects');
 
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -99,13 +99,13 @@ export async function getAllProjects(): Promise<Project[]> {
 
   const files = fs
     .readdirSync(contentDir)
-    .filter((file) => file.endsWith(".mdx"));
+    .filter(file => file.endsWith('.mdx'));
 
   const projects = await Promise.all(
-    files.map(async (file) => {
-      const slug = file.replace(".mdx", "");
+    files.map(async file => {
+      const slug = file.replace('.mdx', '');
       const fullPath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(fullPath, "utf8");
+      const fileContent = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContent);
 
       // Serialize MDX with basic options - with error handling
@@ -126,7 +126,7 @@ export async function getAllProjects(): Promise<Project[]> {
         tags: data.tags || [],
         category: data.category || [],
         featured: data.featured || false,
-        status: data.status || "completed",
+        status: data.status || 'completed',
         github: data.github,
         demo: data.demo,
         image: data.image,
@@ -136,29 +136,29 @@ export async function getAllProjects(): Promise<Project[]> {
         serializedContent,
         content,
       } as Project;
-    }),
+    })
   );
 
   return projects.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const projects = await getAllProjects();
-  return projects.find((project) => project.slug === slug) || null;
+  return projects.find(project => project.slug === slug) || null;
 }
 
 export async function getFeaturedProjects(
-  limit: number = 3,
+  limit: number = 3
 ): Promise<Project[]> {
   const projects = await getAllProjects();
-  return projects.filter((project) => project.featured).slice(0, limit);
+  return projects.filter(project => project.featured).slice(0, limit);
 }
 
 // Blog posts
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const contentDir = path.join(process.cwd(), "content", "blog");
+  const contentDir = path.join(process.cwd(), 'content', 'blog');
 
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -166,13 +166,13 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 
   const files = fs
     .readdirSync(contentDir)
-    .filter((file) => file.endsWith(".mdx"));
+    .filter(file => file.endsWith('.mdx'));
 
   const posts = await Promise.all(
-    files.map(async (file) => {
-      const slug = file.replace(".mdx", "");
+    files.map(async file => {
+      const slug = file.replace('.mdx', '');
       const fullPath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(fullPath, "utf8");
+      const fileContent = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContent);
 
       // Skip unpublished posts
@@ -183,7 +183,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
       // Serialize MDX
       const serializedContent = await serialize(content, mdxOptions);
 
-      const authorName = data.authorName || "Serhii Kuzmin";
+      const authorName = data.authorName || 'Serhii Kuzmin';
 
       return {
         slug,
@@ -207,7 +207,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
         serializedContent,
         content,
       } as BlogPost;
-    }),
+    })
   );
 
   return posts
@@ -216,22 +216,22 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function getBlogPostBySlug(
-  slug: string,
+  slug: string
 ): Promise<BlogPost | null> {
   const posts = await getAllBlogPosts();
-  return posts.find((post) => post.slug === slug) || null;
+  return posts.find(post => post.slug === slug) || null;
 }
 
 export async function getFeaturedBlogPosts(
-  limit: number = 3,
+  limit: number = 3
 ): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
-  return posts.filter((post) => post.featured).slice(0, limit);
+  return posts.filter(post => post.featured).slice(0, limit);
 }
 
 // Research papers
 export async function getAllResearch(): Promise<ResearchPaper[]> {
-  const contentDir = path.join(process.cwd(), "content", "research");
+  const contentDir = path.join(process.cwd(), 'content', 'research');
 
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -239,13 +239,13 @@ export async function getAllResearch(): Promise<ResearchPaper[]> {
 
   const files = fs
     .readdirSync(contentDir)
-    .filter((file) => file.endsWith(".mdx"));
+    .filter(file => file.endsWith('.mdx'));
 
   const papers = await Promise.all(
-    files.map(async (file) => {
-      const slug = file.replace(".mdx", "");
+    files.map(async file => {
+      const slug = file.replace('.mdx', '');
       const fullPath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(fullPath, "utf8");
+      const fileContent = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContent);
 
       // Serialize MDX
@@ -259,7 +259,7 @@ export async function getAllResearch(): Promise<ResearchPaper[]> {
         date: data.date,
         tags: data.tags || [],
         featured: data.featured || false,
-        status: data.status || "draft",
+        status: data.status || 'draft',
         journal: data.journal,
         conference: data.conference,
         volume: data.volume,
@@ -276,26 +276,26 @@ export async function getAllResearch(): Promise<ResearchPaper[]> {
         serializedContent,
         content,
       } as ResearchPaper;
-    }),
+    })
   );
 
   return papers.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }
 
 export async function getResearchBySlug(
-  slug: string,
+  slug: string
 ): Promise<ResearchPaper | null> {
   const papers = await getAllResearch();
-  return papers.find((paper) => paper.slug === slug) || null;
+  return papers.find(paper => paper.slug === slug) || null;
 }
 
 export async function getFeaturedResearch(
-  limit: number = 3,
+  limit: number = 3
 ): Promise<ResearchPaper[]> {
   const papers = await getAllResearch();
-  return papers.filter((paper) => paper.featured).slice(0, limit);
+  return papers.filter(paper => paper.featured).slice(0, limit);
 }
 
 // Combined functions
@@ -320,21 +320,21 @@ export async function searchAllContent(query: string, limit: number = 10) {
   const searchTerms = query.toLowerCase().split(/\s+/);
 
   const allContent = [
-    ...projects.map((item) => ({ ...item, contentType: "project" as const })),
-    ...blogPosts.map((item) => ({ ...item, contentType: "blog" as const })),
-    ...research.map((item) => ({ ...item, contentType: "research" as const })),
+    ...projects.map(item => ({ ...item, contentType: 'project' as const })),
+    ...blogPosts.map(item => ({ ...item, contentType: 'blog' as const })),
+    ...research.map(item => ({ ...item, contentType: 'research' as const })),
   ];
 
   const results = allContent
-    .map((item) => {
+    .map(item => {
       let score = 0;
       const title = item.title.toLowerCase();
       const description = (
-        "abstract" in item ? item.abstract : item.description
+        'abstract' in item ? item.abstract : item.description
       ).toLowerCase();
       const tags = item.tags || [];
 
-      searchTerms.forEach((term) => {
+      searchTerms.forEach(term => {
         if (title.includes(term)) score += title === term ? 10 : 5;
         if (description.includes(term)) score += 3;
         tags.forEach((tag: string) => {
@@ -344,7 +344,7 @@ export async function searchAllContent(query: string, limit: number = 10) {
 
       return { ...item, score };
     })
-    .filter((item) => item.score > 0)
+    .filter(item => item.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 
@@ -358,11 +358,11 @@ export async function getRelatedContent<
   const currentTags = currentItem.tags || [];
 
   return allItems
-    .filter((item) => item.slug !== currentItem.slug)
-    .map((item) => {
+    .filter(item => item.slug !== currentItem.slug)
+    .map(item => {
       const itemTags = item.tags || [];
-      const commonTags = currentTags.filter((tag) =>
-        itemTags.some((itemTag) => itemTag.toLowerCase() === tag.toLowerCase()),
+      const commonTags = currentTags.filter(tag =>
+        itemTags.some(itemTag => itemTag.toLowerCase() === tag.toLowerCase())
       );
       const score =
         commonTags.length / Math.max(currentTags.length, itemTags.length);
@@ -376,12 +376,12 @@ export async function getRelatedContent<
 
 // Utility functions - removed async since they don't need to be
 export function getUniqueCategories(
-  items: (Project | BlogPost | ResearchPaper)[],
+  items: (Project | BlogPost | ResearchPaper)[]
 ): string[] {
   const categories = new Set<string>();
 
-  items.forEach((item) => {
-    if ("category" in item) {
+  items.forEach(item => {
+    if ('category' in item) {
       if (Array.isArray(item.category)) {
         item.category.forEach((cat: string) => categories.add(cat));
       } else if (item.category) {
@@ -394,11 +394,11 @@ export function getUniqueCategories(
 }
 
 export function getUniqueTags(
-  items: (Project | BlogPost | ResearchPaper)[],
+  items: (Project | BlogPost | ResearchPaper)[]
 ): string[] {
   const tags = new Set<string>();
 
-  items.forEach((item) => {
+  items.forEach(item => {
     if (item.tags) {
       item.tags.forEach((tag: string) => tags.add(tag));
     }

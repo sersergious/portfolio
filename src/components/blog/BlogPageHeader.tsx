@@ -1,8 +1,8 @@
 // components/blog/BlogPageHeader.tsx
-"use client";
+'use client';
 
-import { FileText } from "lucide-react";
-import { ClientPageHeader } from "@/components/content/ClientPageHeader";
+import { FileText } from 'lucide-react';
+import { ClientPageHeader } from '@/components/content/ClientPageHeader';
 
 export function BlogPageHeader() {
   return (

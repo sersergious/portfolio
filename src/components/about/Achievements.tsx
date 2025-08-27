@@ -1,11 +1,11 @@
 // components/about/Achievements.tsx
-import { Medal, Trophy, Code, Brain } from "lucide-react";
+import { Medal, Trophy, Code, Brain } from 'lucide-react';
 import {
   FadeInWhenVisible,
   StaggerContainer,
   StaggerItem,
   ScaleOnHover,
-} from "@/components/transitions";
+} from '@/components/transitions';
 
 export function Achievements() {
   return (

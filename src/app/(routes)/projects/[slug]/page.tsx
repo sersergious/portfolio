@@ -1,16 +1,16 @@
 // app/projects/[slug]/page.tsx
 
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 import {
   getAllProjects,
   getProjectBySlug,
   getRelatedContent,
-} from "@/lib/mdx-content";
-import { ProjectHeader } from "@/components/projects/ProjectHeader";
-import { MDXContent } from "@/components/mdx/MDXContent";
-import { RelatedContent } from "@/components/content/RelatedContent";
-import type { Metadata } from "next";
-import { Suspense } from "react";
+} from '@/lib/mdx-content';
+import { ProjectHeader } from '@/components/projects/ProjectHeader';
+import { MDXContent } from '@/components/mdx/MDXContent';
+import { RelatedContent } from '@/components/content/RelatedContent';
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 // Force dynamic rendering to avoid React context issues during static generation
 export const dynamic = 'force-dynamic';
@@ -24,7 +24,7 @@ interface ProjectPageProps {
 
 export async function generateStaticParams() {
   const projects = await getAllProjects();
-  return projects.map((project) => ({
+  return projects.map(project => ({
     slug: project.slug,
   }));
 }
@@ -37,7 +37,7 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Project Not Found",
+      title: 'Project Not Found',
     };
   }
 
@@ -47,7 +47,7 @@ export async function generateMetadata({
     openGraph: {
       title: project.title,
       description: project.description,
-      type: "article",
+      type: 'article',
       publishedTime: project.date,
       images: project.image ? [{ url: project.image }] : [],
     },

@@ -3,15 +3,15 @@ import {
   getAllProjects,
   getUniqueCategories,
   getUniqueTags,
-} from "@/lib/mdx-content";
-import { ProjectsHeader } from "@/components/projects/ProjectsHeader";
-import { ProjectsPageClient } from "@/components/projects/ProjectsPageClient";
-import { Metadata } from "next";
+} from '@/lib/mdx-content';
+import { ProjectsHeader } from '@/components/projects/ProjectsHeader';
+import { ProjectsPageClient } from '@/components/projects/ProjectsPageClient';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: 'Projects',
   description:
-    "A collection of my development work, from web applications to research tools.",
+    'A collection of my development work, from web applications to research tools.',
 };
 
 export default async function ProjectsPage() {

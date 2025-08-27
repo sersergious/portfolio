@@ -1,8 +1,8 @@
 // components/contact/ContactPageClient.tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Mail,
   Send,
@@ -14,7 +14,7 @@ import {
   MapPin,
   Phone,
   Clock,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface ContactInfo {
   icon: any;
@@ -34,26 +34,26 @@ interface ContactPageClientProps {
   socialLinks?: SocialLink[];
 }
 
-export function ContactPageClient({ 
-  contactInfo = defaultContactInfo, 
-  socialLinks = defaultSocialLinks 
+export function ContactPageClient({
+  contactInfo = defaultContactInfo,
+  socialLinks = defaultSocialLinks,
 }: ContactPageClientProps) {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    website: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    website: '',
   });
   const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     setFormData({
       ...formData,
@@ -63,41 +63,41 @@ export function ContactPageClient({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
-    setErrorMessage("");
+    setStatus('loading');
+    setErrorMessage('');
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
+      const response = await fetch('/api/contact', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        throw new Error('Failed to send message');
       }
 
-      setStatus("success");
+      setStatus('success');
       setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        website: "",
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+        website: '',
       });
 
       setTimeout(() => {
-        setStatus("idle");
+        setStatus('idle');
       }, 5000);
     } catch (error) {
-      setStatus("error");
-      setErrorMessage("Failed to send message. Please try again later.");
+      setStatus('error');
+      setErrorMessage('Failed to send message. Please try again later.');
 
       setTimeout(() => {
-        setStatus("idle");
-        setErrorMessage("");
+        setStatus('idle');
+        setErrorMessage('');
       }, 5000);
     }
   };
@@ -115,7 +115,7 @@ export function ContactPageClient({
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         />
         <motion.div
@@ -127,7 +127,7 @@ export function ContactPageClient({
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 5,
           }}
         />
@@ -336,14 +336,14 @@ export function ContactPageClient({
                   type="text"
                   name="website"
                   value={formData.website}
-                  onChange={(e) =>
+                  onChange={e =>
                     setFormData({ ...formData, website: e.target.value })
                   }
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                 />
 
                 {/* Status Messages */}
-                {status === "success" && (
+                {status === 'success' && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -354,7 +354,7 @@ export function ContactPageClient({
                   </motion.div>
                 )}
 
-                {status === "error" && (
+                {status === 'error' && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -368,10 +368,10 @@ export function ContactPageClient({
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={status === "loading"}
+                  disabled={status === 'loading'}
                   className="w-full px-6 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                 >
-                  {status === "loading" ? (
+                  {status === 'loading' ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
                       Sending...
@@ -396,27 +396,27 @@ export function ContactPageClient({
 const defaultContactInfo: ContactInfo[] = [
   {
     icon: Mail,
-    label: "Email",
-    value: "serhii.kuzmin@scranton.edu",
-    href: "mailto:serhii.kuzmin@scranton.edu",
+    label: 'Email',
+    value: 'serhii.kuzmin@scranton.edu',
+    href: 'mailto:serhii.kuzmin@scranton.edu',
   },
   {
     icon: Phone,
-    label: "Phone",
-    value: "+1 (570) 335-0487",
-    href: "tel:+15703350487",
+    label: 'Phone',
+    value: '+1 (570) 335-0487',
+    href: 'tel:+15703350487',
   },
-  { icon: MapPin, label: "Location", value: "Scranton, PA", href: null },
+  { icon: MapPin, label: 'Location', value: 'Scranton, PA', href: null },
   {
     icon: Clock,
-    label: "Response Time",
-    value: "Within 24 hours",
+    label: 'Response Time',
+    value: 'Within 24 hours',
     href: null,
   },
 ];
 
 // Default social links
 const defaultSocialLinks: SocialLink[] = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
 ];

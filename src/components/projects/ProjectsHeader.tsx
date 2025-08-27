@@ -1,8 +1,8 @@
 // components/projects/ProjectsHeader.tsx
-"use client";
+'use client';
 
-import { Code } from "lucide-react";
-import { ClientPageHeader } from "@/components/content/ClientPageHeader";
+import { Code } from 'lucide-react';
+import { ClientPageHeader } from '@/components/content/ClientPageHeader';
 
 export function ProjectsHeader() {
   return (

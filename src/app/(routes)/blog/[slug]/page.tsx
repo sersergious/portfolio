@@ -1,14 +1,14 @@
 // app/blog/[slug]/page.tsx
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 import {
   getAllBlogPosts,
   getBlogPostBySlug,
   getRelatedContent,
-} from "@/lib/mdx-content";
-import { BlogHeader } from "@/components/blog/BlogHeader";
-import { MDXContent } from "@/components/mdx/MDXContent";
-import { RelatedContent } from "@/components/content/RelatedContent";
-import type { Metadata } from "next";
+} from '@/lib/mdx-content';
+import { BlogHeader } from '@/components/blog/BlogHeader';
+import { MDXContent } from '@/components/mdx/MDXContent';
+import { RelatedContent } from '@/components/content/RelatedContent';
+import type { Metadata } from 'next';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>; // Changed: params is now a Promise
@@ -16,7 +16,7 @@ interface BlogPostPageProps {
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.map(post => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: BlogPostPageProps): Promise<Metadata> {
   const resolvedParams = await params; // Added: await params
   const post = await getBlogPostBySlug(resolvedParams.slug); // Changed: use resolvedParams
-  if (!post) return { title: "Post Not Found" };
+  if (!post) return { title: 'Post Not Found' };
 
   return {
     title: post.title,
@@ -32,9 +32,9 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      type: "article",
+      type: 'article',
       publishedTime: post.date,
-      authors: [post.author?.name || "Serhii Kuzmin"],
+      authors: [post.author?.name || 'Serhii Kuzmin'],
       images: post.image ? [{ url: post.image }] : [],
     },
   };

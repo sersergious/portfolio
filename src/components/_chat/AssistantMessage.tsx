@@ -1,5 +1,5 @@
 // AssistantMessage.tsx
-"use client";
+'use client';
 
 import {
   Bot,
@@ -9,14 +9,14 @@ import {
   ThumbsUp,
   ThumbsDown,
   CheckCircle,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-//mport type { Message } from "ai";
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+//import type { Message } from "ai";
 
 // interface AssistantMessageProps {
 //   message: Message;

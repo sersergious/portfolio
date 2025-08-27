@@ -1,30 +1,30 @@
 // components/content/RelatedContent.tsx
-"use client";
+'use client';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock } from "lucide-react";
-import type { Project, BlogPost, ResearchPaper } from "@/lib/mdx-content";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, Clock } from 'lucide-react';
+import type { Project, BlogPost, ResearchPaper } from '@/lib/mdx-content';
 
 interface RelatedContentProps {
   title: string;
   items: (Project | BlogPost | ResearchPaper)[];
-  type: "project" | "blog" | "research";
+  type: 'project' | 'blog' | 'research';
 }
 
 export function RelatedContent({ title, items, type }: RelatedContentProps) {
   if (items.length === 0) return null;
 
   const getItemUrl = (item: Project | BlogPost | ResearchPaper) => {
-    return `/${type === "blog" ? "blog" : type === "research" ? "research" : "projects"}/${item.slug}`;
+    return `/${type === 'blog' ? 'blog' : type === 'research' ? 'research' : 'projects'}/${item.slug}`;
   };
 
   const getItemDescription = (
-    item: Project | BlogPost | ResearchPaper,
+    item: Project | BlogPost | ResearchPaper
   ): string => {
-    if ("abstract" in item) {
+    if ('abstract' in item) {
       return item.abstract; // ResearchPaper
     } else {
       return item.description; // Project or BlogPost

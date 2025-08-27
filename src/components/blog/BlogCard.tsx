@@ -1,14 +1,14 @@
 // components/blog/BlogCard.tsx
-import Link from "next/link";
-import { Calendar, Clock } from "lucide-react";
-import type { BlogPost } from "@/lib/mdx-content";
+import Link from 'next/link';
+import { Calendar, Clock } from 'lucide-react';
+import type { BlogPost } from '@/lib/mdx-content';
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  const readingTime = post.readingTime || "5 min read";
+  const readingTime = post.readingTime || '5 min read';
 
   return (
     <Link href={`/blog/${post.slug}`} className="block group h-full">
@@ -29,10 +29,10 @@ export function BlogCard({ post }: BlogCardProps) {
             <div className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               <time dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
+                {new Date(post.date).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
                 })}
               </time>
             </div>

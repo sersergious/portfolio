@@ -3,14 +3,14 @@ import {
   getAllBlogPosts,
   getUniqueCategories,
   getUniqueTags,
-} from "@/lib/mdx-content";
-import { BlogPageHeader } from "@/components/blog/BlogPageHeader";
-import { BlogPageClient } from "@/components/blog/BlogPageClient";
-import { Metadata } from "next";
+} from '@/lib/mdx-content';
+import { BlogPageHeader } from '@/components/blog/BlogPageHeader';
+import { BlogPageClient } from '@/components/blog/BlogPageClient';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Thoughts on software development, AI, and technology",
+  title: 'Blog',
+  description: 'Thoughts on software development, AI, and technology',
 };
 
 export default async function BlogPage() {

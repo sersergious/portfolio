@@ -1,31 +1,31 @@
-import "@/styles/globals.css";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Navigation } from "@/components/layout/Navigation";
-import { Metadata } from "next";
+import '@/styles/globals.css';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
+import { ThemeProvider } from '@/components/theme/theme-provider';
+import { Navigation } from '@/components/layout/Navigation';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    default: "Portfolio",
-    template: "%s - Portfolio",
+    default: 'Portfolio',
+    template: '%s - Portfolio',
   },
-  description: "Portfolio showcasing research and development work",
-  keywords: ["portfolio", "research", "development", "software engineering"],
-  authors: [{ name: "Serhii Kuzmin" }],
-  metadataBase: new URL("https://sersergious.dev"),
+  description: 'Portfolio showcasing research and development work',
+  keywords: ['portfolio', 'research', 'development', 'software engineering'],
+  authors: [{ name: 'Serhii Kuzmin' }],
+  metadataBase: new URL('https://sersergious.dev'),
   openGraph: {
-    title: "Portfolio",
-    description: "Research. Develop. Innovate.",
-    url: "https://sersergious.dev",
-    siteName: "Portfolio",
-    images: ["/images/og-image.png"],
-    locale: "en-US",
-    type: "website",
+    title: 'Portfolio',
+    description: 'Research. Develop. Innovate.',
+    url: 'https://sersergious.dev',
+    siteName: 'Portfolio',
+    images: ['/images/og-image.png'],
+    locale: 'en-US',
+    type: 'website',
   },
   icons: {
-    icon: "/images/logo.svg",
-    shortcut: "/images/logo.svg",
+    icon: '/images/logo.svg',
+    shortcut: '/images/logo.svg',
     //apple: "/apple-touch-icon.png", // Optional: for iOS
   },
   // twitter: {

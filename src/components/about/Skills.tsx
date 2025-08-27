@@ -1,19 +1,19 @@
 // components/about/Skills.tsx
-import { Code, Brain, Cog } from "lucide-react";
+import { Code, Brain, Cog } from 'lucide-react';
 import {
   FadeInWhenVisible,
   StaggerContainer,
   StaggerItem,
   FadeInScroll,
-} from "@/components/transitions";
+} from '@/components/transitions';
 
 export function Skills() {
   const skills = [
-    { name: "JavaScript/TypeScript", level: 90, color: "bg-gb-blue" },
-    { name: "Java", level: 90, color: "bg-gb-purple" },
-    { name: "Python", level: 80, color: "bg-gb-green" },
-    { name: "C", level: 80, color: "bg-gb-aqua" },
-    { name: "Go", level: 50, color: "bg-gb-orange" },
+    { name: 'JavaScript/TypeScript', level: 90, color: 'bg-gb-blue' },
+    { name: 'Java', level: 90, color: 'bg-gb-purple' },
+    { name: 'Python', level: 80, color: 'bg-gb-green' },
+    { name: 'C', level: 80, color: 'bg-gb-aqua' },
+    { name: 'Go', level: 50, color: 'bg-gb-orange' },
   ];
 
   return (

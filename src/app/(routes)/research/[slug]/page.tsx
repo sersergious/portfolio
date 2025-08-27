@@ -1,14 +1,14 @@
 // app/research/[slug]/page.tsx
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 import {
   getResearchBySlug,
   getAllResearch,
   getRelatedContent,
-} from "@/lib/mdx-content";
-import { ResearchHeader } from "@/components/research/ResearchHeader";
-import { MDXContent } from "@/components/mdx/MDXContent";
-import { RelatedContent } from "@/components/content/RelatedContent";
-import type { Metadata } from "next";
+} from '@/lib/mdx-content';
+import { ResearchHeader } from '@/components/research/ResearchHeader';
+import { MDXContent } from '@/components/mdx/MDXContent';
+import { RelatedContent } from '@/components/content/RelatedContent';
+import type { Metadata } from 'next';
 
 interface ResearchPageProps {
   params: Promise<{ slug: string }>; // Changed: params is now a Promise
@@ -16,7 +16,7 @@ interface ResearchPageProps {
 
 export async function generateStaticParams() {
   const papers = await getAllResearch();
-  return papers.map((paper) => ({ slug: paper.slug }));
+  return papers.map(paper => ({ slug: paper.slug }));
 }
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: ResearchPageProps): Promise<Metadata> {
   const resolvedParams = await params; // Added: await params
   const paper = await getResearchBySlug(resolvedParams.slug); // Changed: use resolvedParams
-  if (!paper) return { title: "Research Paper Not Found" };
+  if (!paper) return { title: 'Research Paper Not Found' };
 
   return {
     title: `${paper.title} - Research`,
@@ -32,7 +32,7 @@ export async function generateMetadata({
     openGraph: {
       title: paper.title,
       description: paper.abstract,
-      type: "article",
+      type: 'article',
       publishedTime: paper.date,
       authors: paper.authors,
       images: paper.image ? [{ url: paper.image }] : [],

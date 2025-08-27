@@ -1,6 +1,6 @@
 // components/home/Preview.tsx
-import { FadeInWhenVisible } from "@/components/transitions";
-import Link from "next/link";
+import { FadeInWhenVisible } from '@/components/transitions';
+import Link from 'next/link';
 import {
   ArrowRight,
   BookOpen,
@@ -10,11 +10,11 @@ import {
   Code,
   Brain,
   Monitor,
-} from "lucide-react";
-import { ResearchCard } from "@/components/research/ResearchCard";
-import { BlogCard } from "@/components/blog/BlogCard";
-import { ProjectCard } from "@/components/projects/ProjectCard";
-import type { Project, BlogPost, ResearchPaper } from "@/lib/mdx-content";
+} from 'lucide-react';
+import { ResearchCard } from '@/components/research/ResearchCard';
+import { BlogCard } from '@/components/blog/BlogCard';
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import type { Project, BlogPost, ResearchPaper } from '@/lib/mdx-content';
 
 interface PreviewProps {
   projects: Project[];
@@ -48,7 +48,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-              {latestProjects.map((project) => (
+              {latestProjects.map(project => (
                 <ProjectCard key={project.slug} project={project} />
               ))}
             </div>
@@ -170,7 +170,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 {latestResearch.length > 0 ? (
                   <div>
                     <div className="space-y-6">
-                      {latestResearch.map((paper) => (
+                      {latestResearch.map(paper => (
                         <div key={paper.slug} className="h-full">
                           <ResearchCard paper={paper} />
                         </div>
@@ -208,7 +208,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 {latestBlogPosts.length > 0 ? (
                   <>
                     <div className="space-y-6">
-                      {latestBlogPosts.map((post) => (
+                      {latestBlogPosts.map(post => (
                         <div key={post.slug} className="h-full">
                           <BlogCard post={post} />
                         </div>

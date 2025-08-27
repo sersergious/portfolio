@@ -3,8 +3,8 @@ import {
   FadeInWhenVisible,
   AnimatedBackground,
   SlideIn,
-} from "@/components/transitions";
-import Image from "next/image";
+} from '@/components/transitions';
+import Image from 'next/image';
 
 export function HeroTLDR() {
   return (
@@ -18,8 +18,8 @@ export function HeroTLDR() {
                 TL;DR
               </span>
               <p className="text-2xl md:text-3xl font-medium leading-relaxed text-center max-w-4xl mx-auto">
-                I'm a senior at the University of Scranton studying{" "}
-                <span className="text-primary">Computer Science</span> and{" "}
+                I'm a senior at the University of Scranton studying{' '}
+                <span className="text-primary">Computer Science</span> and{' '}
                 <span className="text-accent">Mathematical Sciences</span> with
                 passion for science and technology. In my free time I'm a very
                 outdoorsy person helping run hiking retreats at my University,
@@ -39,15 +39,15 @@ export function HeroTLDR() {
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
                     My name is Serhii Kuzmin and I'm an aspiring developer and
-                    researcher on a mission to bridge{" "}
+                    researcher on a mission to bridge{' '}
                     <span className="text-primary font-semibold">
                       mathematics
-                    </span>{" "}
+                    </span>{' '}
                     and
                     <span className="text-accent font-semibold">
-                      {" "}
+                      {' '}
                       computer science
-                    </span>{" "}
+                    </span>{' '}
                     to create technologies that make a lasting impact.
                   </p>
                   <p>

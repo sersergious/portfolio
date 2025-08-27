@@ -1,5 +1,5 @@
 // components/content/ContentHeader.tsx
-"use client";
+'use client';
 
 import {
   ArrowLeft,
@@ -16,45 +16,45 @@ import {
   User,
   Users,
   Zap,
-} from "lucide-react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import type { BlogPost, Project, ResearchPaper } from "@/lib/mdx-content";
+} from 'lucide-react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import type { BlogPost, Project, ResearchPaper } from '@/lib/mdx-content';
 
 type Content = BlogPost | Project | ResearchPaper;
 
 interface ContentHeaderProps {
   content: Content;
-  type: "blog" | "project" | "research";
+  type: 'blog' | 'project' | 'research';
 }
 
 const contentConfig = {
   blog: {
     icon: FileText,
-    color: "from-emerald-500 to-green-600",
-    bgColor: "bg-emerald-50",
-    textColor: "text-emerald-600",
-    backLink: "/blog",
-    backText: "All Posts",
+    color: 'from-emerald-500 to-green-600',
+    bgColor: 'bg-emerald-50',
+    textColor: 'text-emerald-600',
+    backLink: '/blog',
+    backText: 'All Posts',
   },
   project: {
     icon: Code,
-    color: "from-purple-500 to-violet-600",
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-600",
-    backLink: "/projects",
-    backText: "All Projects",
+    color: 'from-purple-500 to-violet-600',
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-600',
+    backLink: '/projects',
+    backText: 'All Projects',
   },
   research: {
     icon: BookOpen,
-    color: "from-blue-500 to-indigo-600",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-600",
-    backLink: "/research",
-    backText: "All Research",
+    color: 'from-blue-500 to-indigo-600',
+    bgColor: 'bg-blue-50',
+    textColor: 'text-blue-600',
+    backLink: '/research',
+    backText: 'All Research',
   },
 };
 
@@ -68,15 +68,15 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
         await navigator.share({
           title: content.title,
           text:
-            "description" in content
+            'description' in content
               ? content.description
-              : "abstract" in content
+              : 'abstract' in content
                 ? content.abstract
-                : "",
+                : '',
           url: window.location.href,
         });
       } catch (err) {
-        console.error("Share failed:", err);
+        console.error('Share failed:', err);
         navigator.clipboard.writeText(window.location.href);
       }
     } else {
@@ -87,7 +87,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
   const renderMetaItem = (
     IconComponent: React.ElementType,
     label: string | React.ReactNode,
-    delay: number = 0,
+    delay: number = 0
   ) => (
     <motion.div
       className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -97,7 +97,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
     >
       <motion.div
         whileHover={{ scale: 1.1 }}
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
       >
         <IconComponent className="h-4 w-4" />
       </motion.div>
@@ -118,7 +118,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
           transition={{
             duration: 8,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         />
         <motion.div
@@ -130,7 +130,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
           transition={{
             duration: 10,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 2,
           }}
         />
@@ -158,7 +158,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 200,
               damping: 15,
               delay: 0.2,
@@ -169,9 +169,9 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
               transition: { duration: 0.3 },
             }}
             className={cn(
-              "relative flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-3xl shadow-xl",
+              'relative flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-3xl shadow-xl',
               `bg-gradient-to-br ${config.color}`,
-              "cursor-pointer",
+              'cursor-pointer'
             )}
           >
             <Icon className="h-12 w-12 text-white" />
@@ -199,32 +199,32 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                {"description" in content && content.description}
-                {"abstract" in content && content.abstract}
+                {'description' in content && content.description}
+                {'abstract' in content && content.abstract}
               </motion.p>
 
               {/* Meta Information */}
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/50 pt-6">
-                {"author" in content &&
+                {'author' in content &&
                   renderMetaItem(User, content.author.name, 0.7)}
-                {"authors" in content &&
-                  renderMetaItem(Users, content.authors.join(", "), 0.7)}
+                {'authors' in content &&
+                  renderMetaItem(Users, content.authors.join(', '), 0.7)}
                 {renderMetaItem(
                   Calendar,
-                  new Date(content.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                  new Date(content.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                   }),
-                  0.8,
+                  0.8
                 )}
-                {"readingTime" in content &&
+                {'readingTime' in content &&
                   renderMetaItem(Clock, content.readingTime, 0.9)}
               </div>
             </motion.div>
 
             {/* Tags - Now inside the content section */}
-            {"tags" in content && content.tags && content.tags.length > 0 && (
+            {'tags' in content && content.tags && content.tags.length > 0 && (
               <motion.div
                 className="mt-6 flex flex-wrap gap-2"
                 initial={{ opacity: 0, y: 20 }}
@@ -257,7 +257,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.0 }}
             >
-              {"github" in content && content.github && (
+              {'github' in content && content.github && (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -274,7 +274,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                   </Button>
                 </motion.div>
               )}
-              {"demo" in content && content.demo && (
+              {'demo' in content && content.demo && (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -291,7 +291,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                   </Button>
                 </motion.div>
               )}
-              {"pdf" in content && content.pdf && (
+              {'pdf' in content && content.pdf && (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -308,7 +308,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                   </Button>
                 </motion.div>
               )}
-              {"doi" in content && content.doi && (
+              {'doi' in content && content.doi && (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

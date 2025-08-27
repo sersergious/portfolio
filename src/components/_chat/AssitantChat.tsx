@@ -1,10 +1,10 @@
 // AssistantChat.tsx
-"use client";
+'use client';
 
-import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef } from "react";
-import { AssistantMessage } from "@/components/_chat/AssistantMessage";
-import { AssistantChatInput } from "@/components/_chat/AssistantChatInput";
+import { useChat } from '@ai-sdk/react';
+import { useEffect, useRef } from 'react';
+import { AssistantMessage } from '@/components/_chat/AssistantMessage';
+import { AssistantChatInput } from '@/components/_chat/AssistantChatInput';
 
 // export function AssistantChat() {
 //   const {

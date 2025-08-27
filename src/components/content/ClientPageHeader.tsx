@@ -1,9 +1,9 @@
 // src/components/content/ClientPageHeader.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ClientPageHeaderProps {
   title: string;
@@ -29,13 +29,13 @@ export function ClientPageHeader({
         >
           <motion.div
             className={cn(
-              "mb-6 w-fit rounded-2xl bg-gradient-to-br from-background to-muted/50 p-4 shadow-lg",
-              iconClassName,
+              'mb-6 w-fit rounded-2xl bg-gradient-to-br from-background to-muted/50 p-4 shadow-lg',
+              iconClassName
             )}
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 260,
               damping: 20,
               delay: 0.2,

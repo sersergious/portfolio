@@ -1,9 +1,9 @@
 // components/projects/ProjectCard.tsx
-"use client";
+'use client';
 
-import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
-import type { Project } from "@/lib/mdx-content";
+import Link from 'next/link';
+import { ExternalLink, Github } from 'lucide-react';
+import type { Project } from '@/lib/mdx-content';
 
 interface ProjectCardProps {
   project: Project;

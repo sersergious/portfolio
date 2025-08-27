@@ -1,40 +1,40 @@
 // components/about/ResearchInterests.tsx
-import { Brain, Cpu, Shield, Target } from "lucide-react";
+import { Brain, Cpu, Shield, Target } from 'lucide-react';
 import {
   FadeInWhenVisible,
   ScaleOnHover,
   StaggerContainer,
   StaggerItem,
-} from "@/components/transitions";
+} from '@/components/transitions';
 
 export function ResearchInterests() {
   const researchInterests = [
     {
-      title: "Artificial Intelligence",
+      title: 'Artificial Intelligence',
       description:
-        "Exploring deep learning, neural networks, and AGI possibilities",
+        'Exploring deep learning, neural networks, and AGI possibilities',
       icon: Brain,
-      color: "text-gb-green",
+      color: 'text-gb-green',
     },
     {
-      title: "Quantum Computing",
+      title: 'Quantum Computing',
       description:
-        "Quantum algorithms and their applications in solving complex problems",
+        'Quantum algorithms and their applications in solving complex problems',
       icon: Cpu,
-      color: "text-gb-aqua",
+      color: 'text-gb-aqua',
     },
     {
-      title: "Cryptography",
+      title: 'Cryptography',
       description:
-        "Post-quantum cryptographic systems for secure communication",
+        'Post-quantum cryptographic systems for secure communication',
       icon: Shield,
-      color: "text-gb-orange",
+      color: 'text-gb-orange',
     },
     {
-      title: "Applied Mathematics",
-      description: "Applied mathematics in computational contexts",
+      title: 'Applied Mathematics',
+      description: 'Applied mathematics in computational contexts',
       icon: Target,
-      color: "text-gb-purple",
+      color: 'text-gb-purple',
     },
   ];
 
@@ -70,7 +70,7 @@ export function ResearchInterests() {
                   </div>
                 </ScaleOnHover>
               </StaggerItem>
-            ),
+            )
           )}
         </StaggerContainer>
       </div>

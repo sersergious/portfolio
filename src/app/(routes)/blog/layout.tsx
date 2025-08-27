@@ -1,19 +1,19 @@
 // app/blog/layout.tsx
-import { Metadata } from "next";
-import Link from "next/link";
+import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: {
-    default: "Blog",
-    template: "%s | Blog",
+    default: 'Blog',
+    template: '%s | Blog',
   },
   description:
-    "Technical articles, tutorials, and insights on software development and research",
+    'Technical articles, tutorials, and insights on software development and research',
   openGraph: {
-    title: "Blog",
+    title: 'Blog',
     description:
-      "Technical articles, tutorials, and insights on software development and research",
-    type: "website",
+      'Technical articles, tutorials, and insights on software development and research',
+    type: 'website',
   },
 };
 

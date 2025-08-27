@@ -1,11 +1,11 @@
 // components/about/Philosophy.tsx
-import { Heart } from "lucide-react";
+import { Heart } from 'lucide-react';
 import {
   FadeInWhenVisible,
   SlideIn,
   FadeInScroll,
-} from "@/components/transitions";
-import Image from "next/image";
+} from '@/components/transitions';
+import Image from 'next/image';
 
 export function Philosophy() {
   return (

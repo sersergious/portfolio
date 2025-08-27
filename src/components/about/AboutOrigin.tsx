@@ -1,6 +1,6 @@
-import { Zap } from "lucide-react";
-import { FadeInWhenVisible, SlideIn } from "@/components/transitions";
-import Image from "next/image";
+import { Zap } from 'lucide-react';
+import { FadeInWhenVisible, SlideIn } from '@/components/transitions';
+import Image from 'next/image';
 
 export function AboutOrigin() {
   return (

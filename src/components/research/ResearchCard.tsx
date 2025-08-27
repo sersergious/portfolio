@@ -1,7 +1,7 @@
 // components/research/ResearchCard.tsx
-import { Calendar, Users } from "lucide-react";
-import Link from "next/link";
-import type { ResearchPaper } from "@/lib/mdx-content";
+import { Calendar, Users } from 'lucide-react';
+import Link from 'next/link';
+import type { ResearchPaper } from '@/lib/mdx-content';
 
 interface ResearchCardProps {
   paper: ResearchPaper;
@@ -20,7 +20,7 @@ export function ResearchCard({ paper }: ResearchCardProps) {
           {/* Authors with icon */}
           <div className="flex items-start gap-2 text-muted-foreground mb-4">
             <Users className="w-4 h-4 mt-0.5 flex-shrink-0" />
-            <p className="line-clamp-2">{paper.authors.join(", ")}</p>
+            <p className="line-clamp-2">{paper.authors.join(', ')}</p>
           </div>
 
           {/* Publication Info */}
@@ -60,7 +60,7 @@ export function ResearchCard({ paper }: ResearchCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
               >
                 View PDF →
               </a>

@@ -1,10 +1,10 @@
 //src/mdx/MDXContent.tsx
-"use client";
+'use client';
 
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Suspense } from 'react';
 
 // Custom components for MDX
 const mdxComponents = {
@@ -83,7 +83,7 @@ const mdxComponents = {
   // Links
   a: ({ children, href, ...props }: any) => {
     // Internal links
-    if (href?.startsWith("/")) {
+    if (href?.startsWith('/')) {
       return (
         <Link
           href={href}
@@ -112,7 +112,7 @@ const mdxComponents = {
   img: ({ src, alt, ...props }: any) => (
     <Image
       src={src}
-      alt={alt || ""}
+      alt={alt || ''}
       width={800}
       height={400}
       className="rounded-lg my-6 w-full h-auto"

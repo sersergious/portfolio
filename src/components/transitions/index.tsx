@@ -1,25 +1,25 @@
 // components/transitions/index.tsx
-"use client";
+'use client';
 
-import { motion, useInView, Variants } from "framer-motion";
-import { useRef, ReactNode, useState, useEffect } from "react";
+import { motion, useInView, Variants } from 'framer-motion';
+import { useRef, ReactNode, useState, useEffect } from 'react';
 
 // ============= FADE IN WHEN VISIBLE =============
 interface FadeInWhenVisibleProps {
   children: ReactNode;
   delay?: number;
-  direction?: "up" | "down" | "left" | "right";
+  direction?: 'up' | 'down' | 'left' | 'right';
   className?: string;
 }
 
 export function FadeInWhenVisible({
   children,
   delay = 0,
-  direction = "up",
-  className = "",
+  direction = 'up',
+  className = '',
 }: FadeInWhenVisibleProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const directionOffset = {
     up: { y: 50 },
@@ -38,7 +38,7 @@ export function FadeInWhenVisible({
           ? { opacity: 1, x: 0, y: 0 }
           : { opacity: 0, ...directionOffset[direction] }
       }
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -54,7 +54,7 @@ interface StaggerContainerProps {
 
 export function StaggerContainer({
   children,
-  className = "",
+  className = '',
   staggerDelay = 0.1,
 }: StaggerContainerProps) {
   const containerVariants: Variants = {
@@ -88,7 +88,7 @@ interface StaggerItemProps {
 
 export function StaggerItem({
   children,
-  className = "",
+  className = '',
   delay = 0,
 }: StaggerItemProps) {
   const itemVariants: Variants = {
@@ -120,14 +120,14 @@ interface ScaleOnHoverProps {
 export function ScaleOnHover({
   children,
   scale = 1.05,
-  className = "",
+  className = '',
 }: ScaleOnHoverProps) {
   return (
     <motion.div
       className={className}
       whileHover={{ scale }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
       {children}
     </motion.div>
@@ -144,11 +144,11 @@ interface TypewriterTextProps {
 
 export function TypewriterText({
   text,
-  className = "",
+  className = '',
   speed = 100,
   delay = 0,
 }: TypewriterTextProps) {
-  const [displayedText, setDisplayedText] = useState("");
+  const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -180,7 +180,7 @@ interface FadeInScrollProps {
 
 export function FadeInScroll({
   children,
-  className = "",
+  className = '',
   threshold = 0.1,
 }: FadeInScrollProps) {
   const ref = useRef(null);
@@ -195,7 +195,7 @@ export function FadeInScroll({
       className={className}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -208,7 +208,7 @@ interface AnimatedBackgroundProps {
 }
 
 export function AnimatedBackground({
-  className = "",
+  className = '',
 }: AnimatedBackgroundProps) {
   return (
     <div className={`absolute inset-0 -z-10 overflow-hidden ${className}`}>
@@ -221,7 +221,7 @@ export function AnimatedBackground({
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
       />
       <motion.div
@@ -233,7 +233,7 @@ export function AnimatedBackground({
         transition={{
           duration: 6,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
           delay: 1,
         }}
       />
@@ -244,16 +244,16 @@ export function AnimatedBackground({
 // ============= SLIDE IN =============
 interface SlideInProps {
   children: ReactNode;
-  from?: "left" | "right" | "top" | "bottom";
+  from?: 'left' | 'right' | 'top' | 'bottom';
   delay?: number;
   className?: string;
 }
 
 export function SlideIn({
   children,
-  from = "left",
+  from = 'left',
   delay = 0,
-  className = "",
+  className = '',
 }: SlideInProps) {
   const variants = {
     left: { x: -100, opacity: 0 },
@@ -267,7 +267,7 @@ export function SlideIn({
       className={className}
       initial={variants[from]}
       animate={{ x: 0, y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -283,7 +283,7 @@ interface RotateInProps {
 
 export function RotateIn({
   children,
-  className = "",
+  className = '',
   delay = 0,
 }: RotateInProps) {
   return (
@@ -292,7 +292,7 @@ export function RotateIn({
       initial={{ rotate: -180, scale: 0, opacity: 0 }}
       animate={{ rotate: 0, scale: 1, opacity: 1 }}
       transition={{
-        type: "spring",
+        type: 'spring',
         duration: 0.8,
         delay,
         bounce: 0.3,
@@ -310,7 +310,7 @@ interface PulseProps {
   duration?: number;
 }
 
-export function Pulse({ children, className = "", duration = 2 }: PulseProps) {
+export function Pulse({ children, className = '', duration = 2 }: PulseProps) {
   return (
     <motion.div
       className={className}
@@ -318,7 +318,7 @@ export function Pulse({ children, className = "", duration = 2 }: PulseProps) {
       transition={{
         duration,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: 'easeInOut',
       }}
     >
       {children}
@@ -336,7 +336,7 @@ interface ParallaxProps {
 export function Parallax({
   children,
   offset = 50,
-  className = "",
+  className = '',
 }: ParallaxProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
@@ -347,7 +347,7 @@ export function Parallax({
       className={className}
       initial={{ y: -offset }}
       animate={{ y: isInView ? 0 : -offset }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {children}
     </motion.div>

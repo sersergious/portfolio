@@ -1,21 +1,21 @@
 // app/research/layout.tsx
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    default: "Research",
-    template: "%s | Research",
+    default: 'Research',
+    template: '%s | Research',
   },
   description:
-    "Academic research in machine learning, artificial intelligence, and software engineering",
+    'Academic research in machine learning, artificial intelligence, and software engineering',
   openGraph: {
-    title: "Research",
+    title: 'Research',
     description:
-      "Academic research in machine learning, artificial intelligence, and software engineering",
-    type: "website",
+      'Academic research in machine learning, artificial intelligence, and software engineering',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
   },
 };
 

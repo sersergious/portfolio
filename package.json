@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@ai-sdk/groq": "^2.0.4",
@@ -60,7 +62,9 @@
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.32.0",
     "eslint-config-next": "15.4.5",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
+    "prettier": "^3.6.2",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-highlight": "^6.0.0",
     "rehype-katex": "^6.0.3",

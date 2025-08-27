@@ -1,9 +1,9 @@
 // components/research/ResearchPageClient.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ResearchCard } from "@/components/research/ResearchCard";
-import { ResearchPaper } from "@/lib/mdx-content";
+import { motion } from 'framer-motion';
+import { ResearchCard } from '@/components/research/ResearchCard';
+import { ResearchPaper } from '@/lib/mdx-content';
 
 interface ResearchPageClientProps {
   papers: ResearchPaper[];
@@ -26,7 +26,7 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
         damping: 12,
       },
@@ -41,16 +41,16 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={"space-y-6"}
+          className={'space-y-6'}
         >
-          {papers.map((paper) => (
+          {papers.map(paper => (
             <motion.div
               key={paper.slug}
               variants={itemVariants as any}
               whileHover={{
                 scale: 1.02,
-                boxShadow: "0px 8px 30px rgba(0,0,0,0.08)",
-                transition: { type: "spring", stiffness: 300, damping: 20 },
+                boxShadow: '0px 8px 30px rgba(0,0,0,0.08)',
+                transition: { type: 'spring', stiffness: 300, damping: 20 },
               }}
               className="rounded-lg"
             >
