@@ -1,6 +1,6 @@
-# sersergious-website
+# Personal Portfolio
 
-A clean, fast, and accessible personal portfolio by Serhii Kuzmin. It showcases projects, research, and blog posts in a minimalist, Gruvbox-inspired design.
+A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showcases projects, research, and blog posts in a minimalist, Gruvbox-inspired design.
 
 ## Tech stack
 
@@ -29,4 +29,4 @@ A clean, fast, and accessible personal portfolio by Serhii Kuzmin. It showcases 
 
 - Portfolio: https://sersergious.dev
 - Contact: serhii.kuzmin@scranton.edu
-- Repo: https://github.com/yourusername/sersergious-website
+
