@@ -29,4 +29,3 @@ A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showc
 
 - Portfolio: https://sersergious.dev
 - Contact: serhii.kuzmin@scranton.edu
-
