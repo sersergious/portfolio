@@ -11,7 +11,6 @@ A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showc
 - MDX for blog, projects, and research content
 - shadcn/ui components + Framer Motion for a polished UX
 - Resend for contact emails
-- Vercel AI SDK + Groq (for the upcoming chat assistant)
 
 ## Unique features
 
@@ -22,8 +21,10 @@ A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showc
 
 ## In the works
 
-- AI chat assistant to answer questions about the site and content (Groq-powered)
-- More blog posts and research write-ups
+- More blog posts and research write-ups.
+- More software development projects.
+- Better optimizations and performance improvements.
+- Simpler and more intuitive UI.
 
 ## Links
 
