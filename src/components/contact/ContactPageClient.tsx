@@ -179,7 +179,6 @@ export function ContactPageClient({
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ x: 5 }}
                   className="group"
                 >
                   {item.href ? (
