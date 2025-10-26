@@ -6,7 +6,6 @@ import {
   BookOpen,
   FileText,
   Mail,
-  MessageCircle,
   Code,
   Brain,
   Monitor,
@@ -264,15 +263,6 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 Get In Touch
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-
-              {/*AI Assistant coming soon*/}
-              <div
-                className="btn-secondary inline-flex items-center gap-2 px-6 py-3 opacity-50 cursor-not-allowed select-none"
-                title="AI Assistant Coming Soon"
-              >
-                <MessageCircle className="w-5 h-5" />
-                AI Assistant Coming Soon
-              </div>
             </div>
           </div>
         </div>
