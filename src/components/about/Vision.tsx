@@ -3,7 +3,6 @@ import { Rocket, Code, ArrowRight, Mail } from 'lucide-react';
 import {
   FadeInWhenVisible,
   ScaleOnHover,
-  Pulse,
 } from '@/components/transitions';
 import Link from 'next/link';
 
@@ -13,9 +12,7 @@ export function Vision() {
       <div className="container mx-auto px-4">
         <FadeInWhenVisible direction="up">
           <div className="max-w-4xl mx-auto text-center">
-            <Pulse duration={3}>
-              <Rocket className="w-16 h-16 text-primary mx-auto mb-8" />
-            </Pulse>
+            <Rocket className="w-16 h-16 text-primary mx-auto mb-8" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Looking Forward
             </h2>

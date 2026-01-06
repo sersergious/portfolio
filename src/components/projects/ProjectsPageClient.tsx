@@ -21,16 +21,14 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
+    hidden: { opacity: 0 },
+    visible: (i) => ({
       opacity: 1,
-      scale: 1,
       transition: {
-        type: 'spring' as const,
-        stiffness: 100,
-        damping: 12,
+        delay: i * 0.1,
+        duration: 0.5,
       },
-    },
+    }),
   };
 
   return (
@@ -47,14 +45,7 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
             <motion.div
               key={project.slug}
               variants={itemVariants}
-              whileHover={{
-                y: -5,
-                transition: {
-                  type: 'spring' as const,
-                  stiffness: 300,
-                  damping: 20,
-                },
-              }}
+              custom={projects.indexOf(project)}
               className="h-full"
             >
               <ProjectCard project={project} />

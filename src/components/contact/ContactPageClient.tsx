@@ -104,55 +104,27 @@ export function ContactPageClient({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-primary/5 blur-3xl"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-accent/5 blur-3xl"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: 5,
-          }}
-        />
-      </div>
 
       <div className="container relative mx-auto px-4 py-20">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Get In Touch
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             Have a question or want to work together? I'd love to hear from you.
@@ -164,8 +136,8 @@ export function ContactPageClient({
           {/* Contact Information */}
           <motion.div
             className="lg:col-span-1 space-y-8"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             {/* Contact Info Cards */}
@@ -176,10 +148,10 @@ export function ContactPageClient({
               {contactInfo.map((item, index) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   className="group"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 >
                   {item.href ? (
                     <a
@@ -224,11 +196,11 @@ export function ContactPageClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-lg border bg-card hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
                     aria-label={link.label}
                   >
                     <link.icon className="w-5 h-5" />
@@ -241,8 +213,8 @@ export function ContactPageClient({
           {/* Contact Form */}
           <motion.div
             className="lg:col-span-2"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="bg-card rounded-xl border p-8">
@@ -343,25 +315,17 @@ export function ContactPageClient({
 
                 {/* Status Messages */}
                 {status === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2 p-3 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                  >
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
                     <CheckCircle className="w-4 h-4" />
                     <span className="text-sm">Message sent successfully!</span>
-                  </motion.div>
+                  </div>
                 )}
 
                 {status === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2 p-3 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
-                  >
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400">
                     <AlertCircle className="w-4 h-4" />
                     <span className="text-sm">{errorMessage}</span>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Submit Button */}
@@ -372,7 +336,12 @@ export function ContactPageClient({
                 >
                   {status === 'loading' ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Loader2 className="w-4 h-4" />
+                      </motion.div>
                       Sending...
                     </>
                   ) : (

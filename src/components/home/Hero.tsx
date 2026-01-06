@@ -1,4 +1,7 @@
 // components/home/Hero.tsx
+'use client';
+
+import { motion } from 'framer-motion';
 import { TypewriterText, AnimatedBackground } from '@/components/transitions';
 import Link from 'next/link';
 import { Download, Github, Linkedin, Mail } from 'lucide-react';
@@ -20,10 +23,20 @@ export function Hero() {
     <section className="min-h-screen relative py-20 md:py-32 overflow-hidden">
       <div className="flex flex-col lg:flex-row items-center justify-between px-6 py-12 max-w-7xl mx-auto">
         {/* Text Content Column */}
-        <div className="w-full lg:w-1/2">
+        <motion.div
+          className="w-full lg:w-1/2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="text-center lg:text-left max-w-4xl lg:max-w-none">
             {/* Main Heading */}
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <span className="block mb-4">
                 Hi, I'm
                 <TypewriterText
@@ -32,10 +45,15 @@ export function Hero() {
                   speed={100}
                 />
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Hero Image - Mobile Only */}
-            <div className="lg:hidden flex justify-center mb-8">
+            <motion.div
+              className="lg:hidden flex justify-center mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div className="relative aspect-square w-[280px] sm:w-[320px] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/hero-img.png"
@@ -45,18 +63,28 @@ export function Hero() {
                   priority
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-3xl lg:max-w-none">
+            <motion.p
+              className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-3xl lg:max-w-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               I'm a researcher and developer passionate about creating
               innovative solutions at the intersection of{' '}
               <span className="text-primary font-semibold">technology</span> and{' '}
               <span className="text-accent font-semibold">science</span>.
-            </p>
+            </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12">
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               {/* Resume Button */}
               <a href="/docs/resume.pdf" download className="w-full sm:w-auto">
                 <Button className="w-full" variant="default">
@@ -76,11 +104,16 @@ export function Hero() {
                   Download Transcript
                 </Button>
               </a>
-            </div>
+            </motion.div>
 
             {/* Social Links */}
-            <div className="flex justify-center lg:justify-start gap-4">
-              {socials.map(social => (
+            <motion.div
+              className="flex justify-center lg:justify-start gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              {socials.map((social, index) => (
                 <Link
                   key={social.label}
                   href={social.href}
@@ -101,12 +134,17 @@ export function Hero() {
                   </Button>
                 </Link>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Hero Image - Desktop Only */}
-        <div className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end">
+        <motion.div
+          className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <div className="relative aspect-square w-[400px] rounded-2xl overflow-hidden">
             <Image
               src="/images/hero-img.png"
@@ -116,7 +154,7 @@ export function Hero() {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Background Elements */}

@@ -2,7 +2,6 @@
 import {
   FadeInWhenVisible,
   AnimatedBackground,
-  SlideIn,
 } from '@/components/transitions';
 import Image from 'next/image';
 
@@ -32,7 +31,7 @@ export function HeroTLDR() {
           <FadeInWhenVisible direction="up" delay={0.2}>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Text Content */}
-              <SlideIn from="left">
+              <div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   About Me
                 </h1>
@@ -60,10 +59,10 @@ export function HeroTLDR() {
                     interests.
                   </p>
                 </div>
-              </SlideIn>
+              </div>
 
               {/* Image */}
-              <SlideIn from="right" delay={0.3}>
+              <div>
                 <div className="relative aspect-square w-full max-w-[500px] mx-auto rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="/images/about-hero.png"
@@ -73,7 +72,7 @@ export function HeroTLDR() {
                     priority
                   />
                 </div>
-              </SlideIn>
+              </div>
             </div>
           </FadeInWhenVisible>
         </div>

@@ -1,4 +1,7 @@
 // components/home/Preview.tsx
+'use client';
+
+import { motion } from 'framer-motion';
 import { FadeInWhenVisible } from '@/components/transitions';
 import Link from 'next/link';
 import {
@@ -33,7 +36,12 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
       {latestProjects.length > 0 && (
         <section className="py-20 bg-muted/20">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Code className="w-6 h-6 text-violet-500" />
                 <h2 className="text-3xl md:text-4xl font-bold">
@@ -44,15 +52,32 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 Showcasing innovative solutions and cutting-edge development
                 work
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-              {latestProjects.map(project => (
-                <ProjectCard key={project.slug} project={project} />
+            <motion.div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              {latestProjects.map((project, index) => (
+                <motion.div
+                  key={project.slug}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                >
+                  <ProjectCard project={project} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="text-center">
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               <Link
                 href="/projects"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium group transition-colors"
@@ -60,7 +85,7 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 View all projects
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
@@ -68,7 +93,12 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
       {/* About Preview */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Building the Future
@@ -97,7 +127,12 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
               </div>
             </div>
 
-            <div className="space-y-6">
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               {/* What I Do Cards - with flexbox for equal heights */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="card-flat rounded-2xl p-6 bg-card shadow-sm h-full flex flex-col">
@@ -140,28 +175,41 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Research & Blog Preview */}
-      <FadeInWhenVisible direction="up">
         <section className="py-24 bg-muted/20">
           <div className="container mx-auto px-4">
             {/* Centered header and text */}
-            <div className="text-center mb-16">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 My Recent Publications
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Check out my recent research work and my personal blog
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <motion.div
+              className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
               {/* Research Preview */}
-              <div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
                 <div className="flex items-center gap-3 mb-8">
                   <BookOpen className="w-6 h-6 text-primary" />
                   <h3 className="text-2xl font-bold">Recent Research</h3>
@@ -169,10 +217,16 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 {latestResearch.length > 0 ? (
                   <div>
                     <div className="space-y-6">
-                      {latestResearch.map(paper => (
-                        <div key={paper.slug} className="h-full">
+                      {latestResearch.map((paper, index) => (
+                        <motion.div
+                          key={paper.slug}
+                          className="h-full"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                        >
                           <ResearchCard paper={paper} />
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                     <div className="mt-8">
@@ -196,10 +250,14 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     </p>
                   </div>
                 )}
-              </div>
+              </motion.div>
 
               {/* Blog Preview */}
-              <div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
                 <div className="flex items-center gap-3 mb-8">
                   <FileText className="w-6 h-6 text-accent" />
                   <h3 className="text-2xl font-bold">Recent Blog Posts</h3>
@@ -207,10 +265,16 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 {latestBlogPosts.length > 0 ? (
                   <>
                     <div className="space-y-6">
-                      {latestBlogPosts.map(post => (
-                        <div key={post.slug} className="h-full">
+                      {latestBlogPosts.map((post, index) => (
+                        <motion.div
+                          key={post.slug}
+                          className="h-full"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                        >
                           <BlogCard post={post} />
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                     <div className="mt-8">
@@ -234,16 +298,21 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                     </p>
                   </div>
                 )}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
-      </FadeInWhenVisible>
+
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+          <motion.div
+            className="max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Collaborate?
             </h2>
@@ -254,7 +323,12 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
               research.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+            >
               <Link
                 href="/contact"
                 className="btn-primary group inline-flex items-center gap-2 px-6 py-3"
@@ -263,8 +337,8 @@ export function Preview({ projects, blogPosts, research }: PreviewProps) {
                 Get In Touch
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

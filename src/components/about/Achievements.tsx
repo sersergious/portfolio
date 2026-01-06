@@ -11,7 +11,7 @@ export function Achievements() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
-        <FadeInWhenVisible direction="up">
+        
           <div className="text-center mb-16">
             <Medal className="w-16 h-16 text-gb-yellow mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -22,7 +22,7 @@ export function Achievements() {
               mathematical thinking
             </p>
           </div>
-        </FadeInWhenVisible>
+        
 
         <StaggerContainer className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <StaggerItem>
