@@ -21,14 +21,11 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
+        duration: 0.5,
       },
     },
   };
@@ -47,11 +44,6 @@ export function ResearchPageClient({ papers }: ResearchPageClientProps) {
             <motion.div
               key={paper.slug}
               variants={itemVariants as any}
-              whileHover={{
-                scale: 1.02,
-                boxShadow: '0px 8px 30px rgba(0,0,0,0.08)',
-                transition: { type: 'spring', stiffness: 300, damping: 20 },
-              }}
               className="rounded-lg"
             >
               <ResearchCard paper={paper} />

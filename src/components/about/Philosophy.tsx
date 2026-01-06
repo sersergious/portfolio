@@ -2,7 +2,6 @@
 import { Heart } from 'lucide-react';
 import {
   FadeInWhenVisible,
-  SlideIn,
   FadeInScroll,
 } from '@/components/transitions';
 import Image from 'next/image';
@@ -16,7 +15,7 @@ export function Philosophy() {
             {/* Left - Text */}
             <div className="space-y-12">
               {/* What Drives Me */}
-              <SlideIn from="left">
+              <div>
                 <div className="flex items-center gap-4 mb-6">
                   <Heart className="w-12 h-12 text-destructive" />
                   <h3 className="text-2xl font-bold">What Drives Me</h3>
@@ -30,10 +29,10 @@ export function Philosophy() {
                   believe in the power of technology to amplify human potential
                   and create a better future for all.
                 </p>
-              </SlideIn>
+              </div>
 
               {/* Who Drives Me */}
-              <SlideIn from="left" delay={0.2}>
+              <div>
                 <div className="flex items-center gap-4 mb-6">
                   <Heart className="w-12 h-12 text-destructive" />
                   <h3 className="text-2xl font-bold">Who Drives Me</h3>
@@ -48,15 +47,11 @@ export function Philosophy() {
                   piece of research I explore holds the potential to
                   meaningfully improve the lives of those around me.
                 </p>
-              </SlideIn>
+              </div>
             </div>
 
             {/* Right - Image */}
-            <SlideIn
-              from="right"
-              delay={0.3}
-              className="flex justify-center lg:justify-end"
-            >
+            <div className="flex justify-center lg:justify-end">
               <div className="relative aspect-square w-full max-w-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   src="/images/family.png"
@@ -66,7 +61,7 @@ export function Philosophy() {
                   priority
                 />
               </div>
-            </SlideIn>
+            </div>
           </div>
         </FadeInWhenVisible>
       </div>

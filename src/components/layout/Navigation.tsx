@@ -90,15 +90,10 @@ export function Navigation() {
               >
                 {pathname === item.href && (
                   <motion.div
-                    layoutId={isScrolled ? undefined : 'navbar-indicator'}
                     className="absolute inset-0 bg-primary/10 border border-primary/20 rounded-lg"
-                    initial={isScrolled ? { opacity: 0 } : false}
+                    initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={
-                      isScrolled
-                        ? { duration: 0.2 }
-                        : { type: 'spring', bounce: 0.2, duration: 0.6 }
-                    }
+                    transition={{ duration: 0.2 }}
                   />
                 )}
                 <span className="relative z-10">{item.label}</span>

@@ -24,14 +24,11 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
+        duration: 0.5,
       },
     },
   };
@@ -50,20 +47,13 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
             <motion.article
               key={post.slug}
               variants={itemVariants as any}
-              whileHover={{
-                scale: 1.02,
-                transition: { type: 'spring', stiffness: 300, damping: 20 },
-              }}
+              className="group relative"
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
-              className="group relative"
             >
               {/* Hover Effect Background */}
-              <motion.div
+              <div
                 className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                animate={{
-                  opacity: hoveredIndex === index ? 0.1 : 0,
-                }}
               />
 
               <div className="relative z-10">
