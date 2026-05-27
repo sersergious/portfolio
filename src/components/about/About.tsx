@@ -1,4 +1,3 @@
-import { HeroTLDR } from '@/components/about/HeroTLDR';
 import { AboutOrigin } from '@/components/about/AboutOrigin';
 import { Skills } from '@/components/about/Skills';
 import { ResearchInterests } from '@/components/about/ResearchInterests';
@@ -9,7 +8,6 @@ import { Philosophy } from '@/components/about/Philosophy';
 export function About() {
   return (
     <div className="min-h-screen">
-      <HeroTLDR />
       <AboutOrigin />
       <Skills />
       <ResearchInterests />

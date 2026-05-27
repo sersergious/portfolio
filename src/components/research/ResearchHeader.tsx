@@ -1,7 +1,6 @@
-'use client';
 
 import { ContentHeader } from '@/components/content/ContentHeader';
-import type { ResearchPaper } from '@/lib/mdx-content';
+import type { ResearchPaper } from '@/lib/data';
 
 interface ResearchHeaderProps {
   paper: ResearchPaper;

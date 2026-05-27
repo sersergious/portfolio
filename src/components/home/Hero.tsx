@@ -1,12 +1,6 @@
-// components/home/Hero.tsx
-'use client';
-
-import { motion } from 'framer-motion';
-import { TypewriterText, AnimatedBackground } from '@/components/transitions';
-import Link from 'next/link';
-import { Download, Github, Linkedin, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { TypewriterText, AnimatedBackground } from '@/components/transitions';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
 
 const socials = [
   { href: 'https://github.com/sersergious', icon: Github, label: 'GitHub' },
@@ -20,145 +14,91 @@ const socials = [
 
 export function Hero() {
   return (
-    <section className="min-h-screen relative py-20 md:py-32 overflow-hidden">
+    <section className="relative pt-20 pb-6 md:pt-28 md:pb-10 overflow-hidden">
       <div className="flex flex-col lg:flex-row items-center justify-between px-6 py-12 max-w-7xl mx-auto">
-        {/* Text Content Column */}
-        <motion.div
-          className="w-full lg:w-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
+        {/* Text Content */}
+        <div className="w-full lg:w-1/2">
           <div className="text-center lg:text-left max-w-4xl lg:max-w-none">
-            {/* Main Heading */}
-            <motion.h1
-              className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               <span className="block mb-4">
-                Hi, I'm
+                Hi, I&apos;m
                 <TypewriterText
                   text=" Serhii Kuzmin"
                   className="text-primary"
                   speed={100}
                 />
               </span>
-            </motion.h1>
+            </h1>
 
-            {/* Hero Image - Mobile Only */}
-            <motion.div
-              className="lg:hidden flex justify-center mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            {/* Hero Image — Mobile */}
+            <div className="lg:hidden flex justify-center mb-8">
               <div className="relative aspect-square w-[280px] sm:w-[320px] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/hero-img.png"
                   alt="Hero image"
                   fill
                   className="object-cover rounded-2xl"
-                  priority
                 />
               </div>
-            </motion.div>
+            </div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-3xl lg:max-w-none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              I'm a researcher and developer passionate about creating
+            <p className="text-xl md:text-2xl text-base-content/60 leading-relaxed mb-8 max-w-3xl lg:max-w-none">
+              I&apos;m a researcher and developer passionate about creating
               innovative solutions at the intersection of{' '}
               <span className="text-primary font-semibold">technology</span> and{' '}
               <span className="text-accent font-semibold">science</span>.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {/* Resume Button */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12">
               <a href="/docs/resume.pdf" download className="w-full sm:w-auto">
-                <Button className="w-full" variant="default">
+                <button className="btn btn-primary w-full">
                   <Download className="mr-2 h-4 w-4" />
                   Download Resume
-                </Button>
+                </button>
               </a>
-
-              {/* Unofficial Transcript Button */}
               <a
                 href="/docs/unofficial-transcript.pdf"
                 download
                 className="w-full sm:w-auto"
               >
-                <Button className="w-full" variant="secondary">
+                <button className="btn btn-secondary w-full">
                   <Download className="mr-2 h-4 w-4" />
                   Download Transcript
-                </Button>
+                </button>
               </a>
-            </motion.div>
+            </div>
 
             {/* Social Links */}
-            <motion.div
-              className="flex justify-center lg:justify-start gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              {socials.map((social, index) => (
-                <Link
+            <div className="flex justify-center lg:justify-start gap-4">
+              {socials.map(social => (
+                <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group"
+                  className="btn btn-ghost btn-square w-11 h-11 rounded-lg bg-base-200 hover:bg-base-200"
+                  aria-label={social.label}
                 >
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="icon"
-                    className="w-11 h-11 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground hover:scale-105"
-                  >
-                    <span>
-                      <social.icon className="w-5 h-5" />
-                      <span className="sr-only">{social.label}</span>
-                    </span>
-                  </Button>
-                </Link>
+                  <social.icon className="w-5 h-5" />
+                </a>
               ))}
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Hero Image - Desktop Only */}
-        <motion.div
-          className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        {/* Hero Image — Desktop */}
+        <div className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end">
           <div className="relative aspect-square w-[400px] rounded-2xl overflow-hidden">
             <Image
               src="/images/hero-img.png"
               alt="Hero image"
               fill
               className="object-cover rounded-2xl"
-              priority
             />
           </div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Background Elements */}
-      <AnimatedBackground />
     </section>
   );
 }
