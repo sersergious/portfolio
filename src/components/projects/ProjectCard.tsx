@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { ExternalLink, Github } from 'lucide-react'
-import type { Project } from '@/lib/data'
+import Link from 'next/link';
+import { ExternalLink, Github } from 'lucide-react';
+import type { Project } from '@/lib/data';
 
 interface ProjectCardProps {
-  project: Project
+  project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
@@ -15,7 +15,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors line-clamp-2">
               {project.title}
             </h3>
-            <p className="text-base-content/60 mb-4 line-clamp-2">{project.description}</p>
+            <p className="text-base-content/60 mb-4 line-clamp-2">
+              {project.description}
+            </p>
             <div className="flex flex-wrap gap-2 mb-4">
               {project.tags?.slice(0, 4).map((tag: string) => (
                 <span key={tag} className="badge badge-ghost text-xs">
@@ -53,5 +55,5 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

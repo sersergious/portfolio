@@ -21,9 +21,9 @@ const navLinks = [
 
 export function Footer() {
   return (
-    <footer className=" pb-4 pt-8">
-      <div className="w-full max-w-7xl mx-auto rounded-2xl border border-base-300 bg-base-200/80 backdrop-blur-lg shadow-lg">
-        <div className="px-6 py-8">
+    <footer className="pb-4 pt-8 px-4">
+      <div className="w-full rounded-2xl border border-base-300 bg-base-200/80 backdrop-blur-lg shadow-lg">
+        <div className="p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Brand */}
             <div className="lg:col-span-2">
@@ -33,11 +33,10 @@ export function Footer() {
                     S
                   </span>
                 </div>
-                <span className="font-bold text-xl">Sersergious</span>
+                <span className="font-bold text-xl">Serhii Kuzmin</span>
               </Link>
               <p className="text-base-content/60 text-sm leading-relaxed mb-4">
-                Research. Develop. Innovate. Building the future through code
-                and curiosity.
+                I build software that matters.
               </p>
               <div className="flex space-x-2">
                 {socialLinks.map(social => (

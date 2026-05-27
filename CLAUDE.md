@@ -41,11 +41,13 @@ Page metadata is exported via `generateMetadata()`. Data loading is async in Ser
 ### Content System
 
 File-based MDX content in `content/{projects,research}/`. The entry point is `src/lib/mdx-content.ts`:
+
 - Reads `.mdx` files with `gray-matter` for frontmatter
 - Returns raw MDX `content` string (no pre-serialization needed)
 - Computes `readingTime` and `wordCount` automatically
 
 **MDX frontmatter schemas:**
+
 - **Project**: `title`, `description`, `date`, `tags[]`, `category[]`, `featured`, `status` (completed/in-progress/archived), optional `github`, `demo`, `image`
 - **ResearchPaper**: `title`, `abstract`, `authors[]`, `date`, `tags[]`, `featured`, `status` (published/preprint/in-review/draft), optional `journal`, `conference`, `doi`, `arxiv`, `pdf`
 
@@ -54,6 +56,7 @@ MDX is rendered server-side via `src/components/mdx/MDXContent.tsx` using `next-
 ### Theming
 
 DaisyUI v5 with two built-in themes:
+
 - **Light** → `emerald` (default)
 - **Dark** → `dracula` (auto-applied via `prefers-color-scheme: dark`)
 
@@ -66,6 +69,7 @@ Tailwind CSS v4 with DaisyUI v5, configured in `src/styles/globals.css` via `@im
 ### Client Components
 
 Components that use browser APIs or React hooks need `'use client'`:
+
 - `src/components/layout/Navigation.tsx` — scroll state, mobile menu toggle, `usePathname`
 - `src/components/theme/theme-toggle.tsx` — localStorage, `data-theme` toggling
 - `src/components/transitions/index.tsx` — `TypewriterText` uses `useState`/`useEffect`
