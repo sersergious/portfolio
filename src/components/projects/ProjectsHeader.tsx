@@ -1,5 +1,4 @@
 // components/projects/ProjectsHeader.tsx
-'use client';
 
 import { Code } from 'lucide-react';
 import { ClientPageHeader } from '@/components/content/ClientPageHeader';

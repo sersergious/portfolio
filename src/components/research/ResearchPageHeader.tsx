@@ -1,5 +1,4 @@
 // components/research/ResearchPageHeader.tsx
-'use client';
 
 import { BookOpen } from 'lucide-react';
 import { ClientPageHeader } from '@/components/content/ClientPageHeader';

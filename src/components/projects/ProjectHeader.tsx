@@ -1,7 +1,6 @@
-'use client';
 
 import { ContentHeader } from '@/components/content/ContentHeader';
-import type { Project } from '@/lib/mdx-content';
+import type { Project } from '@/lib/data';
 
 interface ProjectHeaderProps {
   project: Project;
