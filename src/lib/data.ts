@@ -1,41 +1,41 @@
 export interface Project {
-  slug: string
-  title: string
-  description: string
-  date: string
-  tags: string[]
-  category: string[]
-  featured: boolean
-  status: 'completed' | 'in-progress' | 'archived'
-  github?: string
-  demo?: string
-  image?: string
-  readingTime: string
-  wordCount: number
-  url: string
-  content: string
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  category: string[];
+  featured: boolean;
+  status: 'completed' | 'in-progress' | 'archived';
+  github?: string;
+  demo?: string;
+  image?: string;
+  readingTime: string;
+  wordCount: number;
+  url: string;
+  content: string;
 }
 
 export interface ResearchPaper {
-  slug: string
-  title: string
-  abstract: string
-  authors: string[]
-  date: string
-  tags: string[]
-  featured: boolean
-  status: 'published' | 'preprint' | 'in-review' | 'draft'
-  journal?: string
-  conference?: string
-  doi?: string
-  arxiv?: string
-  pdf?: string
-  citations?: number
-  image?: string
-  readingTime: string
-  wordCount: number
-  url: string
-  content: string
+  slug: string;
+  title: string;
+  abstract: string;
+  authors: string[];
+  date: string;
+  tags: string[];
+  featured: boolean;
+  status: 'published' | 'preprint' | 'in-review' | 'draft';
+  journal?: string;
+  conference?: string;
+  doi?: string;
+  arxiv?: string;
+  pdf?: string;
+  citations?: number;
+  image?: string;
+  readingTime: string;
+  wordCount: number;
+  url: string;
+  content: string;
 }
 
 export const projects: Project[] = [
@@ -86,7 +86,7 @@ Round-trip retrieval + inference must stay under 400 ms to feel instant. Qdrant'
 
 Core indexing and retrieval are working. The VS Code extension is in closed beta. Next milestone is adding a chat panel so developers can ask free-form questions about the codebase rather than relying solely on inline completions.`,
   },
-]
+];
 
 export const research: ResearchPaper[] = [
   {
@@ -157,4 +157,4 @@ Compared to the reference Kyber-768 implementation, our construction reduces tot
 
 We have presented a lattice-based key-exchange protocol with a novel reconciliation mechanism that improves both communication efficiency and implementation performance. The formal security reduction is tight, and our constant-time implementation is suitable for deployment in constrained environments. Future work includes hardware acceleration for FPGA targets and integration into the TLS 1.3 handshake as a post-quantum hybrid.`,
   },
-]
+];

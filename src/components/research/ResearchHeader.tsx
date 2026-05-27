@@ -1,4 +1,3 @@
-
 import { ContentHeader } from '@/components/content/ContentHeader';
 import type { ResearchPaper } from '@/lib/data';
 

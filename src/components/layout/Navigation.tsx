@@ -1,34 +1,32 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { ThemeToggle } from '@/components/theme/theme-toggle'
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
   { href: '/research', label: 'Research' },
-]
+];
 
 export function Navigation() {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-      <nav
-        className="w-full max-w-4xl rounded-2xl border border-base-300 bg-base-100/40 backdrop-blur-xl shadow-lg border-white/10"
-      >
+      <nav className="w-full max-w-4xl rounded-2xl border border-base-300 bg-base-100/40 backdrop-blur-xl shadow-lg border-white/10">
         <div className="px-4">
-          <div className="flex h-14 items-center justify-between">
+          <div className="flex h-17 items-center justify-between">
             {/* Logo */}
             <Link
               href="/"
@@ -45,7 +43,7 @@ export function Navigation() {
                 />
               </div>
               <span className="font-bold text-xl transition-colors duration-200 group-hover:text-primary">
-                SerSergious
+                Serhii Kuzmin
               </span>
             </Link>
 
@@ -75,7 +73,11 @@ export function Navigation() {
                 className="md:hidden p-2 rounded-lg bg-base-200 hover:bg-base-200 transition-colors"
                 aria-label="Toggle menu"
               >
-                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {isOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
               </button>
             </div>
           </div>
@@ -105,5 +107,5 @@ export function Navigation() {
         </div>
       </nav>
     </div>
-  )
+  );
 }

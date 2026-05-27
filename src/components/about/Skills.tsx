@@ -1,5 +1,9 @@
-import { Code, Brain, Cog } from 'lucide-react'
-import { FadeInWhenVisible, StaggerContainer, StaggerItem } from '@/components/transitions'
+import { Code, Brain, Cog } from 'lucide-react';
+import {
+  FadeInWhenVisible,
+  StaggerContainer,
+  StaggerItem,
+} from '@/components/transitions';
 
 const skills = [
   { name: 'JavaScript/TypeScript', level: 90 },
@@ -7,7 +11,7 @@ const skills = [
   { name: 'Python', level: 80 },
   { name: 'C', level: 80 },
   { name: 'Go', level: 50 },
-]
+];
 
 export function Skills() {
   return (
@@ -22,9 +26,9 @@ export function Skills() {
               Skills & Expertise
             </h2>
             <p className="text-lg text-base-content/60 text-center max-w-3xl mx-auto mb-12">
-              I'm well versed in both Computer Science and Mathematics. Most of my programming
-              skills I've mastered on my own through self study and then further improved in my
-              college classes.
+              I&apos;m well versed in both Computer Science and Mathematics.
+              Most of my programming skills I&apos;ve mastered on my own through
+              self study and then further improved in my college classes.
             </p>
           </div>
 
@@ -73,14 +77,20 @@ export function Skills() {
 
             {/* Programming Languages */}
             <div className="bg-base-100 border border-base-300 rounded-lg p-6 h-full">
-              <h3 className="text-xl font-semibold mb-4">Programming Languages</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                Programming Languages
+              </h3>
               <StaggerContainer className="space-y-4">
                 {skills.map(skill => (
                   <StaggerItem key={skill.name}>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">{skill.name}</span>
-                        <span className="text-xs text-base-content/60">{skill.level}%</span>
+                        <span className="text-sm font-medium">
+                          {skill.name}
+                        </span>
+                        <span className="text-xs text-base-content/60">
+                          {skill.level}%
+                        </span>
                       </div>
                       <div className="h-2 bg-base-200 rounded-full overflow-hidden">
                         <div
@@ -97,5 +107,5 @@ export function Skills() {
         </FadeInWhenVisible>
       </div>
     </section>
-  )
+  );
 }
