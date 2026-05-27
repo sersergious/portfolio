@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/projects/neural-code-assistant":{},"/research/quantum-resistant-key-exchange":{}},"dynamicRoutes":{"/projects/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/projects/[slug]","routeRegex":"^\\/projects\\/([^/]+?)(?:\\/)?$","allowHeader":[]},"/research/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/research/[slug]","routeRegex":"^\\/research\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"4e49ccd5366e3f63a5ceef1cdfdf8930","previewModeSigningKey":"03fb0c0559b90960a3207fc78a02e0131a3ee50918feb89adcba1a3935a89651","previewModeEncryptionKey":"966f8e5e0f5b2b8e21c65fda2e385e85f9f40a7ffefa809b9f2e7974b41bc418"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "eed7e6c186ab88dd985c88b3d9664709",
+    "previewModeSigningKey": "a3c3c430814f7d8029564dc7b0714df9488626d20f31c4ed429284ca346f9a87",
+    "previewModeEncryptionKey": "de8fb8d23b5e7cec70507de14d5fec9bf230275635032787b1fde00e4e3db216"
+  }
+}

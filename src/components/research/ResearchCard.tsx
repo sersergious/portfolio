@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { Calendar, Users } from 'lucide-react'
-import type { ResearchPaper } from '@/lib/data'
+import Link from 'next/link';
+import { Calendar, Users } from 'lucide-react';
+import type { ResearchPaper } from '@/lib/data';
 
 interface ResearchCardProps {
-  paper: ResearchPaper
+  paper: ResearchPaper;
 }
 
 export function ResearchCard({ paper }: ResearchCardProps) {
@@ -63,5 +63,5 @@ export function ResearchCard({ paper }: ResearchCardProps) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

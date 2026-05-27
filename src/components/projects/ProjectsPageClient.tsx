@@ -1,8 +1,8 @@
-import { ProjectCard } from '@/components/projects/ProjectCard'
-import type { Project } from '@/lib/data'
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import type { Project } from '@/lib/data';
 
 interface ProjectsPageClientProps {
-  projects: Project[]
+  projects: Project[];
 }
 
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
@@ -21,10 +21,12 @@ export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🚀</div>
             <h3 className="text-2xl font-semibold mb-2">No projects found</h3>
-            <p className="text-base-content/60">Stay tuned for exciting new projects!</p>
+            <p className="text-base-content/60">
+              Stay tuned for exciting new projects!
+            </p>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

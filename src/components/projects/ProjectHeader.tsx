@@ -1,4 +1,3 @@
-
 import { ContentHeader } from '@/components/content/ContentHeader';
 import type { Project } from '@/lib/data';
 
