@@ -4,12 +4,17 @@
 .pnp.*
 
 # Build outputs
-/.output
+/.next
+/out
 /dist
 /build
 
+# Next.js generated
+next-env.d.ts
+
 # Misc
 .DS_Store
+Thumbs.db
 *.pem
 
 # Debug
@@ -17,15 +22,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+bun-debug.log*
 
 # Env files
-.env*
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Vercel
 .vercel
 
 # TypeScript
 *.tsbuildinfo
-
-# TanStack Router (auto-generated)
-src/routeTree.gen.ts
