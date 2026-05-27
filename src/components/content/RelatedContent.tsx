@@ -1,20 +1,20 @@
-import Link from 'next/link'
-import { Calendar, Clock } from 'lucide-react'
-import type { Project, ResearchPaper } from '@/lib/data'
+import Link from 'next/link';
+import { Calendar, Clock } from 'lucide-react';
+import type { Project, ResearchPaper } from '@/lib/data';
 
 interface RelatedContentProps {
-  title: string
-  items: (Project | ResearchPaper)[]
-  type: 'project' | 'research'
+  title: string;
+  items: (Project | ResearchPaper)[];
+  type: 'project' | 'research';
 }
 
 export function RelatedContent({ title, items, type }: RelatedContentProps) {
-  if (items.length === 0) return null
+  if (items.length === 0) return null;
 
   const getItemDescription = (item: Project | ResearchPaper): string => {
-    if ('abstract' in item) return item.abstract
-    return item.description
-  }
+    if ('abstract' in item) return item.abstract;
+    return item.description;
+  };
 
   return (
     <section className="container mx-auto px-4">
@@ -23,7 +23,10 @@ export function RelatedContent({ title, items, type }: RelatedContentProps) {
         {items.map(item => (
           <div key={item.slug} className="h-full">
             <div className="bg-base-100 border border-base-300 rounded-xl h-full flex flex-col">
-              <Link href={`/${type}/${item.slug}`} className="flex flex-col flex-1">
+              <Link
+                href={`/${type}/${item.slug}`}
+                className="flex flex-col flex-1"
+              >
                 <div className="p-6 space-y-4 flex flex-col flex-1">
                   <h3 className="text-lg font-semibold line-clamp-2 hover:text-primary transition-colors">
                     {item.title}
@@ -67,5 +70,5 @@ export function RelatedContent({ title, items, type }: RelatedContentProps) {
         ))}
       </div>
     </section>
-  )
+  );
 }

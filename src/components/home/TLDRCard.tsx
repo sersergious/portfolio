@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { FadeInWhenVisible } from '@/components/transitions'
+import Link from 'next/link';
+import { FadeInWhenVisible } from '@/components/transitions';
 
 export function TLDRCard() {
   return (
@@ -10,17 +10,29 @@ export function TLDRCard() {
             TL;DR
           </span>
           <p className="text-lg md:text-xl leading-relaxed text-base-content/80">
-            Senior at the University of Scranton studying{' '}
-            <span className="text-primary font-semibold">Computer Science</span> and{' '}
-            <span className="text-accent font-semibold">Mathematical Sciences</span>.
-            I build things at the intersection of math and software, run hiking retreats,
-            serve in Student Government, and lead clubs on campus.{' '}
-            <Link href="/about" className="text-primary hover:underline font-medium">
-              More about me →
+            I recently completed my bachelor&apos;s degree in{' '}
+            <span className="text-primary font-semibold">Computer Science</span>{' '}
+            and{' '}
+            <span className="text-accent font-semibold">
+              Mathematical Sciences
+            </span>
+            . I am a multi-faceted individual. I have developed multiple apps
+            for various platforms including Web and Mobile (Android). I have
+            also conducuted research in Quantum Computing. I have worked as a
+            Peer Tutor at my college for 2.5 years tutoring CS and Math. Outside
+            of my routine, I am passionate about gym, outdoors and leadership. I
+            have led multiple retreat trips at my college. I have also been
+            heavily involved with multiple leadership organizations and
+            initiatives.{' '}
+            <Link
+              href="/about"
+              className="text-primary hover:underline font-medium"
+            >
+              To learn more about me →
             </Link>
           </p>
         </div>
       </div>
     </FadeInWhenVisible>
-  )
+  );
 }

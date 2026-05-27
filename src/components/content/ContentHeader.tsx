@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   ArrowLeft,
@@ -13,16 +13,16 @@ import {
   Tag,
   User,
   Users,
-} from 'lucide-react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import type { Project, ResearchPaper } from '@/lib/data'
+} from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import type { Project, ResearchPaper } from '@/lib/data';
 
-type Content = Project | ResearchPaper
+type Content = Project | ResearchPaper;
 
 interface ContentHeaderProps {
-  content: Content
-  type: 'project' | 'research'
+  content: Content;
+  type: 'project' | 'research';
 }
 
 const contentConfig = {
@@ -38,39 +38,21 @@ const contentConfig = {
     backLink: '/research' as const,
     backText: 'All Research',
   },
-}
+};
 
 export function ContentHeader({ content, type }: ContentHeaderProps) {
-  const config = contentConfig[type]
-  const Icon = config.icon
+  const config = contentConfig[type];
+  const Icon = config.icon;
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: content.title,
-          text:
-            'description' in content
-              ? content.description
-              : 'abstract' in content
-                ? content.abstract
-                : '',
-          url: window.location.href,
-        })
-      } catch {
-        navigator.clipboard.writeText(window.location.href)
-      }
-    } else {
-      navigator.clipboard.writeText(window.location.href)
-    }
-  }
-
-  const renderMetaItem = (IconComponent: React.ElementType, label: string | React.ReactNode) => (
+  const renderMetaItem = (
+    IconComponent: React.ElementType,
+    label: string | React.ReactNode
+  ) => (
     <div className="flex items-center gap-2 text-sm text-base-content/60">
       <IconComponent className="h-4 w-4" />
       <span>{label}</span>
     </div>
-  )
+  );
 
   return (
     <header className="relative w-full overflow-hidden border-b border-base-300 bg-base-100">
@@ -111,8 +93,16 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
             </p>
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-base-300 pt-6">
-              {'author' in content && renderMetaItem(User, (content as any).author.name)}
-              {'authors' in content && renderMetaItem(Users, (content as ResearchPaper).authors.join(', '))}
+              {'author' in content &&
+                renderMetaItem(
+                  User,
+                  (content as { author: { name: string } }).author.name
+                )}
+              {'authors' in content &&
+                renderMetaItem(
+                  Users,
+                  (content as ResearchPaper).authors.join(', ')
+                )}
               {renderMetaItem(
                 Calendar,
                 new Date(content.date).toLocaleDateString('en-US', {
@@ -121,13 +111,17 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                   day: 'numeric',
                 })
               )}
-              {'readingTime' in content && renderMetaItem(Clock, content.readingTime)}
+              {'readingTime' in content &&
+                renderMetaItem(Clock, content.readingTime)}
             </div>
 
             {'tags' in content && content.tags && content.tags.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-2">
                 {content.tags.map((tag: string) => (
-                  <span key={tag} className="badge badge-secondary gap-1.5 px-3 py-1.5">
+                  <span
+                    key={tag}
+                    className="badge badge-secondary gap-1.5 px-3 py-1.5"
+                  >
                     <Tag className="h-3 w-3" />
                     {tag}
                   </span>
@@ -185,5 +179,5 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
         </div>
       </div>
     </header>
-  )
+  );
 }

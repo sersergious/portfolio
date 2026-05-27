@@ -1,26 +1,26 @@
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { projects, research } from '@/lib/data'
-import { ProjectCard } from '@/components/projects/ProjectCard'
-import { ResearchCard } from '@/components/research/ResearchCard'
-import { FadeInWhenVisible } from '@/components/transitions'
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { projects, research } from '@/lib/data';
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import { ResearchCard } from '@/components/research/ResearchCard';
+import { FadeInWhenVisible } from '@/components/transitions';
 
 const recentProjects = [...projects]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 3)
+  .slice(0, 3);
 
 const recentResearch = [...research]
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 3)
+  .slice(0, 3);
 
 function SectionHeader({
   label,
   title,
   href,
 }: {
-  label: string
-  title: string
-  href: string
+  label: string;
+  title: string;
+  href: string;
 }) {
   return (
     <div className="flex items-end justify-between mb-6">
@@ -37,7 +37,7 @@ function SectionHeader({
         View all <ArrowRight className="w-3.5 h-3.5" />
       </Link>
     </div>
-  )
+  );
 }
 
 export function RecentWork() {
@@ -47,7 +47,11 @@ export function RecentWork() {
         {/* Recent Projects */}
         <FadeInWhenVisible>
           <div>
-            <SectionHeader label="Recent Work" title="Projects" href="/projects" />
+            <SectionHeader
+              label="Recent Work"
+              title="Projects"
+              href="/projects"
+            />
             <div className="space-y-4">
               {recentProjects.map(project => (
                 <ProjectCard key={project.slug} project={project} />
@@ -59,7 +63,11 @@ export function RecentWork() {
         {/* Recent Research */}
         <FadeInWhenVisible>
           <div>
-            <SectionHeader label="Recent Work" title="Research" href="/research" />
+            <SectionHeader
+              label="Recent Work"
+              title="Research"
+              href="/research"
+            />
             <div className="space-y-4">
               {recentResearch.map(paper => (
                 <ResearchCard key={paper.slug} paper={paper} />
@@ -69,5 +77,5 @@ export function RecentWork() {
         </FadeInWhenVisible>
       </div>
     </div>
-  )
+  );
 }

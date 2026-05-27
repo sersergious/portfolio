@@ -1,6 +1,6 @@
-import { Hero } from '@/components/home/Hero'
-import { TLDRCard } from '@/components/home/TLDRCard'
-import { RecentWork } from '@/components/home/RecentWork'
+import { Hero } from '@/components/home/Hero';
+import { TLDRCard } from '@/components/home/TLDRCard';
+import { RecentWork } from '@/components/home/RecentWork';
 
 export default function HomePage() {
   return (
@@ -9,5 +9,5 @@ export default function HomePage() {
       <TLDRCard />
       <RecentWork />
     </div>
-  )
+  );
 }

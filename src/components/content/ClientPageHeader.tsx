@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ClientPageHeaderProps {
-  title: string
-  description: string
-  icon: ReactNode
-  iconClassName?: string
+  title: string;
+  description: string;
+  icon: ReactNode;
+  iconClassName?: string;
 }
 
 export function ClientPageHeader({
@@ -26,10 +26,14 @@ export function ClientPageHeader({
           >
             {icon}
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">{title}</h1>
-          <p className="text-lg md:text-xl text-base-content/60">{description}</p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            {title}
+          </h1>
+          <p className="text-lg md:text-xl text-base-content/60">
+            {description}
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
