@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { projects } from '@/lib/data';
+import { client } from '@/sanity/lib/client';
+import { getAllProjects, getProjectBySlug, getRelatedContent } from '@/lib/sanity-content';
+import { ALL_PROJECT_SLUGS_QUERY } from '@/sanity/lib/queries';
 import { ProjectHeader } from '@/components/projects/ProjectHeader';
 import { MDXContent } from '@/components/mdx/MDXContent';
 import { RelatedContent } from '@/components/content/RelatedContent';
@@ -9,13 +11,16 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return projects.map(p => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const slugs = await client
+    .withConfig({ useCdn: false })
+    .fetch<Array<{ slug: string }>>(ALL_PROJECT_SLUGS_QUERY);
+  return slugs ?? [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find(p => p.slug === slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: `${project.title} — Portfolio`,
@@ -25,12 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const project = projects.find(p => p.slug === slug);
+  const [project, allProjects] = await Promise.all([
+    getProjectBySlug(slug),
+    getAllProjects(),
+  ]);
   if (!project) notFound();
 
-  const related = projects
-    .filter(p => p.slug !== slug && p.tags.some(t => project.tags.includes(t)))
-    .slice(0, 3);
+  const related = getRelatedContent(project, allProjects);
 
   return (
     <div className="min-h-screen">

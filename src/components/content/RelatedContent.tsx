@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Calendar, Clock } from 'lucide-react';
-import type { Project, ResearchPaper } from '@/lib/data';
+import type { Project, ResearchPaper } from '@/lib/sanity-content';
 
 interface RelatedContentProps {
   title: string;

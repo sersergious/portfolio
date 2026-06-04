@@ -24,7 +24,7 @@ export function Navigation() {
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="w-full max-w-4xl rounded-2xl border border-base-300 bg-base-100/40 backdrop-blur-xl shadow-lg border-white/10">
+      <nav className="w-full max-w-4xl rounded-2xl border border-base-300 bg-base-200/80 backdrop-blur-xl shadow-lg border-white/10">
         <div className="px-4">
           <div className="flex h-17 items-center justify-between">
             {/* Logo */}

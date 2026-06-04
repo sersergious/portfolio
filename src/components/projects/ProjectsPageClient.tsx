@@ -1,5 +1,5 @@
 import { ProjectCard } from '@/components/projects/ProjectCard';
-import type { Project } from '@/lib/data';
+import type { Project } from '@/lib/sanity-content';
 
 interface ProjectsPageClientProps {
   projects: Project[];
@@ -8,12 +8,10 @@ interface ProjectsPageClientProps {
 export function ProjectsPageClient({ projects }: ProjectsPageClientProps) {
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col gap-6">
           {projects.map(project => (
-            <div key={project.slug} className="h-full">
-              <ProjectCard project={project} />
-            </div>
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
 

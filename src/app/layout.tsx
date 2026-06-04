@@ -1,7 +1,4 @@
 import type { Metadata } from 'next';
-import { Navigation } from '@/components/layout/Navigation';
-import { Footer } from '@/components/layout/Footer';
-import { ThemeProvider } from '@/components/theme/theme-provider';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -17,13 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col">
-        <ThemeProvider>
-          <Navigation />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </ThemeProvider>
-      </body>
+      <body className="flex min-h-screen flex-col">{children}</body>
     </html>
   );
 }

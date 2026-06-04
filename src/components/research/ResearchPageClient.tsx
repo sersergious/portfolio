@@ -1,5 +1,5 @@
 import { ResearchCard } from '@/components/research/ResearchCard';
-import type { ResearchPaper } from '@/lib/data';
+import type { ResearchPaper } from '@/lib/sanity-content';
 
 interface ResearchPageClientProps {
   papers: ResearchPaper[];

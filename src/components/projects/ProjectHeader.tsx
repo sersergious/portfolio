@@ -1,5 +1,5 @@
 import { ContentHeader } from '@/components/content/ContentHeader';
-import type { Project } from '@/lib/data';
+import type { Project } from '@/lib/sanity-content';
 
 interface ProjectHeaderProps {
   project: Project;

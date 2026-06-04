@@ -1,5 +1,5 @@
 import { ContentHeader } from '@/components/content/ContentHeader';
-import type { ResearchPaper } from '@/lib/data';
+import type { ResearchPaper } from '@/lib/sanity-content';
 
 interface ResearchHeaderProps {
   paper: ResearchPaper;

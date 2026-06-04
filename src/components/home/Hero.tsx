@@ -25,8 +25,8 @@ const socials = [
 export function Hero() {
   return (
     <section className="relative pt-20 pb-6 md:pt-28 md:pb-10 overflow-hidden">
-      <div className="flex flex-col lg:flex-row items-stretch gap-6 py-12 max-w-7xl mx-auto px-4">
-        {/* Text Card */}
+      <div className="flex flex-col lg:flex-row items-stretch gap-6 py-12 container mx-auto px-4">
+        {/* Text Content */}
         <div className="w-full lg:flex-1 bg-base-200 border border-base-300 rounded-2xl p-8 flex flex-col justify-between">
           <div>
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 border border-primary/20 rounded-full px-3 py-1 mb-4">
@@ -40,11 +40,12 @@ export function Hero() {
 
             {/* Hero Image — Mobile */}
             <div className="lg:hidden flex justify-center my-6">
-              <div className="relative aspect-square w-[260px] rounded-2xl overflow-hidden">
+              <div className="relative aspect-square w-65 rounded-2xl overflow-hidden">
                 <Image
                   src="/images/hero-img.png"
                   alt="Hero image"
                   fill
+                  sizes="320px"
                   className="object-cover"
                 />
               </div>
@@ -133,11 +134,12 @@ export function Hero() {
         </div>
 
         {/* Hero Image — Desktop */}
-        <div className="hidden lg:block relative w-[400px] shrink-0 rounded-2xl overflow-hidden">
+        <div className="hidden lg:block relative w-100 shrink-0 rounded-2xl overflow-hidden">
           <Image
             src="/images/hero-img.png"
             alt="Hero image"
             fill
+            sizes="400px"
             className="object-cover"
           />
         </div>

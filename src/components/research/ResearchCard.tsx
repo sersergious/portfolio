@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Calendar, Users } from 'lucide-react';
-import type { ResearchPaper } from '@/lib/data';
+import { Calendar, Users, FileText } from 'lucide-react';
+import type { ResearchPaper } from '@/lib/sanity-content';
+import { getTagColor } from '@/lib/tag-colors';
 
 interface ResearchCardProps {
   paper: ResearchPaper;
@@ -8,9 +9,12 @@ interface ResearchCardProps {
 
 export function ResearchCard({ paper }: ResearchCardProps) {
   return (
-    <Link href={`/research/${paper.slug}`} className="block group h-full">
-      <div className="h-full border border-base-300 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-base-200">
-        <div className="p-6">
+    <div className="relative group h-full border border-base-300 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-base-200">
+      <Link href={`/research/${paper.slug}`} className="absolute inset-0 z-0" aria-label={paper.title} />
+
+      <div className="flex flex-col md:flex-row">
+        {/* Text content */}
+        <div className="flex-1 p-6">
           <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors line-clamp-2">
             {paper.title}
           </h3>
@@ -41,27 +45,19 @@ export function ResearchCard({ paper }: ResearchCardProps) {
 
           <div className="flex flex-wrap gap-2">
             {paper.tags?.slice(0, 3).map((tag: string) => (
-              <span key={tag} className="badge badge-ghost text-xs">
+              <span key={tag} className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTagColor(tag)}`}>
                 {tag}
               </span>
             ))}
           </div>
+        </div>
 
-          {paper.pdf && (
-            <div className="mt-4">
-              <a
-                href={paper.pdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-sm text-base-content/60 hover:text-base-content transition-colors"
-                onClick={e => e.stopPropagation()}
-              >
-                View PDF →
-              </a>
-            </div>
-          )}
+        {/* PDF placeholder */}
+        <div className="md:w-56 shrink-0 border-t border-base-300 md:border-t-0 md:border-l aspect-video md:aspect-auto bg-base-300 flex flex-col items-center justify-center gap-2 text-base-content/30">
+          <FileText className="w-10 h-10" />
+          <span className="text-xs font-medium">PDF coming soon</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

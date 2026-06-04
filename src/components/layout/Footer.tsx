@@ -28,6 +28,7 @@ export function Footer() {
             {/* Brand */}
             <div className="lg:col-span-2">
               <Link href="/" className="flex items-center space-x-2 mb-4">
+                {/*Need to replace with my personal logo*/}
                 <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                   <span className="text-sm font-bold text-primary-content">
                     S

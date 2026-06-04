@@ -1,17 +1,8 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { projects, research } from '@/lib/data';
+import { getAllProjects, getAllResearch } from '@/lib/sanity-content';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ResearchCard } from '@/components/research/ResearchCard';
-import { FadeInWhenVisible } from '@/components/transitions';
-
-const recentProjects = [...projects]
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 3);
-
-const recentResearch = [...research]
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 3);
 
 function SectionHeader({
   label,
@@ -40,41 +31,44 @@ function SectionHeader({
   );
 }
 
-export function RecentWork() {
+export async function RecentWork() {
+  const [allProjects, allResearch] = await Promise.all([
+    getAllProjects(),
+    getAllResearch(),
+  ]);
+  const recentProjects = allProjects.slice(0, 3);
+  const recentResearch = allResearch.slice(0, 3);
+
   return (
     <div className="mt-12">
       <div className="container mx-auto px-4 py-16 max-w-7xl space-y-16">
         {/* Recent Projects */}
-        <FadeInWhenVisible>
-          <div>
-            <SectionHeader
-              label="Recent Work"
-              title="Projects"
-              href="/projects"
-            />
-            <div className="space-y-4">
-              {recentProjects.map(project => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </div>
+        <div>
+          <SectionHeader
+            label="Recent Work"
+            title="Projects"
+            href="/projects"
+          />
+          <div className="space-y-4">
+            {recentProjects.map(project => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
           </div>
-        </FadeInWhenVisible>
+        </div>
 
         {/* Recent Research */}
-        <FadeInWhenVisible>
-          <div>
-            <SectionHeader
-              label="Recent Work"
-              title="Research"
-              href="/research"
-            />
-            <div className="space-y-4">
-              {recentResearch.map(paper => (
-                <ResearchCard key={paper.slug} paper={paper} />
-              ))}
-            </div>
+        <div>
+          <SectionHeader
+            label="Recent Work"
+            title="Research"
+            href="/research"
+          />
+          <div className="space-y-4">
+            {recentResearch.map(paper => (
+              <ResearchCard key={paper.slug} paper={paper} />
+            ))}
           </div>
-        </FadeInWhenVisible>
+        </div>
       </div>
     </div>
   );

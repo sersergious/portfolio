@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
-import { research } from '@/lib/data';
+import { getAllResearch } from '@/lib/sanity-content';
 import { ResearchPageHeader } from '@/components/research/ResearchPageHeader';
 import { ResearchPageClient } from '@/components/research/ResearchPageClient';
 
 export const metadata: Metadata = {
-  title: 'Research — Portfolio',
-  description:
-    'Academic papers and research findings in AI, quantum computing, and cryptography.',
+  title: 'Serhii Kuzmin - Research',
+  description: 'My research findings in AI and quantum computing',
 };
 
-export default function ResearchPage() {
+export default async function ResearchPage() {
+  const papers = await getAllResearch();
   return (
     <div className="min-h-screen">
       <ResearchPageHeader />
-      <ResearchPageClient papers={research} />
+      <ResearchPageClient papers={papers} />
     </div>
   );
 }

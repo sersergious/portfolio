@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { research } from '@/lib/data';
+import { client } from '@/sanity/lib/client';
+import { getAllResearch, getResearchBySlug, getRelatedContent } from '@/lib/sanity-content';
+import { ALL_RESEARCH_SLUGS_QUERY } from '@/sanity/lib/queries';
 import { ResearchHeader } from '@/components/research/ResearchHeader';
 import { MDXContent } from '@/components/mdx/MDXContent';
 import { RelatedContent } from '@/components/content/RelatedContent';
@@ -9,13 +11,16 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return research.map(p => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const slugs = await client
+    .withConfig({ useCdn: false })
+    .fetch<Array<{ slug: string }>>(ALL_RESEARCH_SLUGS_QUERY);
+  return slugs ?? [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const paper = research.find(p => p.slug === slug);
+  const paper = await getResearchBySlug(slug);
   if (!paper) return {};
   return {
     title: `${paper.title} — Portfolio`,
@@ -25,12 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ResearchDetailPage({ params }: Props) {
   const { slug } = await params;
-  const paper = research.find(p => p.slug === slug);
+  const [paper, allResearch] = await Promise.all([
+    getResearchBySlug(slug),
+    getAllResearch(),
+  ]);
   if (!paper) notFound();
 
-  const related = research
-    .filter(p => p.slug !== slug && p.tags.some(t => paper.tags.includes(t)))
-    .slice(0, 3);
+  const related = getRelatedContent(paper, allResearch);
 
   return (
     <div className="min-h-screen">

@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
-import { projects } from '@/lib/data';
+import { getAllProjects } from '@/lib/sanity-content';
 import { ProjectsHeader } from '@/components/projects/ProjectsHeader';
 import { ProjectsPageClient } from '@/components/projects/ProjectsPageClient';
 
 export const metadata: Metadata = {
-  title: 'Projects — Portfolio',
+  title: 'Serhii Kuzmin - Projects',
   description:
     'A collection of my development work, from web applications to research tools.',
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
   return (
     <div className="min-h-screen">
       <ProjectsHeader />
