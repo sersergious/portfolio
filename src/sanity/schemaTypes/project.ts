@@ -59,6 +59,7 @@ export const project = defineType({
     }),
     defineField({ name: 'github', type: 'url' }),
     defineField({ name: 'demo', type: 'url' }),
+    defineField({ name: 'youtubeUrl', type: 'url', title: 'YouTube Video URL' }),
     defineField({
       name: 'image',
       type: 'image',

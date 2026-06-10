@@ -1,5 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, Linkedin, Mail, X, Heart } from 'lucide-react';
+import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
+
+const EMAIL_B64 = 'aGVsbG9Ac2Vyc2VyZ2lvdXMuZGV2';
 
 const socialLinks = [
   { href: 'https://github.com/sersergious', label: 'GitHub', icon: Github },
@@ -9,7 +13,6 @@ const socialLinks = [
     icon: Linkedin,
   },
   { href: 'https://twitter.com/sersergious', label: 'Twitter', icon: X },
-  { href: 'mailto:hello@sersergious.dev', label: 'Email', icon: Mail },
 ];
 
 const navLinks = [
@@ -27,12 +30,15 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Brand */}
             <div className="lg:col-span-2">
-              <Link href="/" className="flex items-center space-x-2 mb-4">
-                {/*Need to replace with my personal logo*/}
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <span className="text-sm font-bold text-primary-content">
-                    S
-                  </span>
+              <Link href="/" className="flex items-center space-x-3 mb-4">
+                <div className="relative h-8 w-8 flex items-center justify-center">
+                  <Image
+                    src="/images/logo.png"
+                    alt="SerSergious Logo"
+                    width={32}
+                    height={32}
+                    className="object-contain rounded-lg"
+                  />
                 </div>
                 <span className="font-bold text-xl">Serhii Kuzmin</span>
               </Link>
@@ -52,6 +58,13 @@ export function Footer() {
                     <social.icon className="h-4 w-4" />
                   </a>
                 ))}
+                <ProtectedMailLink
+                  encoded={EMAIL_B64}
+                  className="p-2 rounded-lg bg-base-200 hover:bg-base-300 transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail className="h-4 w-4" />
+                </ProtectedMailLink>
               </div>
             </div>
 
@@ -75,7 +88,7 @@ export function Footer() {
 
           <div className="border-t border-base-300 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
             <p className="text-base-content/60 text-sm">
-              © {new Date().getFullYear()} SerSergious. All rights reserved.
+              © {new Date().getFullYear()} Serhii Kuzmin. All rights reserved.
             </p>
             <p className="text-base-content/60 text-sm flex items-center gap-1 mt-2 md:mt-0">
               Made with <Heart className="h-4 w-4 text-error" /> and lots of

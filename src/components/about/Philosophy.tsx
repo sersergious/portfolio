@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Heart } from 'lucide-react';
 
 export function Philosophy() {
@@ -20,12 +21,11 @@ export function Philosophy() {
                 What Drives Me
               </h3>
               <p className="text-lg text-base-content/70 leading-relaxed">
-                Beyond the code and equations, I&apos;m driven by a deep
-                curiosity about how things work and a desire to push the
-                boundaries of what&apos;s possible. Every problem is a puzzle
-                waiting to be solved, every limitation an opportunity for
-                innovation. I believe in the power of technology to amplify
-                human potential and create a better future for all.
+                I&apos;m driven by a deep impcuriosity about how things work and
+                a desire to push the boundaries of what&apos;s possible. Every
+                problem is a puzzle waiting to be solved, every limitation an
+                opportunity for innovation. I believe in the power of technology
+                to amplify human potential and create a better future for all.
               </p>
             </div>
 
@@ -48,10 +48,14 @@ export function Philosophy() {
 
           {/* Image — right on desktop, top on mobile */}
           <div className="order-1 lg:order-2 flex justify-center">
-            <div className="aspect-square w-full max-w-120 rounded-2xl bg-base-200 border-2 border-dashed border-base-300 flex items-center justify-center">
-              <span className="text-base-content/30 text-sm font-medium">
-                Image coming soon
-              </span>
+            <div className="relative aspect-square w-full max-w-120 rounded-2xl overflow-hidden">
+              <Image
+                src="/images/about-why.png"
+                alt="With my parents at a Christmas market in Hamburg"
+                fill
+                sizes="(min-width: 1024px) 480px, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

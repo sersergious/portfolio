@@ -57,7 +57,8 @@ export function BackgroundSWE() {
             </p>
           </div>
 
-          <div className="bg-base-200 border border-base-300 rounded-2xl p-6">
+          <div className="flex justify-center">
+          <div className="w-full max-w-120 bg-base-200 border border-base-300 rounded-2xl p-6">
             <h4 className="font-semibold mb-4 text-base-content/80">
               Languages
             </h4>
@@ -88,11 +89,13 @@ export function BackgroundSWE() {
               ))}
             </div>
           </div>
+          </div>
         </div>
 
         {/* Mathematics — card left, text right */}
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          <div className="bg-base-200 border border-base-300 rounded-2xl p-6 order-2 lg:order-1">
+          <div className="flex justify-center order-2">
+          <div className="w-full max-w-120 bg-base-200 border border-base-300 rounded-2xl p-6">
             <h4 className="font-semibold mb-4 text-base-content/80">Topics</h4>
             <ul className="space-y-2">
               {mathTopics.map(topic => (
@@ -106,8 +109,9 @@ export function BackgroundSWE() {
               ))}
             </ul>
           </div>
+          </div>
 
-          <div className="order-1 lg:order-2 space-y-4">
+          <div className="order-1 space-y-4">
             <h3 className="text-2xl font-bold flex items-center gap-3">
               <Brain className="w-6 h-6 text-accent" />
               Mathematics

@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
+
+const EMAIL_B64 = 'c2VyaGlpLmt1em1pbkBzY3JhbnRvbi5lZHU=';
 
 const socials = [
   {
@@ -14,12 +17,6 @@ const socials = [
     label: 'LinkedIn',
     color: 'bg-blue-600 text-white hover:bg-blue-700',
   },
-  {
-    href: 'mailto:serhii.kuzmin@scranton.edu',
-    icon: Mail,
-    label: 'Email',
-    color: 'bg-rose-500 text-white hover:bg-rose-600',
-  },
 ];
 
 export function Hero() {
@@ -29,8 +26,8 @@ export function Hero() {
         {/* Text Content */}
         <div className="w-full lg:flex-1 bg-base-200 border border-base-300 rounded-2xl p-8 flex flex-col justify-between">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary bg-primary/10 border border-primary/20 rounded-full px-3 py-1 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-500 bg-green-500/10 border border-green-500/20 rounded-full px-3 py-1 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               Available for hire
             </span>
 
@@ -42,7 +39,7 @@ export function Hero() {
             <div className="lg:hidden flex justify-center my-6">
               <div className="relative aspect-square w-65 rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/hero-img.png"
+                  src="/images/hero.png"
                   alt="Hero image"
                   fill
                   sizes="320px"
@@ -65,47 +62,12 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-2 mt-5">
-              {[
-                {
-                  label: 'HTML/CSS',
-                  color:
-                    'bg-orange-600/15 text-orange-500 border-orange-600/30',
-                },
-                {
-                  label: 'TypeScript',
-                  color: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-                },
-                {
-                  label: 'Python',
-                  color:
-                    'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
-                },
-                {
-                  label: 'Java',
-                  color:
-                    'bg-orange-500/15 text-orange-400 border-orange-500/30',
-                },
-                {
-                  label: 'Kotlin',
-                  color:
-                    'bg-violet-500/15 text-violet-400 border-violet-500/30',
-                },
-                {
-                  label: 'C',
-                  color:
-                    'bg-purple-500/15 text-purple-400 border-purple-500/30',
-                },
-                {
-                  label: 'PostgreSQL',
-                  color:
-                    'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
-                },
-              ].map(tag => (
+              {['HTML/CSS', 'TypeScript', 'Python', 'Java', 'Kotlin', 'C', 'PostgreSQL'].map(label => (
                 <span
-                  key={tag.label}
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${tag.color}`}
+                  key={label}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-base-300 text-base-content/70"
                 >
-                  {tag.label}
+                  {label}
                 </span>
               ))}
             </div>
@@ -130,13 +92,20 @@ export function Hero() {
                 <social.icon className="w-4 h-4" />
               </a>
             ))}
+            <ProtectedMailLink
+              encoded={EMAIL_B64}
+              className="btn btn-square w-10 h-10 rounded-lg transition-colors bg-rose-500 text-white hover:bg-rose-600"
+              aria-label="Email"
+            >
+              <Mail className="w-4 h-4" />
+            </ProtectedMailLink>
           </div>
         </div>
 
         {/* Hero Image — Desktop */}
         <div className="hidden lg:block relative w-100 shrink-0 rounded-2xl overflow-hidden">
           <Image
-            src="/images/hero-img.png"
+            src="/images/hero.png"
             alt="Hero image"
             fill
             sizes="400px"

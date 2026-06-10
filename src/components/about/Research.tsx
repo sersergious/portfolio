@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Microscope, ArrowRight } from 'lucide-react';
 
 const focusAreas = [
@@ -69,10 +70,14 @@ export function BackgroundResearch() {
 
           {/* Image — right on desktop, top on mobile */}
           <div className="order-1 lg:order-2 flex justify-center">
-            <div className="aspect-square w-full max-w-120 rounded-2xl bg-base-200 border-2 border-dashed border-base-300 flex items-center justify-center">
-              <span className="text-base-content/30 text-sm font-medium">
-                Image coming soon
-              </span>
+            <div className="relative aspect-square w-full max-w-120 rounded-2xl overflow-hidden">
+              <Image
+                src="/images/about-research.png"
+                alt="Presenting research at a conference"
+                fill
+                sizes="(min-width: 1024px) 480px, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>

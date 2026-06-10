@@ -19,6 +19,7 @@ export interface Project {
   status: 'completed' | 'in-progress' | 'archived'
   github?: string
   demo?: string
+  youtubeUrl?: string
   image?: string
   readingTime: string
   wordCount: number
@@ -42,6 +43,7 @@ export interface ResearchPaper {
   doi?: string
   arxiv?: string
   pdf?: string
+  youtubeUrl?: string
   citations?: number
   awards?: string[]
   image?: string
@@ -63,6 +65,7 @@ type RawProject = {
   status: string | null
   github: string | null
   demo: string | null
+  youtubeUrl: string | null
   image: string | null
   content: string | null
 }
@@ -84,6 +87,7 @@ type RawResearch = {
   doi: string | null
   arxiv: string | null
   pdf: string | null
+  youtubeUrl: string | null
   citations: number | null
   awards: string[] | null
   image: string | null
@@ -108,6 +112,7 @@ function toProject(d: RawProject): Project {
     status: (d.status as Project['status']) ?? 'completed',
     github: d.github ?? undefined,
     demo: d.demo ?? undefined,
+    youtubeUrl: d.youtubeUrl ?? undefined,
     image: d.image ?? undefined,
     content: body,
     readingTime: readingTime(body),
@@ -134,6 +139,7 @@ function toResearch(d: RawResearch): ResearchPaper {
     doi: d.doi ?? undefined,
     arxiv: d.arxiv ?? undefined,
     pdf: d.pdf ?? undefined,
+    youtubeUrl: d.youtubeUrl ?? undefined,
     citations: d.citations ?? undefined,
     awards: d.awards ?? undefined,
     image: d.image ?? undefined,
@@ -144,7 +150,10 @@ function toResearch(d: RawResearch): ResearchPaper {
   }
 }
 
-const fetchOpts = { next: { revalidate: 3600 } }
+const fetchOpts =
+  process.env.NODE_ENV === 'production'
+    ? { next: { revalidate: 3600 } }
+    : { cache: 'no-store' as const }
 
 export async function getAllProjects(): Promise<Project[]> {
   const data = await client.fetch<RawProject[]>(ALL_PROJECTS_QUERY, {}, fetchOpts)

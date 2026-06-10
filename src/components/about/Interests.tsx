@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Compass } from 'lucide-react';
 
 export function Interests() {
@@ -12,16 +13,7 @@ export function Interests() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Image — left on desktop, top on mobile */}
-          <div className="flex justify-center">
-            <div className="aspect-square w-full max-w-120 rounded-2xl bg-base-200 border-2 border-dashed border-base-300 flex items-center justify-center">
-              <span className="text-base-content/30 text-sm font-medium">
-                Image coming soon
-              </span>
-            </div>
-          </div>
-
-          {/* Text — right on desktop, bottom on mobile */}
+          {/* Text — left on desktop, top on mobile */}
           <div className="space-y-4">
             <p className="text-lg text-base-content/70 leading-relaxed">
               Outside of work, I enjoy spending time outdoors, traveling, and
@@ -39,6 +31,19 @@ export function Interests() {
               experiencing different cultures. When I&apos;m not traveling, I
               enjoy cooking and spending quality time with friends and family.
             </p>
+          </div>
+
+          {/* Image — right on desktop, bottom on mobile */}
+          <div className="flex justify-center">
+            <div className="relative aspect-square w-full max-w-120 rounded-2xl overflow-hidden">
+              <Image
+                src="/images/about-travel.png"
+                alt="Hiking the dunes in Death Valley"
+                fill
+                sizes="(min-width: 1024px) 480px, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

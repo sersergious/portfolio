@@ -43,6 +43,17 @@ export default async function ProjectPage({ params }: Props) {
       <ProjectHeader project={project} />
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
+          {project.youtubeUrl && (
+            <div className="mb-10 rounded-xl overflow-hidden aspect-video w-full">
+              <iframe
+                src={`https://www.youtube.com/embed/${project.youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/)?.[1]}`}
+                title="Project video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
           <MDXContent source={project.content} />
         </div>
         {related.length > 0 && (

@@ -65,6 +65,7 @@ export const researchPaper = defineType({
     defineField({ name: 'doi', type: 'string', title: 'DOI' }),
     defineField({ name: 'arxiv', type: 'string', title: 'arXiv ID' }),
     defineField({ name: 'pdf', type: 'url', title: 'PDF URL' }),
+    defineField({ name: 'youtubeUrl', type: 'url', title: 'YouTube Video URL' }),
     defineField({ name: 'citations', type: 'number' }),
     defineField({
       name: 'awards',

@@ -35,11 +35,11 @@ export function Navigation() {
             >
               <div className="relative h-8 w-8 flex items-center justify-center">
                 <Image
-                  src="/images/logo.svg"
+                  src="/images/logo.png"
                   alt="SerSergious Logo"
                   width={32}
                   height={32}
-                  className="object-contain transition-transform duration-200"
+                  className="object-contain rounded-lg transition-transform duration-200"
                 />
               </div>
               <span className="font-bold text-xl transition-colors duration-200 group-hover:text-primary">

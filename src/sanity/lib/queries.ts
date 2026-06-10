@@ -12,6 +12,7 @@ const projectFields = /* groq */ `
   status,
   github,
   demo,
+  youtubeUrl,
   "image": image.asset->url,
   content
 `
@@ -33,6 +34,7 @@ const researchFields = /* groq */ `
   doi,
   arxiv,
   pdf,
+  youtubeUrl,
   citations,
   awards,
   "image": image.asset->url,

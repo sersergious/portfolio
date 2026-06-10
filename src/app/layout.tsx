@@ -4,7 +4,6 @@ import '@/styles/globals.css';
 export const metadata: Metadata = {
   title: 'Serhii Kuzmin — Portfolio',
   description: 'Portfolio showcasing research and development work',
-  icons: { icon: '/images/logo.svg' },
 };
 
 export default function RootLayout({
