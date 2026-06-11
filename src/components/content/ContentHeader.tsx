@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import type { Project, ResearchPaper } from '@/lib/sanity-content';
-import { getTagColor } from '@/lib/tag-colors';
 
 type Content = Project | ResearchPaper;
 
@@ -69,7 +68,7 @@ export function ContentHeader({ content, type }: ContentHeaderProps) {
                 {content.tags.map((tag: string) => (
                   <span
                     key={tag}
-                    className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTagColor(tag)}`}
+                    className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-base-300 text-base-content/70"
                   >
                     {tag}
                   </span>

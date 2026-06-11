@@ -1,20 +1,12 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Github, ExternalLink, Calendar, PlayCircle } from 'lucide-react';
 import type { Project } from '@/lib/sanity-content';
-
-function getYouTubeId(url: string): string | null {
-  const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/)
-  return m ? m[1] : null
-}
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const videoId = project.youtubeUrl ? getYouTubeId(project.youtubeUrl) : null
-
   return (
     <div className="relative group border border-base-300 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-base-200">
       <Link href={`/projects/${project.slug}`} className="absolute inset-0 z-0" aria-label={project.title} />
@@ -73,23 +65,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 Demo
               </a>
             )}
+            {project.youtubeUrl && (
+              <a
+                href={project.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10 flex items-center gap-1 text-base-content/60 hover:text-base-content transition-colors"
+              >
+                <PlayCircle className="w-4 h-4" />
+                Video
+              </a>
+            )}
           </div>
         </div>
-
-        {/* {videoId && (
-          <div className="md:w-56 shrink-0 border-t border-base-300 md:border-t-0 md:border-l relative aspect-video md:aspect-auto">
-            <Image
-              src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-              alt="Video thumbnail"
-              fill
-              className="object-cover"
-              unoptimized
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-              <PlayCircle className="w-10 h-10 text-white drop-shadow" />
-            </div>
-          </div>
-        )} */}
       </div>
     </div>
   );
