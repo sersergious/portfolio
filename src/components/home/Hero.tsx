@@ -1,164 +1,118 @@
-// components/home/Hero.tsx
-'use client';
-
-import { motion } from 'framer-motion';
-import { TypewriterText, AnimatedBackground } from '@/components/transitions';
-import Link from 'next/link';
-import { Download, Github, Linkedin, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
+
+const EMAIL_B64 = 'c2VyaGlpLmt1em1pbkBzY3JhbnRvbi5lZHU=';
 
 const socials = [
-  { href: 'https://github.com/sersergious', icon: Github, label: 'GitHub' },
+  {
+    href: 'https://github.com/sersergious',
+    icon: Github,
+    label: 'GitHub',
+    color: 'bg-neutral text-neutral-content hover:bg-neutral/80',
+  },
   {
     href: 'https://www.linkedin.com/in/sersergious-dev',
     icon: Linkedin,
     label: 'LinkedIn',
+    color: 'bg-blue-600 text-white hover:bg-blue-700',
   },
-  { href: 'mailto:serhii.kuzmin@scranton.edu', icon: Mail, label: 'Email' },
 ];
 
 export function Hero() {
   return (
-    <section className="min-h-screen relative py-20 md:py-32 overflow-hidden">
-      <div className="flex flex-col lg:flex-row items-center justify-between px-6 py-12 max-w-7xl mx-auto">
-        {/* Text Content Column */}
-        <motion.div
-          className="w-full lg:w-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="text-center lg:text-left max-w-4xl lg:max-w-none">
-            {/* Main Heading */}
-            <motion.h1
-              className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <span className="block mb-4">
-                Hi, I'm
-                <TypewriterText
-                  text=" Serhii Kuzmin"
-                  className="text-primary"
-                  speed={100}
-                />
-              </span>
-            </motion.h1>
+    <section className="relative pt-20 pb-6 md:pt-28 md:pb-10 overflow-hidden">
+      <div className="flex flex-col lg:flex-row items-stretch gap-6 py-12 container mx-auto px-4">
+        {/* Text Content */}
+        <div className="w-full lg:flex-1 bg-base-200 border border-base-300 rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-500 bg-green-500/10 border border-green-500/20 rounded-full px-3 py-1 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              Available for hire
+            </span>
 
-            {/* Hero Image - Mobile Only */}
-            <motion.div
-              className="lg:hidden flex justify-center mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="relative aspect-square w-[280px] sm:w-[320px] rounded-2xl overflow-hidden">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+              Hi, I&apos;m <span className="text-primary">Serhii Kuzmin</span>
+            </h1>
+
+            {/* Hero Image — Mobile */}
+            <div className="lg:hidden flex justify-center my-6">
+              <div className="relative aspect-square w-65 rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/hero-img.png"
+                  src="/images/hero.png"
                   alt="Hero image"
                   fill
-                  className="object-cover rounded-2xl"
-                  priority
+                  sizes="320px"
+                  className="object-cover"
                 />
               </div>
-            </motion.div>
+            </div>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-3xl lg:max-w-none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              I'm a researcher and developer passionate about creating
-              innovative solutions at the intersection of{' '}
-              <span className="text-primary font-semibold">technology</span> and{' '}
-              <span className="text-accent font-semibold">science</span>.
-            </motion.p>
+            <p className="text-lg text-base-content/60 leading-relaxed">
+              Software Engineer.{' '}
+              <span className="text-base-content font-medium">Researcher.</span>{' '}
+              <span className="text-accent font-medium">Innovator.</span>
+            </p>
 
-            {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {/* Resume Button */}
-              <a href="/docs/resume.pdf" download className="w-full sm:w-auto">
-                <Button className="w-full" variant="default">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Resume
-                </Button>
-              </a>
+            <p className="text-base text-base-content/75 leading-relaxed mt-3">
+              I am a Software Engineer who specializes in building Full-Stack
+              web applications with the main focus on the backend. I also have
+              experience in developing Android apps using Kotlin and Systems
+              Programming using C.
+            </p>
 
-              {/* Unofficial Transcript Button */}
-              <a
-                href="/docs/unofficial-transcript.pdf"
-                download
-                className="w-full sm:w-auto"
-              >
-                <Button className="w-full" variant="secondary">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Transcript
-                </Button>
-              </a>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              className="flex justify-center lg:justify-start gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              {socials.map((social, index) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group"
+            <div className="flex flex-wrap gap-2 mt-5">
+              {['HTML/CSS', 'TypeScript', 'Python', 'Java', 'Kotlin', 'C', 'PostgreSQL'].map(label => (
+                <span
+                  key={label}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-base-300 text-base-content/70"
                 >
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="icon"
-                    className="w-11 h-11 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-muted-foreground hover:text-foreground hover:scale-105"
-                  >
-                    <span>
-                      <social.icon className="w-5 h-5" />
-                      <span className="sr-only">{social.label}</span>
-                    </span>
-                  </Button>
-                </Link>
+                  {label}
+                </span>
               ))}
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
 
-        {/* Hero Image - Desktop Only */}
-        <motion.div
-          className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <div className="relative aspect-square w-[400px] rounded-2xl overflow-hidden">
-            <Image
-              src="/images/hero-img.png"
-              alt="Hero image"
-              fill
-              className="object-cover rounded-2xl"
-              priority
-            />
+          <div className="flex flex-wrap items-center gap-3 mt-6">
+            <a href="/docs/resume.pdf" download>
+              <button className="btn btn-primary">
+                <Download className="h-4 w-4" />
+                Resume
+              </button>
+            </a>
+            {socials.map(social => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`btn btn-square w-10 h-10 rounded-lg transition-colors ${social.color}`}
+                aria-label={social.label}
+              >
+                <social.icon className="w-4 h-4" />
+              </a>
+            ))}
+            <ProtectedMailLink
+              encoded={EMAIL_B64}
+              className="btn btn-square w-10 h-10 rounded-lg transition-colors bg-rose-500 text-white hover:bg-rose-600"
+              aria-label="Email"
+            >
+              <Mail className="w-4 h-4" />
+            </ProtectedMailLink>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Hero Image — Desktop */}
+        <div className="hidden lg:block relative w-100 shrink-0 rounded-2xl overflow-hidden">
+          <Image
+            src="/images/hero.png"
+            alt="Hero image"
+            fill
+            sizes="400px"
+            className="object-cover"
+          />
+        </div>
       </div>
-
-      {/* Background Elements */}
-      <AnimatedBackground />
     </section>
   );
 }

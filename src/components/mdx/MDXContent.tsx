@@ -1,15 +1,8 @@
-//src/mdx/MDXContent.tsx
-'use client';
+import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Suspense } from 'react';
-
-// Custom components for MDX
-const mdxComponents = {
-  // Headings with better styling
-  h1: ({ children, ...props }: any) => (
+const components: Components = {
+  h1: ({ children, ...props }) => (
     <h1
       className="text-3xl font-bold mb-6 mt-8 scroll-mt-20 first:mt-0"
       {...props}
@@ -17,149 +10,116 @@ const mdxComponents = {
       {children}
     </h1>
   ),
-  h2: ({ children, ...props }: any) => (
+  h2: ({ children, ...props }) => (
     <h2 className="text-2xl font-semibold mb-4 mt-8 scroll-mt-20" {...props}>
       {children}
     </h2>
   ),
-  h3: ({ children, ...props }: any) => (
+  h3: ({ children, ...props }) => (
     <h3 className="text-xl font-semibold mb-3 mt-6 scroll-mt-20" {...props}>
       {children}
     </h3>
   ),
-
-  // Paragraphs and text
-  p: ({ children, ...props }: any) => (
-    <p className="mb-4 leading-relaxed text-muted-foreground" {...props}>
+  p: ({ children, ...props }) => (
+    <p className="mb-4 leading-relaxed text-base-content/60" {...props}>
       {children}
     </p>
   ),
-
-  // Lists
-  ul: ({ children, ...props }: any) => (
+  ul: ({ children, ...props }) => (
     <ul className="mb-4 list-disc list-inside space-y-2 ml-4" {...props}>
       {children}
     </ul>
   ),
-  ol: ({ children, ...props }: any) => (
+  ol: ({ children, ...props }) => (
     <ol className="mb-4 list-decimal list-inside space-y-2 ml-4" {...props}>
       {children}
     </ol>
   ),
-  li: ({ children, ...props }: any) => (
-    <li className="text-muted-foreground" {...props}>
+  li: ({ children, ...props }) => (
+    <li className="text-base-content/60" {...props}>
       {children}
     </li>
   ),
-
-  // Blockquotes
-  blockquote: ({ children, ...props }: any) => (
+  blockquote: ({ children, ...props }) => (
     <blockquote
-      className="border-l-4 border-primary pl-4 italic my-6 text-muted-foreground bg-muted/30 py-2 rounded-r"
+      className="border-l-4 border-primary pl-4 italic my-6 text-base-content/60 bg-base-200 py-2 rounded-r"
       {...props}
     >
       {children}
     </blockquote>
   ),
-
-  // Code
-  code: ({ children, ...props }: any) => (
+  code: ({ children, ...props }) => (
     <code
-      className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-foreground"
+      className="bg-base-200 px-1.5 py-0.5 rounded text-sm font-mono"
       {...props}
     >
       {children}
     </code>
   ),
-  pre: ({ children, ...props }: any) => (
+  pre: ({ children, ...props }) => (
     <pre
-      className="bg-muted p-4 rounded-lg overflow-x-auto mb-6 text-sm"
+      className="bg-base-200 p-4 rounded-lg overflow-x-auto mb-6 text-sm"
       {...props}
     >
       {children}
     </pre>
   ),
-
-  // Links
-  a: ({ children, href, ...props }: any) => {
-    // Internal links
-    if (href?.startsWith('/')) {
-      return (
-        <Link
-          href={href}
-          className="text-primary hover:text-primary/80 underline underline-offset-2"
-          {...props}
-        >
-          {children}
-        </Link>
-      );
-    }
-    // External links
-    return (
-      <a
-        href={href}
-        className="text-primary hover:text-primary/80 underline underline-offset-2"
-        target="_blank"
-        rel="noopener noreferrer"
-        {...props}
-      >
-        {children}
-      </a>
-    );
-  },
-
-  // Images with Next.js optimization
-  img: ({ src, alt, ...props }: any) => (
-    <Image
+  a: ({ children, href, ...props }) => (
+    <a
+      href={href}
+      className="text-primary underline underline-offset-2 hover:opacity-80"
+      {...(href && !href.startsWith('/')
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : {})}
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+  img: ({ src, alt, ...props }) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={src}
-      alt={alt || ''}
-      width={800}
-      height={400}
-      className="rounded-lg my-6 w-full h-auto"
+      alt={alt ?? ''}
+      className="rounded-lg my-6 w-full h-auto border border-base-300"
       {...props}
     />
   ),
-
-  // Tables
-  table: ({ children, ...props }: any) => (
+  table: ({ children, ...props }) => (
     <div className="overflow-x-auto my-6">
-      <table className="min-w-full border border-border rounded-lg" {...props}>
+      <table
+        className="min-w-full border border-base-300 rounded-lg"
+        {...props}
+      >
         {children}
       </table>
     </div>
   ),
-  thead: ({ children, ...props }: any) => (
-    <thead className="bg-muted/50" {...props}>
+  thead: ({ children, ...props }) => (
+    <thead className="bg-base-200" {...props}>
       {children}
     </thead>
   ),
-  th: ({ children, ...props }: any) => (
+  th: ({ children, ...props }) => (
     <th
-      className="border border-border px-4 py-2 text-left font-semibold"
+      className="border border-base-300 px-4 py-2 text-left font-semibold"
       {...props}
     >
       {children}
     </th>
   ),
-  td: ({ children, ...props }: any) => (
-    <td className="border border-border px-4 py-2" {...props}>
+  td: ({ children, ...props }) => (
+    <td className="border border-base-300 px-4 py-2" {...props}>
       {children}
     </td>
   ),
-
-  // Horizontal rule
-  hr: ({ ...props }: any) => <hr className="my-8 border-border" {...props} />,
+  hr: props => <hr className="my-8 border-base-300" {...props} />,
 };
 
-interface MDXContentProps {
-  source: MDXRemoteSerializeResult;
-  components?: Record<string, React.ComponentType<any>>;
-}
-
-export function MDXContent({ source, components = {} }: MDXContentProps) {
+export function MDXContent({ source }: { source: string }) {
   return (
     <div className="prose prose-slate dark:prose-invert max-w-none">
-      <MDXRemote {...source} components={{ ...mdxComponents, ...components }} />
+      <ReactMarkdown components={components}>{source}</ReactMarkdown>
     </div>
   );
 }

@@ -1,21 +1,17 @@
-import { HeroTLDR } from '@/components/about/HeroTLDR';
-import { AboutOrigin } from '@/components/about/AboutOrigin';
-import { Skills } from '@/components/about/Skills';
-import { ResearchInterests } from '@/components/about/ResearchInterests';
-import { Achievements } from '@/components/about/Achievements';
-import { Vision } from '@/components/about/Vision';
+import { Origin } from '@/components/about/Origin';
+import { BackgroundSWE } from '@/components/about/Background';
+import { BackgroundResearch } from '@/components/about/Research';
+import { Interests } from '@/components/about/Interests';
 import { Philosophy } from '@/components/about/Philosophy';
 
 export function About() {
   return (
     <div className="min-h-screen">
-      <HeroTLDR />
-      <AboutOrigin />
-      <Skills />
-      <ResearchInterests />
-      <Achievements />
+      <Origin />
+      <BackgroundSWE />
+      <BackgroundResearch />
+      <Interests />
       <Philosophy />
-      <Vision />
     </div>
   );
 }

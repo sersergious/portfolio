@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showcases projects, research, and blog posts in a minimalist, Gruvbox-inspired design.
+This is my personal website that serves as a portfolio for my Software Engineering project and research.
 
 ## Tech stack
 
@@ -8,16 +8,9 @@ A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showc
 - React 19
 - TypeScript
 - Tailwind CSS 4 with a custom Gruvbox theme
-- MDX for blog, projects, and research content
-- shadcn/ui components + Framer Motion for a polished UX
-- Resend for contact emails
+- daisyUI
+- Sanity.io for content management
 
-## Unique features
-
-- MDX-powered content with tags and reading time
-- Fully responsive layout with dark/light mode
-- Fast SSG pages with solid SEO defaults
-- Smooth, subtle animations and accessible components
 
 ## In the works
 
@@ -29,4 +22,4 @@ A clean, fast, and accessible personal portfolio made by Serhii Kuzmin. It showc
 ## Links
 
 - Portfolio: https://sersergious.dev
-- Contact: serhii.kuzmin@scranton.edu
+- Contact: sergeykuzmin495@gmail.com

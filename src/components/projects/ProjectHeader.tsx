@@ -1,7 +1,5 @@
-'use client';
-
 import { ContentHeader } from '@/components/content/ContentHeader';
-import type { Project } from '@/lib/mdx-content';
+import type { Project } from '@/lib/sanity-content';
 
 interface ProjectHeaderProps {
   project: Project;

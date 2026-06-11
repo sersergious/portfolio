@@ -1,334 +1,138 @@
-// components/content/ContentHeader.tsx
-'use client';
-
-import {
-  ArrowLeft,
-  BookOpen,
-  Calendar,
-  Clock,
-  Code,
-  Download,
-  ExternalLink,
-  FileText,
-  Github,
-  Globe,
-  Tag,
-  User,
-  Users,
-  Zap,
-} from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import type { BlogPost, Project, ResearchPaper } from '@/lib/mdx-content';
+import type { Project, ResearchPaper } from '@/lib/sanity-content';
+import { getTagColor } from '@/lib/tag-colors';
 
-type Content = BlogPost | Project | ResearchPaper;
+type Content = Project | ResearchPaper;
 
 interface ContentHeaderProps {
   content: Content;
-  type: 'blog' | 'project' | 'research';
+  type: 'project' | 'research';
 }
 
-const contentConfig = {
-  blog: {
-    icon: FileText,
-    color: 'from-emerald-500 to-green-600',
-    bgColor: 'bg-emerald-50',
-    textColor: 'text-emerald-600',
-    backLink: '/blog',
-    backText: 'All Posts',
-  },
-  project: {
-    icon: Code,
-    color: 'from-purple-500 to-violet-600',
-    bgColor: 'bg-purple-50',
-    textColor: 'text-purple-600',
-    backLink: '/projects',
-    backText: 'All Projects',
-  },
-  research: {
-    icon: BookOpen,
-    color: 'from-blue-500 to-indigo-600',
-    bgColor: 'bg-blue-50',
-    textColor: 'text-blue-600',
-    backLink: '/research',
-    backText: 'All Research',
-  },
+const config = {
+  project: { backLink: '/projects', backText: 'All Projects' },
+  research: { backLink: '/research', backText: 'All Research' },
 };
 
 export function ContentHeader({ content, type }: ContentHeaderProps) {
-  const config = contentConfig[type];
-  const Icon = config.icon;
+  const { backLink, backText } = config[type];
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: content.title,
-          text:
-            'description' in content
-              ? content.description
-              : 'abstract' in content
-                ? content.abstract
-                : '',
-          url: window.location.href,
-        });
-      } catch (err) {
-        console.error('Share failed:', err);
-        navigator.clipboard.writeText(window.location.href);
-      }
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-    }
-  };
-
-  const renderMetaItem = (
-    IconComponent: React.ElementType,
-    label: string | React.ReactNode,
-    delay: number = 0
-  ) => (
-    <motion.div
-      className="flex items-center gap-2 text-sm text-muted-foreground"
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, delay }}
-    >
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-      >
-        <IconComponent className="h-4 w-4" />
-      </motion.div>
-      <span>{label}</span>
-    </motion.div>
-  );
+  const isResearch = 'abstract' in content;
+  const paper = isResearch ? (content as ResearchPaper) : null;
+  const project = !isResearch ? (content as Project) : null;
 
   return (
-    <header className="relative w-full overflow-hidden border-b bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-30">
-        <motion.div
-          className="absolute -top-4 -left-4 h-24 w-24 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-xl"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 blur-xl"
-          animate={{
-            x: [0, -15, 0],
-            y: [0, 15, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: 2,
-          }}
-        />
-      </div>
-
-      <div className="container relative z-10 mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8"
-        >
+    <div className="pt-32 md:pt-40 pb-8 bg-base-100">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
           <Link
-            href={config.backLink}
-            className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground hover:gap-3"
+            href={backLink}
+            className="inline-flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content transition-colors mb-4"
           >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {config.backText}
+            ← {backText}
           </Link>
-        </motion.div>
 
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-          {/* Animated Icon */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{
-              type: 'spring',
-              stiffness: 200,
-              damping: 15,
-              delay: 0.2,
-            }}
-            whileHover={{
-              scale: 1.05,
-              rotate: [0, -5, 5, 0],
-              transition: { duration: 0.3 },
-            }}
-            className={cn(
-              'relative flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-3xl shadow-xl',
-              `bg-gradient-to-br ${config.color}`,
-              'cursor-pointer'
-            )}
-          >
-            <Icon className="h-12 w-12 text-white" />
-          </motion.div>
+          <div className="bg-base-200 border border-base-300 rounded-2xl p-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              {content.title}
+            </h1>
 
-          {/* Content Section - Contains everything else */}
-          <div className="flex-grow">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <motion.h1
-                className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                {content.title}
-              </motion.h1>
+            <p className="text-lg text-base-content/70 leading-relaxed mb-6">
+              {project?.description ?? paper?.abstract}
+            </p>
 
-              <motion.p
-                className="mb-6 max-w-3xl text-lg leading-relaxed text-muted-foreground"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                {'description' in content && content.description}
-                {'abstract' in content && content.abstract}
-              </motion.p>
+            {/* Meta row */}
+            <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-sm text-base-content/60 mb-6">
+              {paper && (
+                <span>{paper.authors.join(', ')}</span>
+              )}
+              <span>
+                {new Date(content.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+              {'readingTime' in content && (
+                <span>{content.readingTime}</span>
+              )}
+              {paper?.journal && <span>{paper.journal}</span>}
+              {paper?.conference && <span>{paper.conference}</span>}
+              {project && (
+                <span className="capitalize">{project.status}</span>
+              )}
+            </div>
 
-              {/* Meta Information */}
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/50 pt-6">
-                {'author' in content &&
-                  renderMetaItem(User, content.author.name, 0.7)}
-                {'authors' in content &&
-                  renderMetaItem(Users, content.authors.join(', '), 0.7)}
-                {renderMetaItem(
-                  Calendar,
-                  new Date(content.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  }),
-                  0.8
-                )}
-                {'readingTime' in content &&
-                  renderMetaItem(Clock, content.readingTime, 0.9)}
-              </div>
-            </motion.div>
-
-            {/* Tags - Now inside the content section */}
-            {'tags' in content && content.tags && content.tags.length > 0 && (
-              <motion.div
-                className="mt-6 flex flex-wrap gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.1 }}
-              >
-                {content.tags.map((tag: string, index: number) => (
-                  <motion.div
+            {/* Tags */}
+            {'tags' in content && content.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {content.tags.map((tag: string) => (
+                  <span
                     key={tag}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.2 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
+                    className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTagColor(tag)}`}
                   >
-                    <Badge
-                      variant="secondary"
-                      className="flex items-center gap-1.5 px-3 py-1.5"
-                    >
-                      {tag}
-                    </Badge>
-                  </motion.div>
+                    {tag}
+                  </span>
                 ))}
-              </motion.div>
+              </div>
             )}
 
-            {/* Action Buttons - Now inside the content section */}
-            <motion.div
-              className="mt-8 flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.0 }}
-            >
-              {'github' in content && content.github && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+            {/* Action links */}
+            <div className="flex flex-wrap gap-3 pt-4 border-t border-base-300">
+              {project?.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline btn-sm"
                 >
-                  <Button asChild variant="outline" className="group">
-                    <a
-                      href={content.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                      GitHub
-                    </a>
-                  </Button>
-                </motion.div>
+                  GitHub
+                </a>
               )}
-              {'demo' in content && content.demo && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              {project?.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-sm"
                 >
-                  <Button asChild className="group">
-                    <a
-                      href={content.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                      Live Demo
-                    </a>
-                  </Button>
-                </motion.div>
+                  Live Demo
+                </a>
               )}
-              {'pdf' in content && content.pdf && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              {paper?.pdf && (
+                <a
+                  href={paper.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-sm"
                 >
-                  <Button asChild className="group">
-                    <a
-                      href={content.pdf}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Download className="mr-2 h-4 w-4 transition-transform group-hover:translate-y-[-2px]" />
-                      PDF
-                    </a>
-                  </Button>
-                </motion.div>
+                  View PDF
+                </a>
               )}
-              {'doi' in content && content.doi && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              {paper?.doi && (
+                <a
+                  href={`https://doi.org/${paper.doi}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline btn-sm"
                 >
-                  <Button asChild variant="outline" className="group">
-                    <a
-                      href={`https://doi.org/${content.doi}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Globe className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
-                      DOI
-                    </a>
-                  </Button>
-                </motion.div>
+                  DOI
+                </a>
               )}
-            </motion.div>
+              {paper?.arxiv && (
+                <a
+                  href={paper.arxiv}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline btn-sm"
+                >
+                  arXiv
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
 }
