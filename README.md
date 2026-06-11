@@ -21,5 +21,5 @@ This is my personal website that serves as a portfolio for my Software Engineeri
 
 ## Links
 
-- Portfolio: https://sersergious.dev
+- Portfolio: https://skuzmin.dev
 - Contact: sergeykuzmin495@gmail.com
