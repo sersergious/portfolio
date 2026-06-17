@@ -26,7 +26,8 @@ export function Interests() {
             <p className="text-lg text-base-content/70 leading-relaxed">
               I&apos;m also an avid traveler. Growing up in Ukraine and starting
               my explorations at age 18, I&apos;ve been fortunate to visit
-              multiple countries including Germany, Spain, Croatia, and Turkey.
+              multiple countries including United States, Germany, Spain,
+              France, Sweden, Netherlands and Austria.
               I&apos;m passionate about discovering new destinations and
               experiencing different cultures. When I&apos;m not traveling, I
               enjoy cooking and spending quality time with friends and family.

@@ -12,7 +12,7 @@ const socials = [
     color: 'bg-neutral text-neutral-content hover:bg-neutral/80',
   },
   {
-    href: 'https://www.linkedin.com/in/sersergious-dev',
+    href: 'https://www.linkedin.com/in/skuzmin-dev',
     icon: Linkedin,
     label: 'LinkedIn',
     color: 'bg-blue-600 text-white hover:bg-blue-700',
