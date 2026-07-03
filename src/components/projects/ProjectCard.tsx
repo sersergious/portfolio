@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Github, ExternalLink, Calendar, PlayCircle } from 'lucide-react';
+import { ExternalLink, Calendar, PlayCircle } from 'lucide-react';
+import { Github } from '@/components/icons/brand-icons';
 import type { Project } from '@/lib/sanity-content';
 
 interface ProjectCardProps {

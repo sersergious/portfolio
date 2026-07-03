@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { Download, Mail } from 'lucide-react';
+import { Github, Linkedin } from '@/components/icons/brand-icons';
 import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
 
 const EMAIL_B64 = 'c2VyaGlpLmt1em1pbkBzY3JhbnRvbi5lZHU=';
