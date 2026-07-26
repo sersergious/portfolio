@@ -14,36 +14,37 @@
   "engines": {
     "bun": ">=1.0"
   },
+  "//overrides": "CodeMirror identifies extensions with instanceof, so two copies of @codemirror/state break Sanity Vision's GROQ editor ('Unrecognized extension value in extension set'). @codemirror/view wants ^6.7.0 while its siblings accept ^6.0.0, which resolved to two versions. All ranges are compatible — pin one.",
+  "overrides": {
+    "@codemirror/state": "^6.7.0"
+  },
   "dependencies": {
     "@sanity/icons": "^4.1.0",
-    "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^6.3.0",
-    "@tailwindcss/typography": "^0.5.20",
+    "@sanity/vision": "^6.4.0",
     "clsx": "^2.1.1",
-    "daisyui": "^5.6.10",
-    "geist": "^1.7.2",
-    "lucide-react": "^1.23.0",
+    "daisyui": "^5.6.18",
+    "lucide-react": "^1.24.0",
     "next": "^16.3.0-preview.5",
     "next-sanity": "^13.1.1",
     "next-themes": "^0.4.6",
     "react": "^19.3.0-canary-fef12a01-20260413",
     "react-dom": "^19.3.0-canary-fef12a01-20260413",
     "react-markdown": "^10.1.0",
-    "sanity": "^6.3.0",
+    "sanity": "^6.4.0",
     "styled-components": "^6.4.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/eslintrc": "^3.3.6",
     "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.2",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.62.1",
-    "@typescript-eslint/parser": "^8.62.1",
-    "eslint": "^9",
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/parser": "^8.63.0",
+    "eslint": "^9.39.5",
     "eslint-config-next": "^16.2.10",
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.5",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3"
   }

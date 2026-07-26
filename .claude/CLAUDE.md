@@ -13,11 +13,11 @@ bun run format       # Prettier (write)
 bun run format:check # Prettier (check only)
 ```
 
-No test suite is configured. ESLint is skipped during `bun run build` (`eslint.ignoreDuringBuilds: true`).
+No test suite is configured.
 
 ## Architecture
 
-Personal portfolio for Serhii Kuzmin, deployed at `sersergious.dev`. Built with **Next.js 15** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **DaisyUI v5**.
+Personal portfolio for Serhii Kuzmin, deployed at `skuzmin.dev`. Built with **Next.js 16** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **DaisyUI v5**. Content lives in **Sanity**, with the Studio embedded at `/studio`.
 
 ### Routing
 
@@ -25,33 +25,53 @@ File-based routing via Next.js App Router under `src/app/`:
 
 ```
 src/app/
-  layout.tsx          ← root layout: HTML shell, Navigation, Footer, theme init script
-  page.tsx            ← / (Hero + About)
-  not-found.tsx       ← global 404
-  projects/
-    page.tsx          ← /projects list (SSG)
-    [slug]/page.tsx   ← /projects/:slug detail (SSG via generateStaticParams)
-  research/
-    page.tsx          ← /research list (SSG)
-    [slug]/page.tsx   ← /research/:slug detail (SSG via generateStaticParams)
+  layout.tsx              ← root layout: HTML shell + site-wide metadata/OG
+  sitemap.ts              ← /sitemap.xml, built from getAllWork()
+  robots.ts               ← /robots.txt (disallows /studio/)
+  (site)/
+    layout.tsx            ← Navigation + Footer shell, ThemeProvider
+    error.tsx             ← segment error boundary (failed Sanity fetch)
+    page.tsx              ← / (hero, stack, recent work, press, contact)
+    about/page.tsx        ← /about
+    not-found.tsx         ← 404
+    work/
+      page.tsx            ← /work list, all kinds (SSG)
+      [slug]/page.tsx     ← /work/:slug detail (SSG via generateStaticParams)
+  studio/[[...tool]]/     ← embedded Sanity Studio
 ```
+
+Root metadata sets a `title.template` of `%s — Serhii Kuzmin`, so page-level
+`title` values are bare (`'Work'`, `'About'`, the item title) — don't re-add the
+name.
 
 Page metadata is exported via `generateMetadata()`. Data loading is async in Server Components.
 
+`/projects` and `/research` were merged into `/work`; both old paths (list and
+`:slug`) 308 to their `/work` equivalents via `redirects()` in `next.config.ts`.
+Keep those redirects — the old URLs are indexed.
+
 ### Content System
 
-File-based MDX content in `content/{projects,research}/`. The entry point is `src/lib/mdx-content.ts`:
+One Sanity document type, `work` ([src/sanity/schemaTypes/work.ts](../src/sanity/schemaTypes/work.ts)), covers both projects and research papers. A required `kind` field (`project` | `research`) is the discriminant:
 
-- Reads `.mdx` files with `gray-matter` for frontmatter
-- Returns raw MDX `content` string (no pre-serialization needed)
-- Computes `readingTime` and `wordCount` automatically
+- **Shared**: `title`, `slug`, `description`, `date`, `tags[]`, `status`, `youtubeUrl`, `image`, `content` (markdown)
+- **Project only**: `github`, `demo`
+- **Research only**: `abstract`, `authors[]`, `journal`, `conference`, `doi`, `arxiv`, `pdf`
 
-**MDX frontmatter schemas:**
+Kind-specific fields use `hidden: onlyFor(kind)` so the Studio form shows only what applies. `status` is one field carrying all seven values; a custom validation rule rejects values that don't match the selected `kind`. `STATUS_BY_KIND` / `statusLabel()` live in [src/lib/work-status.ts](../src/lib/work-status.ts) — dependency-free so both the schema and the site components can import them without pulling Sanity into the site bundle.
 
-- **Project**: `title`, `description`, `date`, `tags[]`, `category[]`, `featured`, `status` (completed/in-progress/archived), optional `github`, `demo`, `image`
-- **ResearchPaper**: `title`, `abstract`, `authors[]`, `date`, `tags[]`, `featured`, `status` (published/preprint/in-review/draft), optional `journal`, `conference`, `doi`, `arxiv`, `pdf`
+The first entry of `tags[]` is treated as the primary language (project) or field (research) and drives the colour dot via `languageColor()`.
 
-MDX is rendered server-side via `src/components/mdx/MDXContent.tsx` using `next-mdx-remote/rsc`'s `MDXRemote` (Server Component — no `'use client'` needed).
+Data flow: GROQ queries in [src/sanity/lib/queries.ts](../src/sanity/lib/queries.ts) → [src/lib/sanity-content.ts](../src/lib/sanity-content.ts). Two shapes, matching two fragments:
+
+- `getAllWork(): WorkSummary[]` — the `cardFields` fragment, what a card and the sitemap need. No `content`, `abstract`, `doi`, `arxiv`, `pdf`.
+- `getWorkBySlug(): WorkItem | null` — the `detailFields` fragment, `WorkSummary` plus those five.
+
+Keep the split: it's what stops a card from reading a `content` the list query never fetched. `WorkCard`/`WorkList` take `WorkSummary`; `ContentHeader` takes `WorkItem`.
+
+The markdown `content` field is rendered by `react-markdown` in [src/components/mdx/MDXContent.tsx](../src/components/mdx/MDXContent.tsx) (Server Component, despite the `mdx/` directory name — there is no MDX pipeline).
+
+Studio panes (All work / Projects / Research) are defined in [src/sanity/structure.ts](../src/sanity/structure.ts); the filtered panes pre-fill `kind` via initial value templates registered in `schemaTypes/index.ts`.
 
 ### Theming
 
@@ -60,7 +80,7 @@ DaisyUI v5 with two built-in themes:
 - **Light** → `emerald` (default)
 - **Dark** → `dracula` (auto-applied via `prefers-color-scheme: dark`)
 
-Theme switching uses the `data-theme` attribute on `<html>`. The `ThemeToggle` component stores the choice in `localStorage`. A small inline `<script>` in `layout.tsx`'s `<head>` applies the saved theme before React hydrates (avoids FOUC).
+Theme switching is handled by `next-themes` (`ThemeProvider` in `(site)/layout.tsx`, `attribute="data-theme"`, `defaultTheme="system"`). It injects its own blocking script, so there is no FOUC and no hand-written inline script — `<html>` carries `suppressHydrationWarning` for the attribute it sets.
 
 ### Styling
 
@@ -68,33 +88,58 @@ Tailwind CSS v4 with DaisyUI v5, configured in `src/styles/globals.css` via `@im
 
 ### Client Components
 
-Components that use browser APIs or React hooks need `'use client'`:
+Components that use browser APIs or React hooks need `'use client'`. Everything else is a Server Component — keep it that way:
 
-- `src/components/layout/Navigation.tsx` — scroll state, mobile menu toggle, `usePathname`
-- `src/components/theme/theme-toggle.tsx` — localStorage, `data-theme` toggling
-- `src/components/transitions/index.tsx` — `TypewriterText` uses `useState`/`useEffect`
-- `src/components/content/ContentHeader.tsx` — `navigator.share`
+- `src/components/layout/Navigation.tsx` — `usePathname`
+- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, `data-theme`
+- `src/components/work/WorkList.tsx` — kind filter buttons (`useState`)
+- `src/app/(site)/error.tsx` — error boundaries must be Client Components
+- `src/components/ui/ProtectedMailLink.tsx` — decodes the address on click
 
 ### Component Organization
 
 ```
 src/components/
-  about/        ← About page sections (all rendered on home page /)
-  content/      ← Shared ContentHeader and RelatedContent
-  home/         ← Hero section
-  layout/       ← Navigation and Footer
-  mdx/          ← MDXContent renderer (Server Component, uses next-mdx-remote/rsc)
-  projects/     ← Project list and detail header components
-  research/     ← Research list and detail header components
-  theme/        ← ThemeToggle (DaisyUI data-theme)
-  transitions/  ← Static wrappers + TypewriterText
+  about/    ← About page sections
+  content/  ← ContentHeader (detail hero + abstract)
+  home/     ← home-page pieces
+  icons/    ← brand SVGs (GitHub, LinkedIn)
+  layout/   ← Navigation and Footer
+  mdx/      ← MDXContent renderer (react-markdown, Server Component)
+  theme/    ← ThemeToggle / ThemeProvider (DaisyUI data-theme)
+  ui/       ← PageHeader, SectionLabel, ProtectedMailLink
+  work/     ← WorkCard (kind-driven) and WorkList (filter buttons)
 ```
+
+`PageHeader` is the masthead for `/work` and `/about` — h1 at the same scale as
+a detail page, optional lead, optional children (the filter row), and the home
+page's graph-paper backdrop.
+
+`WorkCard` renders both kinds — icon, subtitle line, and meta links branch on `item.kind`. Don't add a second card component; extend this one.
 
 ## Environment Variables
 
-- `RESEND_API_KEY` — was used for contact form (contact section removed; can be cleaned up)
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` — required; `src/sanity/env.ts` throws without them
+- `NEXT_PUBLIC_SANITY_API_VERSION` — optional, defaults to `2026-06-04`
+- `NEXT_PUBLIC_SITE_URL` — optional, defaults to `https://skuzmin.dev`; drives `metadataBase`, the sitemap, and robots.txt via [src/lib/site.ts](../src/lib/site.ts)
+
+Sanity CLI work (migrations, dataset export) authenticates through `npx sanity login`, not a token in `.env`.
+
+## Sanity Migrations
+
+Schema changes that touch existing documents go in `migrations/<id>/index.ts` and run through the CLI (`npx sanity login` first — the CLI session is the auth, no token in `.env`):
+
+```bash
+npx sanity dataset export production ./backup.tar.gz   # always first
+npx sanity migrations list
+npx sanity migrations run <id>                # dry run (default)
+npx sanity migrations run <id> --no-dry-run   # writes
+```
+
+Sanity cannot patch `_type`, so a type rename is create-new-then-delete-old as two separate migrations, verified in between.
 
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.

@@ -8,7 +8,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       attribute="data-theme"
       defaultTheme="system"
       themes={['light', 'dark']}
-      value={{ light: 'corporate', dark: 'dim' }}
     >
       {children}
     </NextThemesProvider>

@@ -12,14 +12,4 @@ This is my personal website that serves as a portfolio for my Software Engineeri
 - Sanity.io for content management
 
 
-## In the works
 
-- More blog posts and research write-ups.
-- More software development projects.
-- Better optimizations and performance improvements.
-- Simpler and more intuitive UI.
-
-## Links
-
-- Portfolio: https://skuzmin.dev
-- Contact: sergeykuzmin495@gmail.com
