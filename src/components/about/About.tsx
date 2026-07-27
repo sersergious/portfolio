@@ -20,31 +20,37 @@ export function About() {
         <p>
           Since early childhood I&apos;ve been pulled toward technology, taking
           computers apart to understand how they work. That turned into coding
-          at 13, and from there into a steady run of projects — web applications
-          first, then mobile.
+          at 13, and from there into a steady run of projects.
         </p>
         <p>
-          Mathematics has been the constant underneath it. From age five I
-          competed in olympiads and presented at conferences, and I graduated
+          Mathematics has been the interest that has empowered me to pursue my passions. 
+          From the age of seven I competed in olympiads and presented at conferences, and I graduated
           from the University of Scranton with a degree in Computer Science and
-          Mathematical Sciences — the combination I&apos;d been building toward
+          Mathematical Sciences — the ultimate combination I&apos;d been building toward
           the whole time.
         </p>
       </Band>
 
       <Band label="Engineering">
         <p>
-          Most of what I know I taught myself, then sharpened in college. The
-          work I care about sits low in the stack: writing C, crossing an FFI
-          boundary, and shipping the result as something a person can actually
-          install. Above that I build backend services in Python and TypeScript,
-          and I&apos;ve written Android apps in Kotlin.
+        Most of what I know I taught myself, then sharpened in college. I have
+          worked on a variety of projects, from desktop applications to backend
+          services to mobile apps. However, my primary focus is on backend development
+          and low-level systems programming. I have experience with a variety of
+          programming languages, including C, Python, TypeScript, and Java. I have
+          also worked with a variety of databases, such as PostgreSQL and SQLite. 
+          I have also worked with a variety of backend web frameworks, such as
+          FastAPI and Flask. I have also worked with a variety of
+          frontend frameworks, such as React and Next.js to give my apps a nice UI. I have 
+          also worked with a variety of cloud platforms like AWS.
+
         </p>
         <figure className="border-l-2 border-primary pl-5">
           <blockquote className="text-base-content/80">
-            Surface Evolver is the clearest example — a C computation core
-            called through Bun&apos;s FFI, wrapped in a cross-platform desktop
-            app that runs on macOS and Linux.
+          Surface Evolver highlights my passion for modernizing legacy software. 
+          I transformed a powerful but inaccessible decades-old program into a cross-platform 
+          desktop app with a simple UI, maintaining 95% engine compatibility while 
+          cutting render times by 30%.
           </blockquote>
           <figcaption className="mt-2 font-mono text-xs text-base-content/70">
             Capstone project, 2026
@@ -57,8 +63,8 @@ export function About() {
           I&apos;m well versed in applied mathematics — numerical analysis,
           information theory, and applied probability and statistics in
           particular. Throughout my studies I chased understanding of the
-          concepts themselves rather than the mechanics, which is what makes
-          them portable into engineering work.
+          concepts themselves rather than the mechanics, which is the skill 
+          that is directly applicable to engineering when tackling challenges.
         </p>
       </Band>
 
