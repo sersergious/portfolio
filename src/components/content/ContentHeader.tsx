@@ -1,138 +1,105 @@
 import Link from 'next/link';
-import type { Project, ResearchPaper } from '@/lib/sanity-content';
-import { getTagColor } from '@/lib/tag-colors';
+import { SectionLabel } from '@/components/ui/SectionLabel';
+import { languageColor } from '@/lib/languages';
+import { formatDate } from '@/lib/utils';
+import { statusLabel } from '@/lib/work-status';
+import type { WorkItem } from '@/lib/sanity-content';
 
-type Content = Project | ResearchPaper;
+export function ContentHeader({ item }: { item: WorkItem }) {
+  const [language, ...topics] = item.tags ?? [];
 
-interface ContentHeaderProps {
-  content: Content;
-  type: 'project' | 'research';
-}
-
-const config = {
-  project: { backLink: '/projects', backText: 'All Projects' },
-  research: { backLink: '/research', backText: 'All Research' },
-};
-
-export function ContentHeader({ content, type }: ContentHeaderProps) {
-  const { backLink, backText } = config[type];
-
-  const isResearch = 'abstract' in content;
-  const paper = isResearch ? (content as ResearchPaper) : null;
-  const project = !isResearch ? (content as Project) : null;
+  const actions = [
+    item.github && { href: item.github, label: 'View code' },
+    item.demo && { href: item.demo, label: 'Open demo', primary: true },
+    item.pdf && { href: item.pdf, label: 'Read PDF', primary: true },
+    item.doi && { href: `https://doi.org/${item.doi}`, label: 'DOI' },
+    // Both fields hold a bare identifier, not a URL — prefix them the same way.
+    item.arxiv && {
+      href: `https://arxiv.org/abs/${item.arxiv}`,
+      label: 'arXiv',
+    },
+  ].filter(Boolean) as { href: string; label: string; primary?: boolean }[];
 
   return (
-    <div className="pt-32 md:pt-40 pb-8 bg-base-100">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <Link
-            href={backLink}
-            className="inline-flex items-center gap-1 text-sm text-base-content/60 hover:text-base-content transition-colors mb-4"
-          >
-            ← {backText}
-          </Link>
+    <>
+      <header className="pt-12 md:pt-16">
+        <Link
+          href="/work"
+          className="link link-hover font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase"
+        >
+          ← All work
+        </Link>
 
-          <div className="bg-base-200 border border-base-300 rounded-2xl p-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              {content.title}
-            </h1>
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+          {item.title}
+        </h1>
 
-            <p className="text-lg text-base-content/70 leading-relaxed mb-6">
-              {project?.description ?? paper?.abstract}
+        {/* A paper is introduced by its authors, a project by what it does. */}
+        {item.kind === 'research' && item.authors && item.authors.length > 0 ? (
+          <p className="mt-6 text-lg leading-relaxed text-base-content/70">
+            {item.authors.join(', ')}
+          </p>
+        ) : (
+          item.description && (
+            <p className="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+              {item.description}
             </p>
+          )
+        )}
 
-            {/* Meta row */}
-            <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-sm text-base-content/60 mb-6">
-              {paper && (
-                <span>{paper.authors.join(', ')}</span>
-              )}
-              <span>
-                {new Date(content.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </span>
-              {'readingTime' in content && (
-                <span>{content.readingTime}</span>
-              )}
-              {paper?.journal && <span>{paper.journal}</span>}
-              {paper?.conference && <span>{paper.conference}</span>}
-              {project && (
-                <span className="capitalize">{project.status}</span>
-              )}
-            </div>
+        {/* Facts, in the same mono voice as the hero credentials line. */}
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-base-content/70">
+          {language && (
+            <span className="flex items-center gap-1.5">
+              <span
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: languageColor(language) }}
+              />
+              {language}
+            </span>
+          )}
+          <span>{statusLabel(item.status)}</span>
+          <time dateTime={item.date}>{formatDate(item.date)}</time>
+          {item.journal && <span>{item.journal}</span>}
+          {item.conference && <span>{item.conference}</span>}
+        </p>
 
-            {/* Tags */}
-            {'tags' in content && content.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
-                {content.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getTagColor(tag)}`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
+        {topics.length > 0 && (
+          <ul className="mt-5 flex flex-wrap gap-1.5">
+            {topics.map(topic => (
+              <li
+                key={topic}
+                className="badge badge-sm badge-primary badge-soft"
+              >
+                {topic}
+              </li>
+            ))}
+          </ul>
+        )}
 
-            {/* Action links */}
-            <div className="flex flex-wrap gap-3 pt-4 border-t border-base-300">
-              {project?.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline btn-sm"
-                >
-                  GitHub
-                </a>
-              )}
-              {project?.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm"
-                >
-                  Live Demo
-                </a>
-              )}
-              {paper?.pdf && (
-                <a
-                  href={paper.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary btn-sm"
-                >
-                  View PDF
-                </a>
-              )}
-              {paper?.doi && (
-                <a
-                  href={`https://doi.org/${paper.doi}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline btn-sm"
-                >
-                  DOI
-                </a>
-              )}
-              {paper?.arxiv && (
-                <a
-                  href={paper.arxiv}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline btn-sm"
-                >
-                  arXiv
-                </a>
-              )}
-            </div>
+        {actions.length > 0 && (
+          <div className="mt-8 flex flex-wrap gap-2">
+            {actions.map(action => (
+              <a
+                key={action.href}
+                href={action.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`btn btn-sm ${action.primary ? 'btn-primary' : ''}`}
+              >
+                {action.label}
+              </a>
+            ))}
           </div>
-        </div>
-      </div>
-    </div>
+        )}
+      </header>
+
+      {item.abstract && (
+        <section className="pt-14">
+          <SectionLabel>Abstract</SectionLabel>
+          <p className="text-base leading-relaxed">{item.abstract}</p>
+        </section>
+      )}
+    </>
   );
 }

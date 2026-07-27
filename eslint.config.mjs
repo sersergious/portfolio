@@ -1,17 +1,15 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import coreWebVitals from 'eslint-config-next/core-web-vitals';
+import typescript from 'eslint-config-next/typescript';
 
 const eslintConfig = [
   { ignores: ['.next/**', 'next-env.d.ts'] },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...coreWebVitals,
+  ...typescript,
+  {
+    // Next 16's react-hooks preset flags the intentional client-mount pattern
+    // (next-themes mounted flag, client-only email decode) as set-state-in-effect.
+    rules: { 'react-hooks/set-state-in-effect': 'off' },
+  },
 ];
 
 export default eslintConfig;

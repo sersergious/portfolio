@@ -9,6 +9,10 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
 
 export default defineCliConfig({
   api: { projectId, dataset },
+  deployment: {
+    appId: 'fuhno9tfzrhan038kahe5l43',
+    autoUpdates: true
+  },
   typegen: {
     enabled: true,
     generates: './sanity.types.ts',
