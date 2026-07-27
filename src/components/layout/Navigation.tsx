@@ -16,7 +16,8 @@ export function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-base-content/15 bg-base-100/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-6">
+      {/* Taller on md+ so the larger avatar keeps its breathing room. */}
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-6 md:h-16">
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2"
@@ -25,9 +26,11 @@ export function Navigation() {
           <Image
             src="/images/logo.png"
             alt=""
-            width={24}
-            height={24}
-            className="shrink-0 rounded-full"
+            width={144}
+            height={144}
+            sizes="(min-width: 768px) 44px, 36px"
+            priority
+            className="h-9 w-9 shrink-0 rounded-full object-cover md:h-11 md:w-11"
           />
           {/* Logo alone carries identity once the nav needs the width. */}
           <span className="hidden text-sm font-semibold whitespace-nowrap sm:inline">
