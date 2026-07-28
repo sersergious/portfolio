@@ -7,7 +7,7 @@ This is my personal website that serves as a portfolio for my Software Engineeri
 - Next.js (App Router)
 - React 19
 - TypeScript
-- Tailwind CSS 4 with a custom Gruvbox theme
+- Tailwind CSS
 - daisyUI
 - Sanity.io for content management
 
