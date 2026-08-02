@@ -24,8 +24,8 @@ export function About() {
         </p>
         <p>
           Mathematics has been the interest that has empowered me to pursue my
-          passions. I started to compet in olympiads and presented at
-          conferences as early as 7. Fast forward to today and I graduated from
+          passions. I started to compete in olympiads and present my work at
+          conferences as early as 7. Fast forward to today, I graduated from
           the University of Scranton with a degree in Computer Science and
           Mathematical Sciences — the ultimate combination I&apos;d been
           building toward the whole time.
@@ -36,29 +36,25 @@ export function About() {
         <p>
           Most of what I know I taught myself, then sharpened in college. I have
           worked on a variety of projects, from desktop applications to backend
-          services to mobile apps to highly abstract qunatum computing
+          services to mobile apps to highly abstract quantum computing
           simulations. However, my primary focus is on backend development and
           low-level systems programming. I have experience with a variety of
           programming languages, including C, Python, TypeScript, and Java. I
-          have also worked with a variety of databases, such as PostgreSQL and
-          SQLite. On top of that, I have exposure to a variety of backend web
-          frameworks, such as FastAPI and Flask. Despite the backend focus, I
-          always sure that the UI/UX at the forefront of my work. That is why I
-          have mastered a variety of frontend frameworks, such as React and
-          Next.js to give my apps a nice UI. FInally, I have deployed multiple
+          have also worked with different kinds of databases, such as PostgreSQL
+          and SQLite. Additionally, I have exposure to a set of popular
+          backend web frameworks, such as FastAPI. Despite the backend
+          focus, I always make sure that the UI/UX is at the forefront of my
+          work. That is why I have mastered frontend frameworks like React and
+          Next.js to give my apps a nice UI. Finally, I have deployed multiple
           projects on cloud platforms like AWS.
         </p>
         <figure className="border-l-2 border-primary pl-5">
           <blockquote className="text-base-content/80">
-            Surface Evolver highlights my passion for modernizing legacy
+            Surface Evolver is the clear example of my passion for modernizing legacy
             software. I transformed a powerful but inaccessible decades-old
             program into a cross-platform desktop app with a simple elegant UI,
-            maintaining 90% engine compatibility while cutting render times by
-            30%.
+            maintaining 90% engine compatibility while cutting render times by 30%.
           </blockquote>
-          <figcaption className="mt-2 font-mono text-xs text-base-content/70">
-            Capstone project, 2026
-          </figcaption>
         </figure>
       </Band>
 
