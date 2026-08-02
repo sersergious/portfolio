@@ -18,39 +18,43 @@ export function About() {
         alt="Serhii Kuzmin on the University of Scranton campus"
       >
         <p>
-          Since early childhood I&apos;ve been pulled toward technology, taking
+          Since early childhood I&apos;ve been interested in technology, taking
           computers apart to understand how they work. That turned into coding
-          at 13, and from there into a steady run of projects.
+          at 13, and from there into what I do today.
         </p>
         <p>
-          Mathematics has been the interest that has empowered me to pursue my passions. 
-          From the age of seven I competed in olympiads and presented at conferences, and I graduated
-          from the University of Scranton with a degree in Computer Science and
-          Mathematical Sciences — the ultimate combination I&apos;d been building toward
-          the whole time.
+          Mathematics has been the interest that has empowered me to pursue my
+          passions. I started to compet in olympiads and presented at
+          conferences as early as 7. Fast forward to today and I graduated from
+          the University of Scranton with a degree in Computer Science and
+          Mathematical Sciences — the ultimate combination I&apos;d been
+          building toward the whole time.
         </p>
       </Band>
 
       <Band label="Engineering">
         <p>
-        Most of what I know I taught myself, then sharpened in college. I have
+          Most of what I know I taught myself, then sharpened in college. I have
           worked on a variety of projects, from desktop applications to backend
-          services to mobile apps. However, my primary focus is on backend development
-          and low-level systems programming. I have experience with a variety of
-          programming languages, including C, Python, TypeScript, and Java. I have
-          also worked with a variety of databases, such as PostgreSQL and SQLite. 
-          I have also worked with a variety of backend web frameworks, such as
-          FastAPI and Flask. I have also worked with a variety of
-          frontend frameworks, such as React and Next.js to give my apps a nice UI. I have 
-          also worked with a variety of cloud platforms like AWS.
-
+          services to mobile apps to highly abstract qunatum computing
+          simulations. However, my primary focus is on backend development and
+          low-level systems programming. I have experience with a variety of
+          programming languages, including C, Python, TypeScript, and Java. I
+          have also worked with a variety of databases, such as PostgreSQL and
+          SQLite. On top of that, I have exposure to a variety of backend web
+          frameworks, such as FastAPI and Flask. Despite the backend focus, I
+          always sure that the UI/UX at the forefront of my work. That is why I
+          have mastered a variety of frontend frameworks, such as React and
+          Next.js to give my apps a nice UI. FInally, I have deployed multiple
+          projects on cloud platforms like AWS.
         </p>
         <figure className="border-l-2 border-primary pl-5">
           <blockquote className="text-base-content/80">
-          Surface Evolver highlights my passion for modernizing legacy software. 
-          I transformed a powerful but inaccessible decades-old program into a cross-platform 
-          desktop app with a simple UI, maintaining 95% engine compatibility while 
-          cutting render times by 30%.
+            Surface Evolver highlights my passion for modernizing legacy
+            software. I transformed a powerful but inaccessible decades-old
+            program into a cross-platform desktop app with a simple elegant UI,
+            maintaining 90% engine compatibility while cutting render times by
+            30%.
           </blockquote>
           <figcaption className="mt-2 font-mono text-xs text-base-content/70">
             Capstone project, 2026
@@ -63,8 +67,8 @@ export function About() {
           I&apos;m well versed in applied mathematics — numerical analysis,
           information theory, and applied probability and statistics in
           particular. Throughout my studies I chased understanding of the
-          concepts themselves rather than the mechanics, which is the skill 
-          that is directly applicable to engineering when tackling challenges.
+          concepts themselves rather than the mechanics, which is the skill that
+          is directly applicable to engineering when tackling challenges.
         </p>
       </Band>
 
@@ -75,9 +79,10 @@ export function About() {
         flip
       >
         <p>
-          In the summer of 2025 I decided I wanted to find out what research
-          actually is. Back at college I found a quantum computing project, and
-          about eight months later I presented my first results.
+          In the summer of 2025 I decided I wanted to find out what doing
+          research actually is. Back at college I found a quantum computing
+          project that peeked my interest, and about eight months later I
+          presented my first results at a conference.
         </p>
         <p>
           Quantum computing is the primary focus, but the curiosity is wider

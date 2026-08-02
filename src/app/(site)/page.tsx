@@ -33,19 +33,18 @@ export default async function HomePage() {
               Serhii Kuzmin
             </h1>
             <p className="mt-3 text-xl text-base-content/70 md:text-2xl">
-              Software engineer — backend, systems, low-level.
+              Software engineer — full-stack with focus on backend and systems.
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-base-content/70">
-              I like working close to the machine: C behind an FFI boundary,
-              Python and TypeScript services above it, and the packaging that
-              turns the whole thing into something a person can install. I got
-              here through numerical work and quantum computing research, which
-              is where I learned to care what a program actually costs to run.
+              Full-Stack Engineer, focused on backend and systems. I build
+              modern web UIs using TypeScript and React, write server-side
+              services in Java, Kotlin, and Python, and work close to the
+              machine in C.
             </p>
 
             <p className="mt-4 max-w-xl text-base leading-relaxed text-base-content">
-              Looking for backend, systems, or platform engineering roles.
+              Looking for backend, systems, or full-stack roles
             </p>
 
             <p className="mt-5 font-mono text-xs text-base-content/70">

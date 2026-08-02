@@ -55,7 +55,7 @@ export default function OpengraphImage() {
             color: 'rgba(248, 248, 242, 0.72)',
           }}
         >
-          Software engineer — backend, systems, low-level.
+          Software engineer — full-stack with focus on backend, systems.
         </div>
       </div>
 
