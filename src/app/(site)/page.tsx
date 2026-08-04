@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Download, Mail } from 'lucide-react';
 import { Github, Linkedin } from '@/components/icons/brand-icons';
 import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
-import { getAllWork } from '@/lib/sanity-content';
+import { getAllWork } from '@/lib/work-content';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { CREDENTIALS, EMAIL_B64, PRESS, STACK } from '@/lib/profile';

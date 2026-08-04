@@ -3,7 +3,7 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
-import type { WorkItem } from '@/lib/sanity-content';
+import type { WorkItem } from '@/lib/work-content';
 
 export function ContentHeader({ item }: { item: WorkItem }) {
   const [language, ...topics] = item.tags ?? [];

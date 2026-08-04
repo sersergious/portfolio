@@ -4,7 +4,7 @@ import { Github } from '@/components/icons/brand-icons';
 import { languageColor } from '@/lib/languages';
 import { formatYear } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
-import type { WorkSummary } from '@/lib/sanity-content';
+import type { WorkSummary } from '@/lib/work-content';
 
 const KIND_ICON = {
   project: FolderGit2,

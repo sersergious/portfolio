@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { socialMetadata } from '@/lib/site';
 import { notFound } from 'next/navigation';
-import { client } from '@/sanity/lib/client';
-import { getWorkBySlug } from '@/lib/sanity-content';
-import { ALL_WORK_SLUGS_QUERY } from '@/sanity/lib/queries';
+import { getAllWorkSlugs, getWorkBySlug } from '@/lib/work-content';
 import { youtubeEmbedUrl } from '@/lib/utils';
 import { ContentHeader } from '@/components/content/ContentHeader';
 import { MDXContent } from '@/components/mdx/MDXContent';
@@ -14,10 +12,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const slugs = await client
-    .withConfig({ useCdn: false })
-    .fetch<Array<{ slug: string }>>(ALL_WORK_SLUGS_QUERY);
-  return slugs ?? [];
+  return (await getAllWorkSlugs()).map(slug => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getAllWork } from '@/lib/sanity-content';
+import { getAllWork } from '@/lib/work-content';
 import { SITE_URL } from '@/lib/site';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

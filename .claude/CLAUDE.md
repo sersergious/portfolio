@@ -17,7 +17,7 @@ No test suite is configured.
 
 ## Architecture
 
-Personal portfolio for Serhii Kuzmin, deployed at `skuzmin.dev`. Built with **Next.js 16** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **DaisyUI v5**. Content lives in **Sanity**, with the Studio embedded at `/studio`.
+Personal portfolio for Serhii Kuzmin, deployed at `skuzmin.dev`. Built with **Next.js 16** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **DaisyUI v5**. Content is markdown in `content/work/` — no CMS, no external service, no build-time network.
 
 ### Routing
 
@@ -27,17 +27,17 @@ File-based routing via Next.js App Router under `src/app/`:
 src/app/
   layout.tsx              ← root layout: HTML shell + site-wide metadata/OG
   sitemap.ts              ← /sitemap.xml, built from getAllWork()
-  robots.ts               ← /robots.txt (disallows /studio/)
+  robots.ts               ← /robots.txt
+  opengraph-image.tsx     ← generated 1200x630 social card
   (site)/
     layout.tsx            ← Navigation + Footer shell, ThemeProvider
-    error.tsx             ← segment error boundary (failed Sanity fetch)
+    error.tsx             ← segment error boundary
     page.tsx              ← / (hero, stack, recent work, press, contact)
     about/page.tsx        ← /about
     not-found.tsx         ← 404
     work/
       page.tsx            ← /work list, all kinds (SSG)
       [slug]/page.tsx     ← /work/:slug detail (SSG via generateStaticParams)
-  studio/[[...tool]]/     ← embedded Sanity Studio
 ```
 
 Root metadata sets a `title.template` of `%s — Serhii Kuzmin`, so page-level
@@ -52,33 +52,38 @@ Keep those redirects — the old URLs are indexed.
 
 ### Content System
 
-One Sanity document type, `work` ([src/sanity/schemaTypes/work.ts](../src/sanity/schemaTypes/work.ts)), covers both projects and research papers. A required `kind` field (`project` | `research`) is the discriminant:
+Content is **markdown files in `content/work/`** — no CMS, no external service, no env vars. **The filename is the slug.** A required `kind` field (`project` | `research`) in the frontmatter is the discriminant:
 
-- **Shared**: `title`, `slug`, `description`, `date`, `tags[]`, `status`, `youtubeUrl`, `image`, `content` (markdown)
+- **Shared**: `title`, `description`, `date`, `status`, `tags[]`, `youtubeUrl`
 - **Project only**: `github`, `demo`
 - **Research only**: `abstract`, `authors[]`, `journal`, `conference`, `doi`, `arxiv`, `pdf`
 
-Kind-specific fields use `hidden: onlyFor(kind)` so the Studio form shows only what applies. `status` is one field carrying all seven values; a custom validation rule rejects values that don't match the selected `kind`. `STATUS_BY_KIND` / `statusLabel()` live in [src/lib/work-status.ts](../src/lib/work-status.ts) — dependency-free so both the schema and the site components can import them without pulling Sanity into the site bundle.
+`status` carries all seven values; `STATUS_BY_KIND` / `statusLabel()` live in [src/lib/work-status.ts](../src/lib/work-status.ts). Nothing validates frontmatter at build time — `toStatus()` falls back when a status is missing or illegal for its kind, which is the only guarantee the old Sanity schema enforced.
+
+**Quote the `date`** in frontmatter. Unquoted, YAML parses it to a `Date` and the local offset can shift it a day; `toDate()` normalises that defensively, but quoting is the intent. Prose fields (`description`, `abstract`) render as one paragraph, so keep them unwrapped on a single logical line.
 
 The first entry of `tags[]` is treated as the primary language (project) or field (research) and drives the colour dot via `languageColor()`.
 
-Data flow: GROQ queries in [src/sanity/lib/queries.ts](../src/sanity/lib/queries.ts) → [src/lib/sanity-content.ts](../src/lib/sanity-content.ts). Two shapes, matching two fragments:
+Data flow: [src/lib/work-content.ts](../src/lib/work-content.ts) reads and parses the files with `gray-matter`. Two shapes:
 
-- `getAllWork(): WorkSummary[]` — the `cardFields` fragment, what a card and the sitemap need. No `content`, `abstract`, `doi`, `arxiv`, `pdf`.
-- `getWorkBySlug(): WorkItem | null` — the `detailFields` fragment, `WorkSummary` plus those five.
+- `getAllWork(): WorkSummary[]` — every file, newest first. No `content`, `abstract`, `doi`, `arxiv`, `pdf`.
+- `getWorkBySlug(): WorkItem | null` — `WorkSummary` plus those five.
+- `getAllWorkSlugs(): string[]` — drives `generateStaticParams`.
 
-Keep the split: it's what stops a card from reading a `content` the list query never fetched. `WorkCard`/`WorkList` take `WorkSummary`; `ContentHeader` takes `WorkItem`.
+Keep the split: it's what stops a card from reading a `content` the list never loaded. `WorkCard`/`WorkList` take `WorkSummary`; `ContentHeader` takes `WorkItem`.
 
-The markdown `content` field is rendered by `react-markdown` in [src/components/mdx/MDXContent.tsx](../src/components/mdx/MDXContent.tsx) (Server Component, despite the `mdx/` directory name — there is no MDX pipeline).
+The markdown body is rendered by `react-markdown` in [src/components/mdx/MDXContent.tsx](../src/components/mdx/MDXContent.tsx) (Server Component, despite the `mdx/` directory name — there is no MDX pipeline).
 
-Studio panes (All work / Projects / Research) are defined in [src/sanity/structure.ts](../src/sanity/structure.ts); the filtered panes pre-fill `kind` via initial value templates registered in `schemaTypes/index.ts`.
+**To add a work item:** create `content/work/<slug>.md` and commit it. That's the whole workflow.
 
 ### Theming
 
-DaisyUI v5 with two built-in themes:
+DaisyUI v5 with its two built-in themes, configured in `globals.css`:
 
-- **Light** → `emerald` (default)
-- **Dark** → `dracula` (auto-applied via `prefers-color-scheme: dark`)
+- **Light** → `light` (`--default`)
+- **Dark** → `dark` (`--prefersdark`, auto-applied via `prefers-color-scheme: dark`)
+
+`globals.css` then overrides the dark `primary` to 70% lightness — the stock value lands at 3.4:1 on `base-100` and fails WCAG AA.
 
 Theme switching is handled by `next-themes` (`ThemeProvider` in `(site)/layout.tsx`, `attribute="data-theme"`, `defaultTheme="system"`). It injects its own blocking script, so there is no FOUC and no hand-written inline script — `<html>` carries `suppressHydrationWarning` for the attribute it sets.
 
@@ -119,24 +124,15 @@ page's graph-paper backdrop.
 
 ## Environment Variables
 
-- `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` — required; `src/sanity/env.ts` throws without them
-- `NEXT_PUBLIC_SANITY_API_VERSION` — optional, defaults to `2026-06-04`
-- `NEXT_PUBLIC_SITE_URL` — optional, defaults to `https://skuzmin.dev`; drives `metadataBase`, the sitemap, and robots.txt via [src/lib/site.ts](../src/lib/site.ts)
+Only one, and it's optional:
 
-Sanity CLI work (migrations, dataset export) authenticates through `npx sanity login`, not a token in `.env`.
+- `NEXT_PUBLIC_SITE_URL` — defaults to `https://skuzmin.dev`; drives `metadataBase`, canonicals, the sitemap, robots.txt, and the OG card's domain line via [src/lib/site.ts](../src/lib/site.ts)
 
-## Sanity Migrations
+The build reads content from the filesystem, so **it needs no credentials and no network.** A clean clone builds with an empty environment — that's worth preserving.
 
-Schema changes that touch existing documents go in `migrations/<id>/index.ts` and run through the CLI (`npx sanity login` first — the CLI session is the auth, no token in `.env`):
+## History
 
-```bash
-npx sanity dataset export production ./backup.tar.gz   # always first
-npx sanity migrations list
-npx sanity migrations run <id>                # dry run (default)
-npx sanity migrations run <id> --no-dry-run   # writes
-```
-
-Sanity cannot patch `_type`, so a type rename is create-new-then-delete-old as two separate migrations, verified in between.
+Content lived in Sanity until 2026-08-04, with an embedded Studio at `/studio`. Three documents (~6 KB of prose) did not justify ~36 MB of dependencies, a hosted service in the build path, and two required env vars. The Sanity migration scripts that earlier merged `project` + `researchPaper` into one `work` type are in git history at `ecd82c4`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

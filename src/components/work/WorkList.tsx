@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { WorkCard } from '@/components/work/WorkCard';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { cn } from '@/lib/utils';
-import type { WorkSummary } from '@/lib/sanity-content';
+import type { WorkSummary } from '@/lib/work-content';
 
 type Filter = 'all' | 'project' | 'research';
 

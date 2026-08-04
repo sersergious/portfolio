@@ -21,7 +21,7 @@ src/app/
     work/
       page.tsx            ← /work list, all kinds (SSG)
       [slug]/page.tsx     ← /work/:slug detail (SSG via generateStaticParams)
-  studio/[[...tool]]/     ← embedded Sanity Studio
+  opengraph-image.tsx     ← generated 1200x630 social card
 ```
 
 Page metadata via `generateMetadata()`. Data loading is async in Server Components.
@@ -36,8 +36,8 @@ paths — list and `:slug` — 308 to their `/work` equivalents via `redirects()
 
 DaisyUI v5, two built-in themes:
 
-- **Light** → `emerald` (default)
-- **Dark** → `dracula` (auto via `prefers-color-scheme: dark`)
+- **Light** → `light` (`--default`)
+- **Dark** → `dark` (`--prefersdark`, auto via `prefers-color-scheme: dark`)
 
 Theme switching is handled by `next-themes` (`ThemeProvider` in `(site)/layout.tsx`, `attribute="data-theme"`, `defaultTheme="system"`). It injects its own blocking script, so there is no FOUC and no hand-written inline script.
 
