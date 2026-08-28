@@ -1,7 +1,7 @@
 /**
- * Shared by the Sanity schema (validation + Studio preview) and the site's
- * cards/headers. Dependency-free on purpose: the schema pulls in the whole
- * Sanity package, and none of that belongs in the site bundle.
+ * The statuses a work item may carry, split by kind, plus their display labels.
+ * Nothing validates frontmatter at build time, so `statusLabel` echoes back an
+ * unknown value rather than throwing.
  */
 export type WorkKind = 'project' | 'research';
 

@@ -37,49 +37,34 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
         lead="Projects and research papers, newest first."
       >
         {/*
-          Toggle buttons, not tabs: there is no panel to switch between, only
-          one list that filters in place. daisyUI's `tabs` classes are borrowed
-          purely for the look.
+          A segmented control, not tabs: there is no panel to switch between,
+          only one list that filters in place. `join` groups the buttons; the
+          selected one keeps the default `btn` fill while the rest go ghost, so
+          both states sit at full base-content and need no contrast patching.
         */}
-        <div
-          role="group"
-          aria-label="Filter work"
-          className="tabs tabs-box mt-8 w-fit border border-base-content/10"
-        >
+        <div role="group" aria-label="Filter work" className="join mt-8">
           {FILTERS.map(option => (
             <button
               key={option.value}
               type="button"
               aria-pressed={filter === option.value}
               onClick={() => setFilter(option.value)}
-              /*
-               * daisyUI dims an inactive tab to 50% of base-content (3.3:1,
-               * under the 4.5:1 floor) and separates the active pill from the
-               * box by 1.06:1. Both are restated here: /70 for the resting
-               * label, and a ring + full-strength colour for the active one.
-               */
               className={cn(
-                'tab gap-2 transition-colors',
-                filter === option.value
-                  ? 'bg-base-100 font-medium text-base-content ring-1 ring-base-content/15'
-                  : 'text-base-content/70 hover:bg-base-content/5 hover:text-base-content'
+                'btn join-item btn-sm gap-2',
+                filter !== option.value && 'btn-ghost'
               )}
             >
               {option.label}
-              <span
-                className={cn(
-                  'badge badge-sm',
-                  filter === option.value
-                    ? 'badge-neutral'
-                    : 'border-base-content/15 bg-base-content/5 text-base-content/70'
-                )}
-              >
+              <span className="badge badge-sm badge-ghost">
                 {counts[option.value]}
               </span>
             </button>
           ))}
         </div>
       </PageHeader>
+
+      {/* Cards are h3s; without this the page would jump h1 -> h3. */}
+      <h2 className="sr-only">Work items</h2>
 
       {/* Filtering swaps content with no focus change — announce the result. */}
       <p aria-live="polite" className="sr-only">

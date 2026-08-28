@@ -14,7 +14,7 @@ export function About() {
 
       <Band
         label="Origin"
-        image="/images/about-origin.png"
+        image="/images/about-origin.webp"
         alt="Serhii Kuzmin on the University of Scranton campus"
       >
         <p>
@@ -32,7 +32,23 @@ export function About() {
         </p>
       </Band>
 
-      <Band label="Engineering">
+      {/* The pull-quote is this band's right column — it is what keeps the
+          alternation running where there is no photograph. */}
+      <Band
+        label="Engineering"
+        flip
+        aside={
+          <figure className="border-l-2 border-primary pl-5">
+            <blockquote className="text-base-content/80">
+              Surface Evolver is the clear example of my passion for modernizing
+              legacy software. I transformed a powerful but inaccessible
+              decades-old program into a cross-platform desktop app with a
+              simple elegant UI, maintaining 90% engine compatibility while
+              cutting render times by 30%.
+            </blockquote>
+          </figure>
+        }
+      >
         <p>
           Most of what I know I taught myself, then sharpened in college. I have
           worked on a variety of projects, from desktop applications to backend
@@ -48,15 +64,6 @@ export function About() {
           apps a nice UI. Finally, I have deployed multiple projects on cloud
           platforms like AWS.
         </p>
-        <figure className="border-l-2 border-primary pl-5">
-          <blockquote className="text-base-content/80">
-            Surface Evolver is the clear example of my passion for modernizing
-            legacy software. I transformed a powerful but inaccessible
-            decades-old program into a cross-platform desktop app with a simple
-            elegant UI, maintaining 90% engine compatibility while cutting
-            render times by 30%.
-          </blockquote>
-        </figure>
       </Band>
 
       <Band label="Mathematics" aside={<TagList items={MATH_TOPICS} />}>
@@ -71,14 +78,14 @@ export function About() {
 
       <Band
         label="Research"
-        image="/images/about-research.png"
+        image="/images/about-research.webp"
         alt="Presenting research at a conference"
         flip
       >
         <p>
           In the summer of 2025 I decided I wanted to find out what doing
           research actually is. Back at college I found a quantum computing
-          project that peeked my interest, and about eight months later I
+          project that piqued my interest, and about eight months later I
           presented my first results at a conference.
         </p>
         <p>
@@ -91,7 +98,7 @@ export function About() {
 
       <Band
         label="Outside work"
-        image="/images/about-travel.png"
+        image="/images/about-travel.webp"
         alt="Hiking the dunes in Death Valley"
       >
         <p>
@@ -108,7 +115,7 @@ export function About() {
 
       <Band
         label="What drives it"
-        image="/images/about-why.png"
+        image="/images/about-why.webp"
         alt="With my parents at a Christmas market in Hamburg"
         flip
       >
@@ -132,8 +139,11 @@ export function About() {
 }
 
 /**
- * One section: label on a rule, prose in a readable measure, and an optional
- * image that alternates sides so the page reads as a spread, not a document.
+ * One section: label on a rule, prose in a readable measure, and a right column
+ * that alternates sides so the page reads as a spread, not a document. Every
+ * band carries one — a photograph, a tag list, or a pull-quote — because a band
+ * without it collapses full-width and breaks the alternation for the rest of
+ * the page.
  */
 function Band({
   label,
@@ -159,7 +169,11 @@ function Band({
       <div
         className={
           hasSide
-            ? 'grid items-center gap-8 md:grid-cols-2 md:gap-12'
+            ? `grid gap-8 md:grid-cols-2 md:gap-12 ${
+                // A photo balances centred; a quote or list should hang from
+                // the first line of the prose it sits beside.
+                image ? 'items-center' : 'items-start'
+              }`
             : 'max-w-3xl'
         }
       >

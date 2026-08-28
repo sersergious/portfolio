@@ -67,10 +67,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
         {topics.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {topics.map(topic => (
-              <li
-                key={topic}
-                className="badge badge-sm badge-primary badge-soft"
-              >
+              <li key={topic} className="badge badge-sm badge-soft">
                 {topic}
               </li>
             ))}

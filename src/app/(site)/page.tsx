@@ -32,19 +32,19 @@ export default async function HomePage() {
             <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
               Serhii Kuzmin
             </h1>
-            <p className="mt-3 text-xl text-base-content/70 md:text-2xl">
-              Software engineer — full-stack with focus on backend and systems.
+            {/*
+              One positioning line, then one paragraph that adds to it. The
+              hero used to restate the same sentence three times before the
+              Contact section said it a fourth.
+            */}
+            <p className="mt-3 text-xl md:text-2xl">
+              Software engineer — backend and systems.
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-base-content/70">
-              Full-Stack Engineer, focused on backend and systems. I build
-              modern web UIs using TypeScript and React, write server-side
-              services in Java, Kotlin, and Python, and work close to the
-              machine in C.
-            </p>
-
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-base-content">
-              Looking for backend, systems, or full-stack roles
+              I write server-side services in Java, Kotlin, and Python, work
+              close to the machine in C, and build the UIs on top in TypeScript
+              and React.
             </p>
 
             <p className="mt-5 font-mono text-xs text-base-content/70">
@@ -86,7 +86,7 @@ export default async function HomePage() {
           </div>
 
           <Image
-            src="/images/hero.png"
+            src="/images/hero.webp"
             alt="Serhii Kuzmin"
             width={512}
             height={512}
@@ -97,7 +97,8 @@ export default async function HomePage() {
         </div>
 
         <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-base-content/70">
-          Simplicity is the ultimate sophistication — Steve Jobs
+          Simplicity is the ultimate sophistication — Leonardo da Vinci, by way
+          of Apple&apos;s first brochure, 1977
         </p>
       </section>
 
