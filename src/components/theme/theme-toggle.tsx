@@ -10,7 +10,11 @@ export function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <div className="w-9 h-9" />;
+  // Same box as the real button, so the nav does not shift on hydration.
+  if (!mounted)
+    return (
+      <div className="btn btn-ghost btn-sm btn-square pointer-events-none" />
+    );
 
   return (
     <button
@@ -18,7 +22,7 @@ export function ThemeToggle() {
       className={`btn btn-ghost btn-sm btn-square swap swap-rotate ${
         resolvedTheme === 'dark' ? 'swap-active' : ''
       }`}
-      aria-label="Toggle theme"
+      aria-label={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} theme`}
     >
       <Moon className="swap-on h-4 w-4" />
       <Sun className="swap-off h-4 w-4" />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { socialMetadata } from '@/lib/site';
-import { getAllWork } from '@/lib/sanity-content';
+import { getAllWork } from '@/lib/work-content';
 import { WorkList } from '@/components/work/WorkList';
 
 const description =

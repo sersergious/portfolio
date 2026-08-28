@@ -19,11 +19,10 @@ No test suite is configured.
 
 ## Environment Variables
 
-Both are required — `src/sanity/env.ts` throws without them.
+One, optional:
 
-- `NEXT_PUBLIC_SANITY_PROJECT_ID`
-- `NEXT_PUBLIC_SANITY_DATASET`
-- `NEXT_PUBLIC_SANITY_API_VERSION` — optional, defaults to `2026-06-04`
+- `NEXT_PUBLIC_SITE_URL` — defaults to `https://skuzmin.dev`. Drives
+  `metadataBase`, canonicals, the sitemap, robots.txt, and the OG card.
 
-Sanity CLI work (migrations, dataset export) authenticates through `npx sanity
-login`, not through a token in `.env`.
+Content is read from `content/work/` on disk, so the build needs **no
+credentials and no network**. A clean clone builds with an empty environment.

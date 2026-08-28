@@ -4,7 +4,7 @@ import { Github } from '@/components/icons/brand-icons';
 import { languageColor } from '@/lib/languages';
 import { formatYear } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
-import type { WorkSummary } from '@/lib/sanity-content';
+import type { WorkSummary } from '@/lib/work-content';
 
 const KIND_ICON = {
   project: FolderGit2,
@@ -21,7 +21,9 @@ export function WorkCard({ item }: { item: WorkSummary }) {
   return (
     <article className="group relative py-5">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="flex min-w-0 items-start gap-2 font-semibold text-primary">
+        {/* Colour marks the hover target, as in the Press rows — a list of
+          always-primary titles spends the accent on nothing. */}
+        <h3 className="flex min-w-0 items-start gap-2 font-semibold transition-colors group-hover:text-primary">
           <Icon className="h-4 w-4 shrink-0 translate-y-0.5 text-base-content/50" />
           <Link
             href={item.url}
@@ -58,7 +60,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
       {topics.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {topics.slice(0, 3).map(topic => (
-            <li key={topic} className="badge badge-sm badge-primary badge-soft">
+            <li key={topic} className="badge badge-sm badge-soft">
               {topic}
             </li>
           ))}

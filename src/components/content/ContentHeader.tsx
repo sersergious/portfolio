@@ -3,7 +3,7 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
-import type { WorkItem } from '@/lib/sanity-content';
+import type { WorkItem } from '@/lib/work-content';
 
 export function ContentHeader({ item }: { item: WorkItem }) {
   const [language, ...topics] = item.tags ?? [];
@@ -67,10 +67,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
         {topics.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {topics.map(topic => (
-              <li
-                key={topic}
-                className="badge badge-sm badge-primary badge-soft"
-              >
+              <li key={topic} className="badge badge-sm badge-soft">
                 {topic}
               </li>
             ))}

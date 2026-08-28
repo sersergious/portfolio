@@ -10,10 +10,10 @@ export const STACK: { label: string; items: string[]; dots?: boolean }[] = [
   },
   {
     label: 'Backend & data',
-    items: ['FastAPI', 'PostgreSQL', 'NumPy', 'SciPy', 'SQLite'],
+    items: ['FastAPI', 'PostgreSQL', 'NumPy', 'SciPy', 'SQLite', 'AWS'],
   },
   {
-    label: 'Frontend Skills',
+    label: 'Frontend',
     items: ['React', 'Next.js', 'Tailwind CSS', 'Jetpack Compose'],
   },
 ];
