@@ -1,12 +1,6 @@
 {
   "version": 1,
   "skills": {
-    "daisyui": {
-      "source": "saadeghi/daisyui",
-      "sourceType": "github",
-      "skillPath": "skills/daisyui/SKILL.md",
-      "computedHash": "9e350fa9ff3694d217288a1f3efa4ba5eae3d6f384991b97fd2b6426a22b7474"
-    },
     "deploy-to-vercel": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

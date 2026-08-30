@@ -7,9 +7,9 @@ This is my personal website that serves as a portfolio for my Software Engineeri
 - Next.js (App Router)
 - React 19
 - TypeScript
-- Tailwind CSS
-- daisyUI
-- Sanity.io for content management
+- Tailwind CSS v4
+- shadcn/ui on Base UI
+- Markdown files in `content/work/` — no CMS
 
 # TODO
 

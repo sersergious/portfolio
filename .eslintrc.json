@@ -1,9 +1,0 @@
-{
-  "extends": ["prettier"],
-  "plugins": ["@typescript-eslint", "react"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "warn",
-    "react/jsx-key": "error",
-    "react/no-unescaped-entities": "error"
-  }
-}
