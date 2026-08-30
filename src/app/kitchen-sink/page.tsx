@@ -3,6 +3,13 @@ import { notFound } from 'next/navigation';
 import { Sun, Moon, Mail } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import {
+  joinItem,
+  swapShell,
+  swapOn,
+  swapOff,
+} from '@/components/ui/toggle-variants';
+import { cn } from '@/lib/utils';
 import { linkVariants } from '@/components/ui/link-variants';
 
 /**
@@ -116,27 +123,36 @@ export default function KitchenSinkPage() {
       {/* The /work filter. Segmented control, not tabs — see WorkList. */}
       <Group label="Toggle group">
         <Spec id="togglegroup">
-          <div role="group" aria-label="Filter" className="join">
+          <div
+            role="group"
+            aria-label="Filter"
+            className="inline-flex items-stretch"
+          >
             <button
               type="button"
-              aria-pressed
-              className="btn join-item btn-sm gap-2"
+              className={cn(buttonVariants(), joinItem, 'gap-2')}
             >
               All
               <Badge>3</Badge>
             </button>
             <button
               type="button"
-              aria-pressed={false}
-              className="btn join-item btn-sm btn-ghost gap-2"
+              className={cn(
+                buttonVariants({ variant: 'ghost' }),
+                joinItem,
+                'gap-2'
+              )}
             >
               Projects
               <Badge>2</Badge>
             </button>
             <button
               type="button"
-              aria-pressed={false}
-              className="btn join-item btn-sm btn-ghost gap-2"
+              className={cn(
+                buttonVariants({ variant: 'ghost' }),
+                joinItem,
+                'gap-2'
+              )}
             >
               Research
               <Badge>1</Badge>
@@ -152,30 +168,47 @@ export default function KitchenSinkPage() {
           <button
             type="button"
             aria-label="Switch to dark theme"
-            className="btn btn-ghost btn-sm btn-square swap swap-rotate"
+            className={cn(
+              'group',
+              buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
+              swapShell
+            )}
           >
-            <Moon className="swap-on h-4 w-4" />
-            <Sun className="swap-off h-4 w-4" />
+            <Moon className={cn(swapOn, 'h-4 w-4')} />
+            <Sun className={cn(swapOff, 'h-4 w-4')} />
           </button>
         </Spec>
         <Spec id="toggle-on">
           <button
             type="button"
             aria-label="Switch to light theme"
-            className="btn btn-ghost btn-sm btn-square swap swap-rotate swap-active"
+            data-pressed=""
+            className={cn(
+              'group',
+              buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
+              swapShell
+            )}
           >
-            <Moon className="swap-on h-4 w-4" />
-            <Sun className="swap-off h-4 w-4" />
+            <Moon className={cn(swapOn, 'h-4 w-4')} />
+            <Sun className={cn(swapOff, 'h-4 w-4')} />
           </button>
         </Spec>
         <Spec id="toggle-placeholder">
-          <div className="btn btn-ghost btn-sm btn-square pointer-events-none" />
+          <div
+            className={cn(
+              buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
+              'pointer-events-none'
+            )}
+          />
         </Spec>
       </Group>
 
       <Group label="Misc">
         <Spec id="status">
-          <span aria-hidden className="status status-success" />
+          <span
+            aria-hidden
+            className="inline-block h-2 w-2 aspect-square rounded-2xl align-middle bg-[var(--success-value)] text-[var(--success-value)]"
+          />
         </Spec>
         <Spec id="radius-box">
           <div className="h-8 w-16 rounded-lg border border-foreground/15 bg-muted" />

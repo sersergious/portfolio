@@ -26,7 +26,10 @@ export default async function HomePage() {
         <div className="flex flex-col-reverse items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-12">
           <div className="max-w-2xl">
             <p className="mb-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase">
-              <span aria-hidden className="status status-success" />
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 aspect-square rounded-2xl align-middle bg-[var(--success-value)] text-[var(--success-value)]"
+              />
               Available for hire
             </p>
 

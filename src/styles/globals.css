@@ -88,6 +88,7 @@
   --foreground: var(--color-base-content);
   --muted: var(--color-base-200);
   --primary-value: var(--color-primary);
+  --success-value: var(--color-success);
   --primary-foreground: var(--color-primary-content);
   --radius: var(--radius-box);
 }
