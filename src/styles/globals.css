@@ -36,6 +36,19 @@
 }
 
 /*
+ * With JS off there is no `data-theme`, and daisyUI's `--prefersdark` block
+ * targets `:root:not([data-theme])` — specificity (0,2,0), which outranks the
+ * `:root` above and would restore the stock dark primary that fails AA at
+ * 3.4:1. Same values, matching specificity.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-primary: oklch(68% 0.157 245);
+    --color-primary-content: oklch(20% 0.02 245);
+  }
+}
+
+/*
  * Graph-paper backdrop. Sits behind the top of the page only and fades out,
  * so it reads as drafting paper rather than wallpaper.
  */

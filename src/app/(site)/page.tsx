@@ -2,11 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Download, Mail } from 'lucide-react';
 import { Github, Linkedin } from '@/components/icons/brand-icons';
-import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
 import { getAllWork } from '@/lib/work-content';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
-import { CREDENTIALS, EMAIL_B64, PRESS, STACK } from '@/lib/profile';
+import { CREDENTIALS, EMAIL, PRESS, STACK } from '@/lib/profile';
 import { WorkCard } from '@/components/work/WorkCard';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 
@@ -25,11 +24,11 @@ export default async function HomePage() {
         <div className="flex flex-col-reverse items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-12">
           <div className="max-w-2xl">
             <p className="mb-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase">
-              <span className="status status-success" />
+              <span aria-hidden className="status status-success" />
               Available for hire
             </p>
 
-            <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
+            <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
               Serhii Kuzmin
             </h1>
             {/*
@@ -60,10 +59,10 @@ export default async function HomePage() {
                 <Download className="h-4 w-4" />
                 Résumé
               </a>
-              <ProtectedMailLink encoded={EMAIL_B64} className="btn btn-sm">
+              <a href={`mailto:${EMAIL}`} className="btn btn-sm">
                 <Mail className="h-4 w-4" />
                 Email me
-              </ProtectedMailLink>
+              </a>
               <a
                 href="https://github.com/sersergious"
                 target="_blank"
@@ -98,7 +97,7 @@ export default async function HomePage() {
 
         <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-base-content/70">
           Simplicity is the ultimate sophistication — Leonardo da Vinci, by way
-          of Apple&apos;s first brochure, 1977
+          of Apple’s first brochure, 1977
         </p>
       </section>
 
@@ -179,13 +178,10 @@ export default async function HomePage() {
             fastest way to reach me is email.
           </p>
           <div className="flex flex-wrap gap-2">
-            <ProtectedMailLink
-              encoded={EMAIL_B64}
-              className="btn btn-sm btn-primary"
-            >
+            <a href={`mailto:${EMAIL}`} className="btn btn-sm btn-primary">
               <Mail className="h-4 w-4" />
               Email me
-            </ProtectedMailLink>
+            </a>
             <Link href="/about" className="btn btn-sm">
               More about me
             </Link>

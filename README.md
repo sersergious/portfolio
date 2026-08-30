@@ -12,7 +12,6 @@ This is my personal website that serves as a portfolio for my Software Engineeri
 - Sanity.io for content management
 
 # TODO
+
 - Update project description
 - Update text on the About me page
-
-

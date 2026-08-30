@@ -39,3 +39,6 @@ bun-debug.log*
 
 # Sanity dataset exports — snapshots taken before migrations, not source
 *.tar.gz
+
+# A/B migration harness output (screenshots, ref worktree, style dumps)
+.ab

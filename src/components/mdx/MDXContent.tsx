@@ -81,6 +81,8 @@ const components: Components = {
     <img
       src={src}
       alt={alt ?? ''}
+      loading="lazy"
+      decoding="async"
       className="my-4 h-auto w-full rounded-box border border-base-content/15"
       {...props}
     />

@@ -30,7 +30,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
           ← All work
         </Link>
 
-        <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance md:text-5xl">
           {item.title}
         </h1>
 

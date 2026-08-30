@@ -18,7 +18,7 @@ export function About() {
         alt="Serhii Kuzmin on the University of Scranton campus"
       >
         <p>
-          Since early childhood I&apos;ve been interested in technology, taking
+          Since early childhood I’ve been interested in technology, taking
           computers apart to understand how they work. That turned into coding
           at 13, and from there into what I do today.
         </p>
@@ -27,8 +27,8 @@ export function About() {
           passions. I started to compete in olympiads and present my work at
           conferences as early as 7. Fast forward to today, I graduated from the
           University of Scranton with a degree in Computer Science and
-          Mathematical Sciences — the ultimate combination I&apos;d been
-          building toward the whole time.
+          Mathematical Sciences — the ultimate combination I’d been building
+          toward the whole time.
         </p>
       </Band>
 
@@ -68,7 +68,7 @@ export function About() {
 
       <Band label="Mathematics" aside={<TagList items={MATH_TOPICS} />}>
         <p>
-          I&apos;m well versed in applied mathematics — numerical analysis,
+          I’m well versed in applied mathematics — numerical analysis,
           information theory, and applied probability and statistics in
           particular. Throughout my studies I chased understanding of the
           concepts themselves rather than the mechanics, which is the skill that
@@ -90,7 +90,7 @@ export function About() {
         </p>
         <p>
           Quantum computing is the primary focus, but the curiosity is wider
-          than that — I&apos;m drawn to where computer science meets other
+          than that — I’m drawn to where computer science meets other
           disciplines.
         </p>
         <TagList items={FOCUS_AREAS} />
@@ -102,10 +102,10 @@ export function About() {
         alt="Hiking the dunes in Death Valley"
       >
         <p>
-          I spend my time outdoors, travelling, and cooking. I&apos;ve led
-          outdoor retreats and organised trips for groups — Death Valley in
-          California, and World&apos;s End State Park in Pennsylvania, the
-          latter of which I ran myself.
+          I spend my time outdoors, travelling, and cooking. I’ve led outdoor
+          retreats and organised trips for groups — Death Valley in California,
+          and World’s End State Park in Pennsylvania, the latter of which I ran
+          myself.
         </p>
         <p>
           I started travelling at 18 and have since spent time in the United
@@ -120,9 +120,9 @@ export function About() {
         flip
       >
         <p>
-          I&apos;m driven by curiosity about how things work and by wanting to
-          push on what&apos;s possible. Every problem is a puzzle; every
-          limitation is somewhere to look harder.
+          I’m driven by curiosity about how things work and by wanting to push
+          on what’s possible. Every problem is a puzzle; every limitation is
+          somewhere to look harder.
         </p>
         <p>
           My family is the foundation under all of it. Their support is why I

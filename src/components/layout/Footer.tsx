@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github, Linkedin } from '@/components/icons/brand-icons';
-import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
-import { EMAIL_B64 } from '@/lib/profile';
+import { EMAIL } from '@/lib/profile';
 
 const pages = [
   { href: '/', label: 'Overview' },
@@ -62,9 +61,9 @@ export function Footer() {
             </li>
           ))}
           <li>
-            <ProtectedMailLink encoded={EMAIL_B64} className="link link-hover">
+            <a href={`mailto:${EMAIL}`} className="link link-hover">
               Email
-            </ProtectedMailLink>
+            </a>
           </li>
         </ul>
       </div>

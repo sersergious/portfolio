@@ -7,7 +7,7 @@ export default function NotFound() {
         404
       </p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-        This page doesn&apos;t exist
+        This page doesn’t exist
       </h1>
       <p className="mt-3 text-base-content/70">
         The link may be outdated, or the page moved.

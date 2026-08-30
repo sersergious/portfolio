@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { SITE_NAME, SITE_URL, socialMetadata } from '@/lib/site';
 import '@/styles/globals.css';
 
@@ -18,6 +18,14 @@ export const metadata: Metadata = {
     description,
     path: '/',
   }),
+};
+
+/** Browser chrome matches `base-100` in each theme, so the page has no seam. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1d232a' },
+  ],
 };
 
 export default function RootLayout({

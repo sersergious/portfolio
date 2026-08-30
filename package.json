@@ -16,10 +16,6 @@
     "node": ">=20.9.0",
     "bun": ">=1.0"
   },
-  "//overrides": "CodeMirror identifies extensions with instanceof, so two copies of @codemirror/state break Sanity Vision's GROQ editor ('Unrecognized extension value in extension set'). @codemirror/view wants ^6.7.0 while its siblings accept ^6.0.0, which resolved to two versions. All ranges are compatible — pin one.",
-  "overrides": {
-    "@codemirror/state": "^6.7.0"
-  },
   "dependencies": {
     "clsx": "^2.1.1",
     "daisyui": "^5.6.18",
@@ -33,7 +29,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
-    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",

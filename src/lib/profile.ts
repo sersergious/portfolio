@@ -28,14 +28,8 @@ export const CREDENTIALS = [
   'Pennsylvania, USA',
 ];
 
-/**
- * Contact address, base64-encoded so it isn't sitting in the markup for
- * scrapers — `ProtectedMailLink` decodes it on the client. One constant, since
- * the hero, the contact section, and the footer all point at the same inbox.
- *
- * Decodes to: sergeykuzmin495@gmail.com
- */
-export const EMAIL_B64 = 'c2VyZ2V5a3V6bWluNDk1QGdtYWlsLmNvbQ==';
+/** One constant — hero, contact section, and footer all point at the same inbox. */
+export const EMAIL = 'sergeykuzmin495@gmail.com';
 
 /** Kept for the About page, where the maths background is the point. */
 export const MATH_TOPICS = [

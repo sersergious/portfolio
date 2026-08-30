@@ -15,7 +15,7 @@ export default function Error({
   return (
     <div className="mt-10 rounded-box border border-base-content/15 p-12 text-center">
       <p className="font-mono text-xs text-base-content/70">Error</p>
-      <h1 className="mt-2 text-xl font-semibold">This page didn&apos;t load</h1>
+      <h1 className="mt-2 text-xl font-semibold">This page didn’t load</h1>
       <p className="mt-2 text-base-content/60">
         Something went wrong rendering this page. Trying again sometimes works.
       </p>

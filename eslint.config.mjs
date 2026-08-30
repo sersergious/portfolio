@@ -2,12 +2,22 @@ import coreWebVitals from 'eslint-config-next/core-web-vitals';
 import typescript from 'eslint-config-next/typescript';
 
 const eslintConfig = [
-  { ignores: ['.next/**', 'next-env.d.ts'] },
+  // `.agents` and `.claude` hold vendored skill packs and scratch worktrees —
+  // other people's code, and 52k findings that drown the project's own.
+  {
+    ignores: [
+      '.next/**',
+      'next-env.d.ts',
+      '.agents/**',
+      '.claude/**',
+      '.ab/**',
+    ],
+  },
   ...coreWebVitals,
   ...typescript,
   {
     // Next 16's react-hooks preset flags the intentional client-mount pattern
-    // (next-themes mounted flag, client-only email decode) as set-state-in-effect.
+    // (the next-themes `mounted` flag) as set-state-in-effect.
     rules: { 'react-hooks/set-state-in-effect': 'off' },
   },
 ];
