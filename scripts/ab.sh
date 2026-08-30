@@ -139,8 +139,46 @@ serve . "$PORT_NEW"
 
 ab() { agent-browser --session "$1" "${@:2}"; }
 
+# Open a page and wait for it to stop moving.
+#
+# `--full` screenshots the `html` box as measured at capture time, so a capture
+# that lands mid-layout is not merely noisy, it is a different size: one run
+# stored /work at 1280x813 against a settled 1280x978. The heights then differ,
+# `differentPixels` becomes meaningless, and a harness fault reads as a
+# million-pixel regression.
+#
+# networkidle alone was not enough — fonts and next/image placeholders keep
+# resolving after it. So poll the document height until two consecutive reads
+# agree. `window.__h` resets on navigation, which is what makes this safe to
+# re-run per page.
+abopen() { # session url
+  ab "$1" open "$2" >/dev/null
+  ab "$1" wait --load networkidle >/dev/null 2>&1 || true
+  ab "$1" wait --fn 'window.__h === document.documentElement.scrollHeight || (window.__h = document.documentElement.scrollHeight, false)' >/dev/null 2>&1 || true
+}
+
 # Reads .data.<key> out of an agent-browser --json response.
 jget() { python3 -c "import json,sys;print(json.load(sys.stdin)['data']$1)"; }
+
+# Turns a `diff screenshot --json` response into either "ok <n>" or a reason.
+# A dimension mismatch has to be its own verdict: when the two captures are
+# different sizes the pixel count is not a small number that happens to be
+# large, it is meaningless, and reporting it as a regression sends you looking
+# for a style bug that is not there.
+read_diff() {
+  python3 -c '
+import json, sys
+r = json.load(sys.stdin)
+d = r.get("data")
+if not r.get("success") or not d:
+    print(r.get("error") or "diff failed"); raise SystemExit
+mm = d.get("dimensionMismatch")
+if mm:
+    print("capture size differs (%s) — page had not settled" % (mm,))
+    raise SystemExit
+print("ok", d["differentPixels"])
+'
+}
 
 setup_side() { # session theme w h
   ab "$1" set viewport "$3" "$4" >/dev/null
@@ -174,16 +212,17 @@ if [[ $DO_PAGES == 1 ]]; then
         cell="$slug-$theme-$w"
         base="$OUT/ref/$cell.png"
 
-        ab ab-ref open "http://localhost:$PORT_REF$url" >/dev/null
+        abopen ab-ref "http://localhost:$PORT_REF$url"
         ab ab-ref screenshot --full html "$base" >/dev/null
 
-        ab ab-new open "http://localhost:$PORT_NEW$url" >/dev/null
-        px=$(ab ab-new diff screenshot --full --baseline "$base" \
-              -t "$THRESH" -o "$OUT/diff/$cell.png" --json \
-              | jget "['differentPixels']")
+        abopen ab-new "http://localhost:$PORT_NEW$url"
+        verdict=$(ab ab-new diff screenshot --full --baseline "$base" \
+              -t "$THRESH" -o "$OUT/diff/$cell.png" --json | read_diff)
 
-        if [[ $px -le $BUDGET ]]; then pass "$cell ($px px)"
-        else fail "$cell — $px px > $BUDGET (see $OUT/diff/$cell.png)"; fi
+        case $verdict in
+          ok\ *)   pass "$cell (${verdict#ok } px)" ;;
+          *)        fail "$cell — $verdict (see $OUT/diff/$cell.png)" ;;
+        esac
       done
     done
   done
@@ -192,7 +231,7 @@ fi
 # ---------------------------------------------------------------- styles
 
 probe() { # session port -> stdout json
-  ab "$1" open "http://localhost:$2/kitchen-sink" >/dev/null
+  abopen "$1" "http://localhost:$2/kitchen-sink"
   ab "$1" mouse move 2 2 >/dev/null
 
   python3 - "$1" "${INTERACTIVE[@]}" <<'PY'

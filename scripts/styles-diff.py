@@ -28,12 +28,32 @@ def norm(value: str) -> str:
     return _FLOAT.sub(lambda m: f"{round(float(m.group()), 4):g}", value)
 
 
+def inert(prop: str, state: dict) -> bool:
+    """True when this property cannot be observed in the state it was read in.
+
+    Adopting shadcn's base layer paints `border-color` and `outline-color` onto
+    every element via `*`. On an element whose border is 0px wide, or whose
+    outline-style is none, that is a value nothing can render — the elements
+    that actually draw a border or a focus ring all set their own colour, and
+    those still compare strictly.
+
+    This is not a tolerance. It is the difference between a value and a pixel.
+    """
+    if prop.startswith('border') and prop.endswith('-color'):
+        side = prop.split('-')[1]
+        return state.get(f'border-{side}-width') == '0px'
+    if prop == 'outline-color':
+        return state.get('outline-style') == 'none'
+    return False
+
+
 def main() -> int:
     ref_path, new_path = sys.argv[1], sys.argv[2]
     ref = json.load(open(ref_path))
     new = json.load(open(new_path))
 
     drift = 0
+    unobservable = 0
 
     for tid in sorted(set(ref) | set(new)):
         if tid not in new:
@@ -54,12 +74,19 @@ def main() -> int:
                 continue
             for prop in sorted(set(a) | set(b)):
                 va, vb = a.get(prop), b.get(prop)
-                if norm(va) != norm(vb):
-                    print(f"  {tid}:{state} {prop}")
-                    print(f"      ref {va!r}")
-                    print(f"      new {vb!r}")
-                    drift += 1
+                if norm(va) == norm(vb):
+                    continue
+                if inert(prop, b) and inert(prop, a):
+                    unobservable += 1
+                    continue
+                print(f"  {tid}:{state} {prop}")
+                print(f"      ref {va!r}")
+                print(f"      new {vb!r}")
+                drift += 1
 
+    if unobservable:
+        print(f"  {unobservable} drift(s) on properties nothing can render "
+              f"(border-color at 0px, outline-color at outline-style:none)")
     if drift:
         print(f"  {drift} property drift(s)")
         return 1

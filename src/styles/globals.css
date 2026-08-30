@@ -2,102 +2,104 @@
 /* Keyframes and the `data-*` custom variants Base UI components key off. */
 @import 'shadcn/tailwind.css';
 
-/*
- * daisyUI is still the component layer through stage 4 — `btn`, `badge`,
- * `link`, `join`, `swap` and `status` all still come from here. It leaves in
- * stage 5, once every one of them has a replacement.
- */
-@plugin "daisyui" {
-  themes:
-    light --default,
-    dark --prefersdark;
-}
-
 @custom-variant dark (&:is(.dark *));
 
-/* Flat, hairline-bordered surfaces with 8px corners — GitHub's chrome. */
-:root,
-[data-theme] {
-  --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 0.5rem;
-  --depth: 0;
-  --noise: 0;
-}
-
 /*
- * Blueprint azure — the same drafting-ink blue as the graph paper behind the
- * hero, in place of daisyUI's stock indigo. Both values are solved, not picked:
- * the most saturated in-gamut chroma at the lightness that holds primary-as-text
- * (links, hovered card titles) at 6.5:1 light / 5.6:1 dark on base-100, with the
- * button label clearing 5.9:1 on the fill. The dark half also fixes the stock dark
- * primary, which sat at 3.4:1 and failed AA outright.
+ * The theme, in shadcn's two-tier shape: real custom properties on `:root` and
+ * `.dark`, aliased into Tailwind's namespace by `@theme inline` below.
+ *
+ * The values are daisyUI's, kept verbatim rather than re-picked — this is the
+ * last step of a migration whose whole contract was that nothing changes
+ * appearance. `background`/`muted`/`foreground` were `base-100`/`base-200`/
+ * `base-content`; through stages 1-4 they were `var()` aliases onto the
+ * plugin's variables, and all that happens here is that the indirection is
+ * resolved and the plugin removed.
+ *
+ * `color-scheme` has to be set by hand now. daisyUI set it per theme, and
+ * without it the browser paints scrollbars, form controls and the canvas
+ * behind the page in the wrong mode.
  */
-:root,
-[data-theme='light'] {
-  --color-primary: oklch(48% 0.109 245);
-  --color-primary-content: oklch(97% 0.02 245);
+:root {
+  color-scheme: light;
+
+  --background: oklch(100% 0 0);
+  --foreground: oklch(21% 0.006 285.885);
+  --muted: oklch(98% 0 0);
+
+  /*
+   * Blueprint azure — the same drafting-ink blue as the graph paper behind the
+   * hero. Both values are solved, not picked: the most saturated in-gamut
+   * chroma at the lightness that holds primary-as-text (links, hovered card
+   * titles) at 6.5:1 light / 5.6:1 dark on the background, with the button
+   * label clearing 5.9:1 on the fill.
+   */
+  --primary-value: oklch(48% 0.109 245);
+  --primary-foreground: oklch(97% 0.02 245);
+
+  --success-value: oklch(76% 0.177 163.223);
+
+  /* Hairline surfaces with 8px corners — GitHub's chrome. */
+  --radius: 0.5rem;
+
+  /*
+   * `border` is what shadcn's base layer paints onto every element, and it is
+   * the hairline the site already draws everywhere as `foreground/15`.
+   * `ring` is the focus colour: the site's own ink blue rather than shadcn's
+   * neutral grey, so a focus ring reads as part of the design.
+   */
+  --border: color-mix(in oklab, var(--foreground) 15%, transparent);
+  --ring: var(--primary-value);
 }
 
-[data-theme='dark'] {
-  --color-primary: oklch(68% 0.157 245);
-  --color-primary-content: oklch(20% 0.02 245);
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(25.33% 0.016 252.42);
+  --foreground: oklch(97.807% 0.029 256.847);
+  --muted: oklch(23.26% 0.014 253.1);
+
+  --primary-value: oklch(68% 0.157 245);
+  --primary-foreground: oklch(20% 0.02 245);
 }
 
 /*
- * With JS off there is no `data-theme`, and daisyUI's `--prefersdark` block
- * targets `:root:not([data-theme])` — specificity (0,2,0), which outranks the
- * `:root` above and would restore the stock dark primary that fails AA at
- * 3.4:1. Same values, matching specificity.
+ * With JS off next-themes writes no class at all, so the dark half has to be
+ * reachable from the media query too. daisyUI used to provide this; the
+ * `:not()` pair keeps an explicit choice winning over the system preference.
  */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-primary: oklch(68% 0.157 245);
-    --color-primary-content: oklch(20% 0.02 245);
-  }
-}
+  :root:not(.light):not(.dark) {
+    color-scheme: dark;
 
-/*
- * shadcn's token vocabulary, aliased onto daisyUI's variables rather than
- * redeclared with copied values.
- *
- * Aliasing is what makes this stage provably zero-diff: `bg-background` and
- * `bg-base-100` compile to the same `var()`, so there is no literal to
- * transcribe wrong across ~90 call sites. Stage 5 flips these to the resolved
- * values and drops the daisyUI plugin above, in one place.
- *
- * Two tiers, which is shadcn's own shape and not decoration: `@theme inline`
- * does NOT emit its variables to the document, it only inlines them into
- * utilities. Components need real custom properties to reach from an arbitrary
- * value — `hover:bg-[color-mix(in_oklab,var(--muted),#000_7%)]` is how the
- * button reproduces daisyUI's hover exactly — so the `:root` tier has to exist.
- *
- * `--color-primary` needs no alias: daisyUI already spells it that way and
- * `bg-primary` already resolves to it. `--primary-value` exists only so
- * arbitrary values can reach the same colour without depending on a daisyUI
- * name that disappears in stage 5.
- *
- * Deliberately NOT redefining Tailwind's radius scale onto `--radius`: shadcn
- * maps `--radius-2xl` to `calc(var(--radius) * 1.8)` = 0.9rem, but the badge
- * needs the 1rem of `--radius-selector`, which is what stock `rounded-2xl`
- * already is. `--radius` is defined for pasted components that reference it.
- */
-:root,
-[data-theme] {
-  --background: var(--color-base-100);
-  --foreground: var(--color-base-content);
-  --muted: var(--color-base-200);
-  --primary-value: var(--color-primary);
-  --success-value: var(--color-success);
-  --primary-foreground: var(--color-primary-content);
-  --radius: var(--radius-box);
+    --background: oklch(25.33% 0.016 252.42);
+    --foreground: oklch(97.807% 0.029 256.847);
+    --muted: oklch(23.26% 0.014 253.1);
+
+    --primary-value: oklch(68% 0.157 245);
+    --primary-foreground: oklch(20% 0.02 245);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-primary: var(--primary-value);
   --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 /*
@@ -110,7 +112,7 @@ html {
 }
 
 .blueprint {
-  --grid-line: color-mix(in oklch, var(--color-base-content) 7%, transparent);
+  --grid-line: color-mix(in oklch, var(--foreground) 7%, transparent);
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
