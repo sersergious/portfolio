@@ -8,7 +8,24 @@ Prints one line per drifted property and exits 1 if anything drifted.
 """
 
 import json
+import re
 import sys
+
+_FLOAT = re.compile(r"[-+]?\d*\.\d+")
+
+
+def norm(value: str) -> str:
+    """Round embedded floats to 4dp.
+
+    Chrome resolves `color-mix()` with a little float jitter between browser
+    instances: a self-check produced `oklab(0.949737 …)` on one side and
+    `oklab(0.949746 …)` on the other, from identical CSS. That is ~1e-5 — nine
+    significant digits in, and far below anything renderable.
+
+    4dp keeps the oracle sharp where it matters: a 0.1% lightness drift is
+    0.4469 vs 0.4473, still a clean miss.
+    """
+    return _FLOAT.sub(lambda m: f"{round(float(m.group()), 4):g}", value)
 
 
 def main() -> int:
@@ -37,7 +54,7 @@ def main() -> int:
                 continue
             for prop in sorted(set(a) | set(b)):
                 va, vb = a.get(prop), b.get(prop)
-                if va != vb:
+                if norm(va) != norm(vb):
                     print(f"  {tid}:{state} {prop}")
                     print(f"      ref {va!r}")
                     print(f"      new {vb!r}")

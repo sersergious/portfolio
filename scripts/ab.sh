@@ -27,7 +27,12 @@ REF=${REF:?set REF to the reference commit, e.g. REF=\$(git rev-parse stage-0)}
 PORT_REF=${PORT_REF:-3001}
 PORT_NEW=${PORT_NEW:-3000}
 OUT=.ab
-WT=$OUT/ref-src
+# Deliberately OUTSIDE the repo. Nested, Next walks up, finds the parent's
+# bun.lock, and picks the parent as the workspace root — so the reference build
+# resolves HEAD's node_modules instead of its own. Harmless today; wrong the
+# moment the two sides stop sharing a dependency set, which is the entire point
+# of this migration.
+WT=${AB_WT:-$PWD/../.portfolio-ab-ref}
 # Pixel budget per full page. The measured jitter floor is 0-2 on 3.26M pixels;
 # anything above this is a real geometry change, not capture noise.
 BUDGET=${BUDGET:-8}
@@ -87,14 +92,44 @@ cleanup() {
 trap cleanup EXIT
 
 serve() { # dir port
+  # A stale `next start` on this port will answer the health check below and
+  # serve an older build whose CSS chunks no longer exist on disk — which
+  # renders unstyled and reads as a 100%-different page. Refuse the port
+  # rather than compare against a ghost.
+  if lsof -ti :"$2" >/dev/null 2>&1; then
+    echo "port $2 is already in use — stop it first (lsof -ti :$2 | xargs kill)" >&2
+    return 1
+  fi
+
   (cd "$1" && exec bunx next start -p "$2") >"$OUT/server-$2.log" 2>&1 &
-  PIDS+=($!)
+  local pid=$!
+  PIDS+=("$pid")
+
   for _ in $(seq 60); do
-    curl -sf -o /dev/null "http://localhost:$2/" && return 0
+    # If the child died (EADDRINUSE, build missing), stop waiting.
+    kill -0 "$pid" 2>/dev/null || break
+    curl -sf -o /dev/null "http://localhost:$2/" && { assert_styled "$2" && return 0 || return 1; }
     sleep 0.5
   done
   echo "server on $2 never came up; see $OUT/server-$2.log" >&2
   return 1
+}
+
+# Every stylesheet the page references must actually load. This is the check
+# that catches a served-but-broken build, which otherwise looks like a total
+# visual regression rather than a harness fault.
+assert_styled() { # port
+  local href code n=0
+  for href in $(curl -s "http://localhost:$1/" | grep -o 'href="[^"]*\.css"' | sed 's/href="//;s/"//'); do
+    code=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:$1$href")
+    [[ $code == 200 ]] || {
+      echo "server on $1 serves $href as HTTP $code — stale or broken build" >&2
+      return 1
+    }
+    n=$((n + 1))
+  done
+  [[ $n -gt 0 ]] || { echo "server on $1 references no stylesheet" >&2; return 1; }
+  return 0
 }
 echo "==> serving ref:$PORT_REF new:$PORT_NEW"
 serve "$WT" "$PORT_REF"
@@ -110,6 +145,15 @@ jget() { python3 -c "import json,sys;print(json.load(sys.stdin)['data']$1)"; }
 setup_side() { # session theme w h
   ab "$1" set viewport "$3" "$4" >/dev/null
   ab "$1" set media "$2" reduced-motion >/dev/null
+
+  # The three /work detail pages embed a YouTube iframe. Its content is remote
+  # and renders differently run to run — measured at 10-12 differing pixels,
+  # which is indistinguishable from a small real regression. Abort the requests
+  # so the iframe is a deterministic empty box on both sides. Everything else
+  # the site loads is local.
+  ab "$1" network route "**youtube.com**" --abort >/dev/null 2>&1 || true
+  ab "$1" network route "**youtube-nocookie.com**" --abort >/dev/null 2>&1 || true
+  ab "$1" network route "**ytimg.com**" --abort >/dev/null 2>&1 || true
 }
 
 fail() { echo "FAIL  $*" | tee -a "$FAILURES"; }
@@ -171,6 +215,18 @@ def act(*args):
                    capture_output=True, text=True)
 
 
+def settle():
+    """Let the state transition finish before sampling.
+
+    `.btn` transitions colour and box-shadow over 200ms and — unlike `.swap` —
+    daisyUI does not guard that behind prefers-reduced-motion, so `set media
+    reduced-motion` does not stop it. Sampling immediately after a hover reads
+    a frame mid-flight: measured alpha 0.359 on one side and 0.441 on the
+    other, from identical CSS.
+    """
+    act('wait', '300')
+
+
 out = {k: {'rest': v} for k, v in ev().items()}
 
 # :hover, :focus-visible and :active cannot be forced from JS — they have to be
@@ -180,16 +236,20 @@ for tid in specimens:
     sel = f'[data-testid="{tid}"] > *'
 
     act('hover', sel)
+    settle()
     out[tid]['hover'] = ev()[tid]
 
     # .focus() alone does not arm :focus-visible in Chrome; the focus has to
     # arrive from the keyboard. Tab away and back.
+    act('mouse', 'move', '2', '2')
     act('focus', sel)
     act('press', 'Shift+Tab')
     act('press', 'Tab')
+    settle()
     out[tid]['focus'] = ev()[tid]
 
     act('mouse', 'move', '2', '2')
+    settle()
 
 json.dump(out, sys.stdout, indent=1, sort_keys=True)
 PY
