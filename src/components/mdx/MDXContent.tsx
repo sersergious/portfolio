@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import type { Components } from 'react-markdown';
+import { linkVariants } from '@/components/ui/link-variants';
 
 // Headings shift down one level: the page owns the h1, so markdown starts at h2.
 // Hairline rules under the top two levels, body at 16px.
@@ -67,7 +68,7 @@ const components: Components = {
   a: ({ children, href, ...props }) => (
     <a
       href={href}
-      className="link link-primary link-hover"
+      className={linkVariants({ tone: 'primary' })}
       {...(href && !href.startsWith('/')
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : {})}

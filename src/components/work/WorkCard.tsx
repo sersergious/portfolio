@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ExternalLink, PlayCircle, FolderGit2, ScrollText } from 'lucide-react';
 import { Github } from '@/components/icons/brand-icons';
+import { Badge, badgeVariants } from '@/components/ui/badge';
 import { languageColor } from '@/lib/languages';
 import { formatYear } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
@@ -32,9 +33,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
             {item.title}
           </Link>
         </h3>
-        <span className="badge badge-sm badge-ghost shrink-0">
-          {statusLabel(item.status)}
-        </span>
+        <Badge className="shrink-0">{statusLabel(item.status)}</Badge>
       </div>
 
       {/* Research leads with its authors; a project leads with what it is. */}
@@ -60,7 +59,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
       {topics.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {topics.slice(0, 3).map(topic => (
-            <li key={topic} className="badge badge-sm badge-soft">
+            <li key={topic} className={badgeVariants({ variant: 'soft' })}>
               {topic}
             </li>
           ))}

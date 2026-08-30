@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { buttonVariants } from '@/components/ui/button';
+import { linkVariants } from '@/components/ui/link-variants';
+import { badgeVariants } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
@@ -26,7 +29,10 @@ export function ContentHeader({ item }: { item: WorkItem }) {
       <header className="pt-12 md:pt-16">
         <Link
           href="/work"
-          className="link link-hover font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase"
+          className={cn(
+            linkVariants(),
+            'font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase'
+          )}
         >
           ← All work
         </Link>
@@ -68,7 +74,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
         {topics.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {topics.map(topic => (
-              <li key={topic} className="badge badge-sm badge-soft">
+              <li key={topic} className={badgeVariants({ variant: 'soft' })}>
                 {topic}
               </li>
             ))}

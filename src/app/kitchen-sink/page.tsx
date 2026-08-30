@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Sun, Moon, Mail } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { linkVariants } from '@/components/ui/link-variants';
 
 /**
  * Specimen sheet for the daisyUI → Base UI migration.
@@ -86,26 +88,26 @@ export default function KitchenSinkPage() {
 
       <Group label="Badge">
         <Spec id="badge-ghost">
-          <span className="badge badge-sm badge-ghost">Completed</span>
+          <Badge>Completed</Badge>
         </Spec>
         <Spec id="badge-soft">
-          <span className="badge badge-sm badge-soft">Topic</span>
+          <Badge variant="soft">Topic</Badge>
         </Spec>
       </Group>
 
       <Group label="Link">
         <Spec id="link-plain">
-          <a href="#anchor" className="link">
+          <a href="#anchor" className={linkVariants({ underline: 'always' })}>
             Underlined link
           </a>
         </Spec>
         <Spec id="link-hover">
-          <a href="#anchor" className="link link-hover">
+          <a href="#anchor" className={linkVariants()}>
             Hover link
           </a>
         </Spec>
         <Spec id="link-primary">
-          <a href="#anchor" className="link link-primary link-hover">
+          <a href="#anchor" className={linkVariants({ tone: 'primary' })}>
             Primary link
           </a>
         </Spec>
@@ -121,7 +123,7 @@ export default function KitchenSinkPage() {
               className="btn join-item btn-sm gap-2"
             >
               All
-              <span className="badge badge-sm badge-ghost">3</span>
+              <Badge>3</Badge>
             </button>
             <button
               type="button"
@@ -129,7 +131,7 @@ export default function KitchenSinkPage() {
               className="btn join-item btn-sm btn-ghost gap-2"
             >
               Projects
-              <span className="badge badge-sm badge-ghost">2</span>
+              <Badge>2</Badge>
             </button>
             <button
               type="button"
@@ -137,7 +139,7 @@ export default function KitchenSinkPage() {
               className="btn join-item btn-sm btn-ghost gap-2"
             >
               Research
-              <span className="badge badge-sm badge-ghost">1</span>
+              <Badge>1</Badge>
             </button>
           </div>
         </Spec>

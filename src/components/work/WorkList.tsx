@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { WorkCard } from '@/components/work/WorkCard';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { WorkSummary } from '@/lib/work-content';
 
@@ -55,9 +56,7 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
               )}
             >
               {option.label}
-              <span className="badge badge-sm badge-ghost">
-                {counts[option.value]}
-              </span>
+              <Badge>{counts[option.value]}</Badge>
             </button>
           ))}
         </div>

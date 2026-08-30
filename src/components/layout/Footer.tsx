@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Github, Linkedin } from '@/components/icons/brand-icons';
 import { EMAIL } from '@/lib/profile';
+import { linkVariants } from '@/components/ui/link-variants';
+import { cn } from '@/lib/utils';
 
 const pages = [
   { href: '/', label: 'Overview' },
@@ -37,7 +39,7 @@ export function Footer() {
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {pages.map(page => (
               <li key={page.href}>
-                <Link href={page.href} className="link link-hover">
+                <Link href={page.href} className={linkVariants()}>
                   {page.label}
                 </Link>
               </li>
@@ -52,7 +54,10 @@ export function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link link-hover inline-flex items-center gap-1.5"
+                className={cn(
+                  linkVariants(),
+                  'inline-flex items-center gap-1.5'
+                )}
               >
                 <Icon className="h-4 w-4" />
                 {label}
@@ -61,7 +66,7 @@ export function Footer() {
             </li>
           ))}
           <li>
-            <a href={`mailto:${EMAIL}`} className="link link-hover">
+            <a href={`mailto:${EMAIL}`} className={linkVariants()}>
               Email
             </a>
           </li>

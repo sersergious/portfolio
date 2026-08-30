@@ -9,6 +9,7 @@ import { CREDENTIALS, EMAIL, PRESS, STACK } from '@/lib/profile';
 import { WorkCard } from '@/components/work/WorkCard';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { buttonVariants } from '@/components/ui/button';
+import { linkVariants } from '@/components/ui/link-variants';
 
 export default async function HomePage() {
   // Already ordered by date desc in the query.
@@ -119,7 +120,10 @@ export default async function HomePage() {
         <p className="mt-8 max-w-2xl text-foreground/60">
           Research background in quantum computing — noise modelling for
           variational eigensolvers.{' '}
-          <Link href="/work" className="link link-primary">
+          <Link
+            href="/work"
+            className={linkVariants({ underline: 'always', tone: 'primary' })}
+          >
             See the paper
           </Link>
           .

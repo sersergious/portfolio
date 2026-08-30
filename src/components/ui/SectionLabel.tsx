@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { linkVariants } from '@/components/ui/link-variants';
+import { cn } from '@/lib/utils';
 
 /** Mono label on a hairline rule — an annotation on a drawing. */
 export function SectionLabel({
@@ -21,7 +23,7 @@ export function SectionLabel({
       {href && (
         <Link
           href={href}
-          className="link link-hover font-mono text-xs text-foreground/70"
+          className={cn(linkVariants(), 'font-mono text-xs text-foreground/70')}
         >
           {linkLabel} →
         </Link>
