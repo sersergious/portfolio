@@ -40,7 +40,7 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
           A segmented control, not tabs: there is no panel to switch between,
           only one list that filters in place. `join` groups the buttons; the
           selected one keeps the default `btn` fill while the rest go ghost, so
-          both states sit at full base-content and need no contrast patching.
+          both states sit at full foreground and need no contrast patching.
         */}
         <div role="group" aria-label="Filter work" className="join mt-8">
           {FILTERS.map(option => (
@@ -72,13 +72,13 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
       </p>
 
       {shown.length > 0 ? (
-        <div className="divide-y divide-base-content/15 border-y border-base-content/15">
+        <div className="divide-y divide-foreground/15 border-y border-foreground/15">
           {shown.map(item => (
             <WorkCard key={item.slug} item={item} />
           ))}
         </div>
       ) : (
-        <p className="rounded-box border border-dashed border-base-content/15 p-8 text-center text-base-content/60">
+        <p className="rounded-lg border border-dashed border-foreground/15 p-8 text-center text-foreground/60">
           {items.length === 0
             ? 'Nothing published yet. Check back soon.'
             : 'Nothing here yet — try another filter.'}

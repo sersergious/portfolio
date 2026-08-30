@@ -30,7 +30,7 @@ export default function KitchenSinkPage() {
   if (!process.env.NEXT_PUBLIC_E2E) notFound();
 
   return (
-    <main className="min-h-screen bg-base-100 p-10 text-base-content">
+    <main className="min-h-screen bg-background p-10 text-foreground">
       <h1 className="mb-10 font-mono text-xs tracking-[0.18em] uppercase">
         Kitchen sink
       </h1>
@@ -165,13 +165,13 @@ export default function KitchenSinkPage() {
           <span aria-hidden className="status status-success" />
         </Spec>
         <Spec id="radius-box">
-          <div className="h-8 w-16 rounded-box border border-base-content/15 bg-base-200" />
+          <div className="h-8 w-16 rounded-lg border border-foreground/15 bg-muted" />
         </Spec>
         <Spec id="radius-field">
-          <div className="h-8 w-16 rounded-field border border-base-content/15 bg-base-200" />
+          <div className="h-8 w-16 rounded-lg border border-foreground/15 bg-muted" />
         </Spec>
         <Spec id="rule">
-          <span className="block h-px w-16 bg-base-content/15" />
+          <span className="block h-px w-16 bg-foreground/15" />
         </Spec>
       </Group>
     </main>
@@ -187,7 +187,7 @@ function Group({
 }) {
   return (
     <section className="mb-10">
-      <h2 className="mb-4 font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase">
+      <h2 className="mb-4 font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase">
         {label}
       </h2>
       <div className="flex flex-wrap items-start gap-6">{children}</div>

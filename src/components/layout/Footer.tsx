@@ -20,8 +20,8 @@ const externals = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-base-content/15 py-8">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-base-content/70 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
+    <footer className="mt-auto border-t border-foreground/15 py-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-foreground/70 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
         <div className="flex items-center gap-2 lg:justify-self-start">
           <Image
             src="/images/logo.png"

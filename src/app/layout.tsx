@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   }),
 };
 
-/** Browser chrome matches `base-100` in each theme, so the page has no seam. */
+/** Browser chrome matches `background` in each theme, so the page has no seam. */
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },

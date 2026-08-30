@@ -25,7 +25,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
       <header className="pt-12 md:pt-16">
         <Link
           href="/work"
-          className="link link-hover font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase"
+          className="link link-hover font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase"
         >
           ← All work
         </Link>
@@ -36,19 +36,19 @@ export function ContentHeader({ item }: { item: WorkItem }) {
 
         {/* A paper is introduced by its authors, a project by what it does. */}
         {item.kind === 'research' && item.authors && item.authors.length > 0 ? (
-          <p className="mt-6 text-lg leading-relaxed text-base-content/70">
+          <p className="mt-6 text-lg leading-relaxed text-foreground/70">
             {item.authors.join(', ')}
           </p>
         ) : (
           item.description && (
-            <p className="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+            <p className="mt-6 text-lg leading-relaxed text-foreground/70 md:text-xl">
               {item.description}
             </p>
           )
         )}
 
         {/* Facts, in the same mono voice as the hero credentials line. */}
-        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-base-content/70">
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-foreground/70">
           {language && (
             <span className="flex items-center gap-1.5">
               <span

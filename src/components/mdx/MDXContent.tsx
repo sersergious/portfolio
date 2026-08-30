@@ -6,7 +6,7 @@ import type { Components } from 'react-markdown';
 const components: Components = {
   h1: ({ children, ...props }) => (
     <h2
-      className="mt-8 mb-4 scroll-mt-20 border-b border-base-content/15 pb-2 text-2xl font-semibold first:mt-0"
+      className="mt-8 mb-4 scroll-mt-20 border-b border-foreground/15 pb-2 text-2xl font-semibold first:mt-0"
       {...props}
     >
       {children}
@@ -14,7 +14,7 @@ const components: Components = {
   ),
   h2: ({ children, ...props }) => (
     <h3
-      className="mt-8 mb-4 scroll-mt-20 border-b border-base-content/15 pb-2 text-xl font-semibold first:mt-0"
+      className="mt-8 mb-4 scroll-mt-20 border-b border-foreground/15 pb-2 text-xl font-semibold first:mt-0"
       {...props}
     >
       {children}
@@ -42,7 +42,7 @@ const components: Components = {
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="my-4 border-l-4 border-base-content/15 pl-4 text-base-content/60"
+      className="my-4 border-l-4 border-foreground/15 pl-4 text-foreground/60"
       {...props}
     >
       {children}
@@ -50,7 +50,7 @@ const components: Components = {
   ),
   code: ({ children, ...props }) => (
     <code
-      className="rounded bg-base-200 px-1.5 py-0.5 font-mono text-[0.85em]"
+      className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em]"
       {...props}
     >
       {children}
@@ -58,7 +58,7 @@ const components: Components = {
   ),
   pre: ({ children, ...props }) => (
     <pre
-      className="mb-4 overflow-x-auto rounded-box bg-base-200 p-4 text-xs"
+      className="mb-4 overflow-x-auto rounded-lg bg-muted p-4 text-xs"
       {...props}
     >
       {children}
@@ -83,7 +83,7 @@ const components: Components = {
       alt={alt ?? ''}
       loading="lazy"
       decoding="async"
-      className="my-4 h-auto w-full rounded-box border border-base-content/15"
+      className="my-4 h-auto w-full rounded-lg border border-foreground/15"
       {...props}
     />
   ),
@@ -95,24 +95,24 @@ const components: Components = {
     </div>
   ),
   thead: ({ children, ...props }) => (
-    <thead className="bg-base-200" {...props}>
+    <thead className="bg-muted" {...props}>
       {children}
     </thead>
   ),
   th: ({ children, ...props }) => (
     <th
-      className="border border-base-content/15 px-3 py-1.5 text-left font-semibold"
+      className="border border-foreground/15 px-3 py-1.5 text-left font-semibold"
       {...props}
     >
       {children}
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-base-content/15 px-3 py-1.5" {...props}>
+    <td className="border border-foreground/15 px-3 py-1.5" {...props}>
       {children}
     </td>
   ),
-  hr: props => <hr className="my-6 border-base-content/15" {...props} />,
+  hr: props => <hr className="my-6 border-foreground/15" {...props} />,
 };
 
 export function MDXContent({ source }: { source: string }) {

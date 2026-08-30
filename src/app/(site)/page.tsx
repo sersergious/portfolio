@@ -23,7 +23,7 @@ export default async function HomePage() {
         />
         <div className="flex flex-col-reverse items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-12">
           <div className="max-w-2xl">
-            <p className="mb-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase">
+            <p className="mb-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase">
               <span aria-hidden className="status status-success" />
               Available for hire
             </p>
@@ -40,13 +40,13 @@ export default async function HomePage() {
               Software engineer — backend and systems.
             </p>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-base-content/70">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/70">
               I write server-side services in Java, Kotlin, and Python, work
               close to the machine in C, and build the UIs on top in TypeScript
               and React.
             </p>
 
-            <p className="mt-5 font-mono text-xs text-base-content/70">
+            <p className="mt-5 font-mono text-xs text-foreground/70">
               {CREDENTIALS.join(' · ')}
             </p>
 
@@ -91,11 +91,11 @@ export default async function HomePage() {
             height={512}
             priority
             sizes="(max-width: 768px) 14rem, 18rem"
-            className="h-56 w-56 shrink-0 rounded-full border border-base-content/15 object-cover md:h-72 md:w-72"
+            className="h-56 w-56 shrink-0 rounded-full border border-foreground/15 object-cover md:h-72 md:w-72"
           />
         </div>
 
-        <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-base-content/70">
+        <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-foreground/70">
           Simplicity is the ultimate sophistication — Leonardo da Vinci, by way
           of Apple’s first brochure, 1977
         </p>
@@ -109,7 +109,7 @@ export default async function HomePage() {
             <StackRow key={group.label} {...group} />
           ))}
         </dl>
-        <p className="mt-8 max-w-2xl text-base-content/60">
+        <p className="mt-8 max-w-2xl text-foreground/60">
           Research background in quantum computing — noise modelling for
           variational eigensolvers.{' '}
           <Link href="/work" className="link link-primary">
@@ -124,7 +124,7 @@ export default async function HomePage() {
         <SectionLabel href="/work" linkLabel="All work">
           Recent work
         </SectionLabel>
-        <div className="divide-y divide-base-content/15 border-y border-base-content/15">
+        <div className="divide-y divide-foreground/15 border-y border-foreground/15">
           {recentWork.map(item => (
             <WorkCard key={item.slug} item={item} />
           ))}
@@ -134,11 +134,11 @@ export default async function HomePage() {
       {/* Press */}
       <section className="py-14">
         <SectionLabel>Press</SectionLabel>
-        <p className="mb-6 max-w-2xl text-base leading-relaxed text-base-content/70">
+        <p className="mb-6 max-w-2xl text-base leading-relaxed text-foreground/70">
           In August 2022 I left Ukraine to start my degree at the University of
           Scranton. Four newsrooms covered the move.
         </p>
-        <ul className="divide-y divide-base-content/15 border-y border-base-content/15">
+        <ul className="divide-y divide-foreground/15 border-y border-foreground/15">
           {PRESS.map(item => (
             <li key={item.href}>
               <a
@@ -147,13 +147,13 @@ export default async function HomePage() {
                 rel="noopener noreferrer"
                 className="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"
               >
-                <span className="font-mono text-xs whitespace-nowrap text-base-content/70 sm:w-44">
+                <span className="font-mono text-xs whitespace-nowrap text-foreground/70 sm:w-44">
                   {item.outlet}
                 </span>
                 <span className="flex-1 group-hover:text-primary">
                   {item.headline}
                 </span>
-                <span className="flex shrink-0 items-center gap-1.5 font-mono text-xs text-base-content/70">
+                <span className="flex shrink-0 items-center gap-1.5 font-mono text-xs text-foreground/70">
                   <time dateTime={item.date}>
                     {formatDate(item.date, {
                       month: 'short',
@@ -173,7 +173,7 @@ export default async function HomePage() {
       <section className="py-14">
         <SectionLabel>Contact</SectionLabel>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <p className="max-w-md text-base leading-relaxed text-base-content/70">
+          <p className="max-w-md text-base leading-relaxed text-foreground/70">
             Open to backend, systems, and platform engineering roles. The
             fastest way to reach me is email.
           </p>
@@ -203,7 +203,7 @@ function StackRow({
 }) {
   return (
     <div className="grid gap-2 sm:grid-cols-[10rem_minmax(0,1fr)]">
-      <dt className="font-mono text-xs text-base-content/70">{label}</dt>
+      <dt className="font-mono text-xs text-foreground/70">{label}</dt>
       <dd className="flex flex-wrap gap-x-5 gap-y-2">
         {items.map(item => (
           <span key={item} className="flex items-center gap-2">

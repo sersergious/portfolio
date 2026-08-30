@@ -15,7 +15,7 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-base-content/15 bg-base-100/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-foreground/15 bg-background/80 backdrop-blur-md">
       {/* Taller on md+ so the larger avatar keeps its breathing room. */}
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-6 md:h-16">
         <Link
@@ -45,10 +45,10 @@ export function Navigation() {
               href={link.href}
               aria-current={pathname.startsWith(link.href) ? 'page' : undefined}
               className={cn(
-                'rounded-field px-2.5 py-1.5 text-sm whitespace-nowrap transition-colors hover:bg-base-200 sm:px-3',
+                'rounded-lg px-2.5 py-1.5 text-sm whitespace-nowrap transition-colors hover:bg-muted sm:px-3',
                 pathname.startsWith(link.href)
-                  ? 'font-medium text-base-content'
-                  : 'text-base-content/60'
+                  ? 'font-medium text-foreground'
+                  : 'text-foreground/60'
               )}
             >
               {link.label}
