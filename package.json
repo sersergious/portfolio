@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:clean": "rm -rf node_modules && bun install --frozen-lockfile && bun run build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",

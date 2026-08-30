@@ -100,9 +100,10 @@ the class it sets. A `prefers-color-scheme` block repeats the dark tokens under
 
 ### Styling
 
-Tailwind CSS v4, no component framework. `src/styles/globals.css` imports
-`shadcn/tailwind.css` for the keyframes and `data-*` custom variants Base UI
-components key off. PostCSS via `@tailwindcss/postcss`.
+Tailwind CSS v4, no component framework and no CSS imports beyond Tailwind
+itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
+Tailwind's own bare `data-*` variants (`group-data-pressed:`), so the `shadcn`
+package is a CLI run through `bunx` and not a dependency.
 
 Tokens: `bg-background`, `text-foreground` (plus `/15`, `/60`, `/70` opacity
 steps), `bg-muted`, `bg-primary`, `text-primary-foreground`, `border-border`,
@@ -165,6 +166,12 @@ Only one, and it's optional:
 - `NEXT_PUBLIC_SITE_URL` — defaults to `https://skuzmin.dev`; drives `metadataBase`, canonicals, the sitemap, robots.txt, and the OG card's domain line via [src/lib/site.ts](../src/lib/site.ts)
 
 The build reads content from the filesystem, so **it needs no credentials and no network.** A clean clone builds with an empty environment — that's worth preserving.
+
+**Run `bun run build:clean` before pushing.** A local `node_modules` can keep a
+package alive after it leaves `package.json` — `bunx shadcn` left one behind,
+and `globals.css` imported a stylesheet from it, so every local build passed
+while Vercel's clean install failed. The A/B harness cannot catch this: it
+compares two built sites, not the dependency graph.
 
 ## History
 

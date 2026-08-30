@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-/* Keyframes and the `data-*` custom variants Base UI components key off. */
-@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 

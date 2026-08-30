@@ -51,9 +51,9 @@ palette survives with JS off.
 
 ## Styling
 
-Tailwind CSS v4, no component framework. `globals.css` imports
-`shadcn/tailwind.css` for keyframes and the `data-*` custom variants Base UI
-keys off. PostCSS via `@tailwindcss/postcss`.
+Tailwind CSS v4, no component framework and no CSS imports beyond Tailwind
+itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
+Tailwind's own bare `data-*` variants (`group-data-pressed:`).
 
 Tokens: `bg-background`, `text-foreground` (with `/15`, `/60`, `/70` opacity
 steps), `bg-muted`, `bg-primary`, `text-primary-foreground`, `border-border`,
