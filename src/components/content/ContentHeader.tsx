@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { buttonVariants } from '@/components/ui/button';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
@@ -82,7 +83,9 @@ export function ContentHeader({ item }: { item: WorkItem }) {
                 href={action.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`btn btn-sm ${action.primary ? 'btn-primary' : ''}`}
+                className={buttonVariants({
+                  variant: action.primary ? 'primary' : 'default',
+                })}
               >
                 {action.label}
               </a>

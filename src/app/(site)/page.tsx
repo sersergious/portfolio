@@ -8,6 +8,7 @@ import { formatDate } from '@/lib/utils';
 import { CREDENTIALS, EMAIL, PRESS, STACK } from '@/lib/profile';
 import { WorkCard } from '@/components/work/WorkCard';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { buttonVariants } from '@/components/ui/button';
 
 export default async function HomePage() {
   // Already ordered by date desc in the query.
@@ -54,12 +55,12 @@ export default async function HomePage() {
               <a
                 href="/docs/resume.pdf"
                 download
-                className="btn btn-sm btn-primary"
+                className={buttonVariants({ variant: 'primary' })}
               >
                 <Download className="h-4 w-4" />
                 Résumé
               </a>
-              <a href={`mailto:${EMAIL}`} className="btn btn-sm">
+              <a href={`mailto:${EMAIL}`} className={buttonVariants()}>
                 <Mail className="h-4 w-4" />
                 Email me
               </a>
@@ -67,7 +68,10 @@ export default async function HomePage() {
                 href="https://github.com/sersergious"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-sm btn-ghost btn-square"
+                className={buttonVariants({
+                  variant: 'ghost',
+                  size: 'icon-sm',
+                })}
                 aria-label="GitHub"
               >
                 <Github className="h-4 w-4" />
@@ -76,7 +80,10 @@ export default async function HomePage() {
                 href="https://www.linkedin.com/in/skuzmin-dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-sm btn-ghost btn-square"
+                className={buttonVariants({
+                  variant: 'ghost',
+                  size: 'icon-sm',
+                })}
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-4 w-4" />
@@ -178,11 +185,14 @@ export default async function HomePage() {
             fastest way to reach me is email.
           </p>
           <div className="flex flex-wrap gap-2">
-            <a href={`mailto:${EMAIL}`} className="btn btn-sm btn-primary">
+            <a
+              href={`mailto:${EMAIL}`}
+              className={buttonVariants({ variant: 'primary' })}
+            >
               <Mail className="h-4 w-4" />
               Email me
             </a>
-            <Link href="/about" className="btn btn-sm">
+            <Link href="/about" className={buttonVariants()}>
               More about me
             </Link>
           </div>

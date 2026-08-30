@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function NotFound() {
   return (
@@ -12,7 +14,10 @@ export default function NotFound() {
       <p className="mt-3 text-foreground/70">
         The link may be outdated, or the page moved.
       </p>
-      <Link href="/" className="btn btn-sm btn-primary mt-6">
+      <Link
+        href="/"
+        className={cn(buttonVariants({ variant: 'primary' }), 'mt-6')}
+      >
         Back to overview
       </Link>
     </div>

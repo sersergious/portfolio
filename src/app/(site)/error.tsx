@@ -1,5 +1,7 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+
 /**
  * Catches a failed render inside the site shell. Content is read from the
  * filesystem at build time, so this is a render bug rather than a fetch that
@@ -24,13 +26,9 @@ export default function Error({
           Reference: {error.digest}
         </p>
       )}
-      <button
-        type="button"
-        onClick={reset}
-        className="btn btn-sm btn-primary mt-6"
-      >
+      <Button type="button" variant="primary" onClick={reset} className="mt-6">
         Try again
-      </button>
+      </Button>
     </div>
   );
 }

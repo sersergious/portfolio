@@ -215,6 +215,13 @@ def act(*args):
                    capture_output=True, text=True)
 
 
+def box(sel):
+    r = subprocess.run(['agent-browser', '--session', sess, 'get', 'box', sel,
+                        '--json'], capture_output=True, text=True)
+    d = json.loads(r.stdout).get('data') or {}
+    return d.get('box', d)
+
+
 def settle():
     """Let the state transition finish before sampling.
 
@@ -247,6 +254,19 @@ for tid in specimens:
     act('press', 'Tab')
     settle()
     out[tid]['focus'] = ev()[tid]
+
+    # :active needs a real press. Release the mouse well away from the element
+    # so the click is cancelled — several specimens are anchors, and a real
+    # click would navigate mid-probe.
+    b = box(sel)
+    if b.get('width'):
+        act('mouse', 'move', str(int(b['x'] + b['width'] / 2)),
+            str(int(b['y'] + b['height'] / 2)))
+        act('mouse', 'down')
+        settle()
+        out[tid]['active'] = ev()[tid]
+        act('mouse', 'move', '2', '2')
+        act('mouse', 'up')
 
     act('mouse', 'move', '2', '2')
     settle()

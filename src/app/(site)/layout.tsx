@@ -1,6 +1,8 @@
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function SiteLayout({
   children,
@@ -11,7 +13,10 @@ export default function SiteLayout({
     <ThemeProvider>
       <a
         href="#main"
-        className="btn btn-sm btn-primary sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-100"
+        className={cn(
+          buttonVariants({ variant: 'primary' }),
+          'sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-100'
+        )}
       >
         Skip to content
       </a>

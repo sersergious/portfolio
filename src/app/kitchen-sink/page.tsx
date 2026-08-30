@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Sun, Moon, Mail } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
 
 /**
  * Specimen sheet for the daisyUI → Base UI migration.
@@ -37,18 +38,24 @@ export default function KitchenSinkPage() {
 
       <Group label="Button">
         <Spec id="btn-default">
-          <button type="button" className="btn btn-sm">
+          <button type="button" className={buttonVariants()}>
             Button
           </button>
         </Spec>
         <Spec id="btn-primary">
-          <button type="button" className="btn btn-sm btn-primary">
+          <button
+            type="button"
+            className={buttonVariants({ variant: 'primary' })}
+          >
             <Mail className="h-4 w-4" />
             Button
           </button>
         </Spec>
         <Spec id="btn-ghost">
-          <button type="button" className="btn btn-sm btn-ghost">
+          <button
+            type="button"
+            className={buttonVariants({ variant: 'ghost' })}
+          >
             Button
           </button>
         </Spec>
@@ -56,18 +63,22 @@ export default function KitchenSinkPage() {
           <button
             type="button"
             aria-label="Square"
-            className="btn btn-sm btn-ghost btn-square"
+            className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
           >
             <Sun className="h-4 w-4" />
           </button>
         </Spec>
         <Spec id="btn-disabled">
-          <button type="button" disabled className="btn btn-sm btn-primary">
+          <button
+            type="button"
+            disabled
+            className={buttonVariants({ variant: 'primary' })}
+          >
             Button
           </button>
         </Spec>
         <Spec id="btn-anchor">
-          <a href="#anchor" className="btn btn-sm">
+          <a href="#anchor" className={buttonVariants()}>
             Anchor
           </a>
         </Spec>
