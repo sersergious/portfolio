@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ExternalLink, PlayCircle, FolderGit2, ScrollText } from 'lucide-react';
 import { Github } from '@/components/icons/brand-icons';
+import { Badge, badgeVariants } from '@/components/ui/badge';
 import { languageColor } from '@/lib/languages';
 import { formatYear } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
@@ -24,7 +25,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
         {/* Colour marks the hover target, as in the Press rows — a list of
           always-primary titles spends the accent on nothing. */}
         <h3 className="flex min-w-0 items-start gap-2 font-semibold transition-colors group-hover:text-primary">
-          <Icon className="h-4 w-4 shrink-0 translate-y-0.5 text-base-content/50" />
+          <Icon className="h-4 w-4 shrink-0 translate-y-0.5 text-foreground/50" />
           <Link
             href={item.url}
             className="line-clamp-2 hover:underline before:absolute before:inset-0 before:content-['']"
@@ -32,27 +33,25 @@ export function WorkCard({ item }: { item: WorkSummary }) {
             {item.title}
           </Link>
         </h3>
-        <span className="badge badge-sm badge-ghost shrink-0">
-          {statusLabel(item.status)}
-        </span>
+        <Badge className="shrink-0">{statusLabel(item.status)}</Badge>
       </div>
 
       {/* Research leads with its authors; a project leads with what it is. */}
       {isResearch ? (
         <>
           {item.authors && item.authors.length > 0 && (
-            <p className="mt-2 line-clamp-1 text-base-content/60">
+            <p className="mt-2 line-clamp-1 text-foreground/60">
               {item.authors.join(', ')}
             </p>
           )}
           {venue && (
-            <p className="mt-1 line-clamp-1 text-xs text-base-content/70">
+            <p className="mt-1 line-clamp-1 text-xs text-foreground/70">
               {venue}
             </p>
           )}
         </>
       ) : (
-        <p className="mt-2 line-clamp-2 text-base-content/60">
+        <p className="mt-2 line-clamp-2 text-foreground/60">
           {item.description}
         </p>
       )}
@@ -60,14 +59,14 @@ export function WorkCard({ item }: { item: WorkSummary }) {
       {topics.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {topics.slice(0, 3).map(topic => (
-            <li key={topic} className="badge badge-sm badge-soft">
+            <li key={topic} className={badgeVariants({ variant: 'soft' })}>
               {topic}
             </li>
           ))}
         </ul>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-base-content/60">
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-foreground/60">
         {language && (
           <span className="flex items-center gap-1.5">
             <span
@@ -107,7 +106,7 @@ function MetaLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative z-10 flex items-center gap-1 hover:text-base-content"
+      className="relative z-10 flex items-center gap-1 hover:text-foreground"
     >
       <Icon className="h-3.5 w-3.5" />
       {label}

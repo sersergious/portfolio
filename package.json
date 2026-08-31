@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:clean": "rm -rf node_modules && bun install --frozen-lockfile && bun run build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -16,24 +17,21 @@
     "node": ">=20.9.0",
     "bun": ">=1.0"
   },
-  "//overrides": "CodeMirror identifies extensions with instanceof, so two copies of @codemirror/state break Sanity Vision's GROQ editor ('Unrecognized extension value in extension set'). @codemirror/view wants ^6.7.0 while its siblings accept ^6.0.0, which resolved to two versions. All ranges are compatible — pin one.",
-  "overrides": {
-    "@codemirror/state": "^6.7.0"
-  },
   "dependencies": {
+    "@base-ui/react": "^1.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "daisyui": "^5.6.18",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.24.0",
     "next": "^16.3.0-preview.5",
     "next-themes": "^0.4.6",
     "react": "^19.3.0-canary-fef12a01-20260413",
     "react-dom": "^19.3.0-canary-fef12a01-20260413",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
-    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",

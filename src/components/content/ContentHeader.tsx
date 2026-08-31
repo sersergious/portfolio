@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { buttonVariants } from '@/components/ui/button';
+import { linkVariants } from '@/components/ui/link-variants';
+import { badgeVariants } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
@@ -25,30 +29,33 @@ export function ContentHeader({ item }: { item: WorkItem }) {
       <header className="pt-12 md:pt-16">
         <Link
           href="/work"
-          className="link link-hover font-mono text-xs tracking-[0.18em] text-base-content/70 uppercase"
+          className={cn(
+            linkVariants(),
+            'font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase'
+          )}
         >
           ← All work
         </Link>
 
-        <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance md:text-5xl">
           {item.title}
         </h1>
 
         {/* A paper is introduced by its authors, a project by what it does. */}
         {item.kind === 'research' && item.authors && item.authors.length > 0 ? (
-          <p className="mt-6 text-lg leading-relaxed text-base-content/70">
+          <p className="mt-6 text-lg leading-relaxed text-foreground/70">
             {item.authors.join(', ')}
           </p>
         ) : (
           item.description && (
-            <p className="mt-6 text-lg leading-relaxed text-base-content/70 md:text-xl">
+            <p className="mt-6 text-lg leading-relaxed text-foreground/70 md:text-xl">
               {item.description}
             </p>
           )
         )}
 
         {/* Facts, in the same mono voice as the hero credentials line. */}
-        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-base-content/70">
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-foreground/70">
           {language && (
             <span className="flex items-center gap-1.5">
               <span
@@ -67,7 +74,7 @@ export function ContentHeader({ item }: { item: WorkItem }) {
         {topics.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {topics.map(topic => (
-              <li key={topic} className="badge badge-sm badge-soft">
+              <li key={topic} className={badgeVariants({ variant: 'soft' })}>
                 {topic}
               </li>
             ))}
@@ -82,7 +89,9 @@ export function ContentHeader({ item }: { item: WorkItem }) {
                 href={action.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`btn btn-sm ${action.primary ? 'btn-primary' : ''}`}
+                className={buttonVariants({
+                  variant: action.primary ? 'primary' : 'default',
+                })}
               >
                 {action.label}
               </a>

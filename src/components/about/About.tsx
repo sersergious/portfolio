@@ -18,7 +18,7 @@ export function About() {
         alt="Serhii Kuzmin on the University of Scranton campus"
       >
         <p>
-          Since early childhood I&apos;ve been interested in technology, taking
+          Since early childhood I’ve been interested in technology, taking
           computers apart to understand how they work. That turned into coding
           at 13, and from there into what I do today.
         </p>
@@ -27,8 +27,8 @@ export function About() {
           passions. I started to compete in olympiads and present my work at
           conferences as early as 7. Fast forward to today, I graduated from the
           University of Scranton with a degree in Computer Science and
-          Mathematical Sciences — the ultimate combination I&apos;d been
-          building toward the whole time.
+          Mathematical Sciences — the ultimate combination I’d been building
+          toward the whole time.
         </p>
       </Band>
 
@@ -39,7 +39,7 @@ export function About() {
         flip
         aside={
           <figure className="border-l-2 border-primary pl-5">
-            <blockquote className="text-base-content/80">
+            <blockquote className="text-foreground/80">
               Surface Evolver is the clear example of my passion for modernizing
               legacy software. I transformed a powerful but inaccessible
               decades-old program into a cross-platform desktop app with a
@@ -68,7 +68,7 @@ export function About() {
 
       <Band label="Mathematics" aside={<TagList items={MATH_TOPICS} />}>
         <p>
-          I&apos;m well versed in applied mathematics — numerical analysis,
+          I’m well versed in applied mathematics — numerical analysis,
           information theory, and applied probability and statistics in
           particular. Throughout my studies I chased understanding of the
           concepts themselves rather than the mechanics, which is the skill that
@@ -90,7 +90,7 @@ export function About() {
         </p>
         <p>
           Quantum computing is the primary focus, but the curiosity is wider
-          than that — I&apos;m drawn to where computer science meets other
+          than that — I’m drawn to where computer science meets other
           disciplines.
         </p>
         <TagList items={FOCUS_AREAS} />
@@ -102,10 +102,10 @@ export function About() {
         alt="Hiking the dunes in Death Valley"
       >
         <p>
-          I spend my time outdoors, travelling, and cooking. I&apos;ve led
-          outdoor retreats and organised trips for groups — Death Valley in
-          California, and World&apos;s End State Park in Pennsylvania, the
-          latter of which I ran myself.
+          I spend my time outdoors, travelling, and cooking. I’ve led outdoor
+          retreats and organised trips for groups — Death Valley in California,
+          and World’s End State Park in Pennsylvania, the latter of which I ran
+          myself.
         </p>
         <p>
           I started travelling at 18 and have since spent time in the United
@@ -120,9 +120,9 @@ export function About() {
         flip
       >
         <p>
-          I&apos;m driven by curiosity about how things work and by wanting to
-          push on what&apos;s possible. Every problem is a puzzle; every
-          limitation is somewhere to look harder.
+          I’m driven by curiosity about how things work and by wanting to push
+          on what’s possible. Every problem is a puzzle; every limitation is
+          somewhere to look harder.
         </p>
         <p>
           My family is the foundation under all of it. Their support is why I
@@ -131,7 +131,7 @@ export function About() {
         </p>
       </Band>
 
-      <p className="mt-14 border-t border-base-content/15 pt-6 text-base-content/70">
+      <p className="mt-14 border-t border-foreground/15 pt-6 text-foreground/70">
         Anything not covered here — just ask.
       </p>
     </div>
@@ -192,7 +192,7 @@ function Band({
             width={640}
             height={640}
             sizes="(max-width: 768px) 100vw, 28rem"
-            className={`aspect-[4/3] w-full rounded-box object-cover ${
+            className={`aspect-[4/3] w-full rounded-lg object-cover ${
               flip ? 'md:order-1' : ''
             }`}
           />
@@ -208,10 +208,10 @@ function Band({
 
 function TagList({ items }: { items: string[] }) {
   return (
-    <ul className="flex flex-wrap gap-x-5 gap-y-2 text-base-content/70">
+    <ul className="flex flex-wrap gap-x-5 gap-y-2 text-foreground/70">
       {items.map(item => (
         <li key={item} className="flex items-center gap-2">
-          <span className="h-1 w-1 shrink-0 rounded-full bg-base-content/40" />
+          <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/40" />
           {item}
         </li>
       ))}

@@ -1,7 +1,12 @@
 import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
+/**
+ * `twMerge` on top of `clsx` — the shape every shadcn component expects, so
+ * pasted components resolve their class conflicts instead of emitting both.
+ */
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
+  return twMerge(clsx(inputs));
 }
 
 /**

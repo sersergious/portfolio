@@ -53,7 +53,7 @@ export default async function WorkDetailPage({ params }: Props) {
           <SectionLabel>
             {item.kind === 'research' ? 'Presentation' : 'Demo'}
           </SectionLabel>
-          <div className="aspect-video w-full overflow-hidden rounded-box">
+          <div className="aspect-video w-full overflow-hidden rounded-lg">
             <iframe
               src={embed}
               title={

@@ -17,7 +17,7 @@ No test suite is configured.
 
 ## Architecture
 
-Personal portfolio for Serhii Kuzmin, deployed at `skuzmin.dev`. Built with **Next.js 16** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **DaisyUI v5**. Content is markdown in `content/work/` — no CMS, no external service, no build-time network.
+Personal portfolio for Serhii Kuzmin, deployed at `skuzmin.dev`. Built with **Next.js 16** (App Router, SSG), **React 19**, **TypeScript**, **Tailwind CSS v4**, and **shadcn/ui on Base UI**. Content is markdown in `content/work/` — no CMS, no external service, no build-time network.
 
 ### Routing
 
@@ -78,28 +78,65 @@ The markdown body is rendered by `react-markdown` in [src/components/mdx/MDXCont
 
 ### Theming
 
-DaisyUI v5 with its two built-in themes, configured in `globals.css`:
+Two themes defined as CSS custom properties in `src/styles/globals.css`, in
+shadcn's two-tier shape: real properties on `:root` and `.dark`, aliased into
+Tailwind's namespace by `@theme inline`. Both tiers are needed — `@theme inline`
+does not emit its variables to the document, it only inlines them into
+utilities, so components reaching a token from an arbitrary value
+(`color-mix(in oklab, var(--muted), #000 7%)`) need the `:root` tier.
 
-- **Light** → `light` (`--default`)
-- **Dark** → `dark` (`--prefersdark`, auto-applied via `prefers-color-scheme: dark`)
+The dark `primary` is a hand-solved value, not a pick: the most saturated
+in-gamut chroma at the lightness holding primary-as-text at 5.6:1 on the
+background. The light half is solved the same way at 6.5:1.
 
-`globals.css` then overrides the dark `primary` to 70% lightness — the stock value lands at 3.4:1 on `base-100` and fails WCAG AA.
+`color-scheme` is set explicitly on both themes. Without it the browser paints
+scrollbars, form controls and the canvas in the wrong mode.
 
-Theme switching is handled by `next-themes` (`ThemeProvider` in `(site)/layout.tsx`, `attribute="data-theme"`, `defaultTheme="system"`). It injects its own blocking script, so there is no FOUC and no hand-written inline script — `<html>` carries `suppressHydrationWarning` for the attribute it sets.
+Theme switching is `next-themes` (`ThemeProvider` in `(site)/layout.tsx`,
+`attribute="class"`, `defaultTheme="system"`). It injects its own blocking
+script, so there is no FOUC — `<html>` carries `suppressHydrationWarning` for
+the class it sets. A `prefers-color-scheme` block repeats the dark tokens under
+`:root:not(.light):not(.dark)` so the dark palette still applies with JS off.
 
 ### Styling
 
-Tailwind CSS v4 with DaisyUI v5, configured in `src/styles/globals.css` via `@import 'daisyui/daisyui.css'`. PostCSS handled by `@tailwindcss/postcss`. Key semantic classes used throughout: `bg-base-100/200/300`, `text-base-content`, `text-base-content/60`, `border-base-300`, `bg-primary`, `text-primary`, `btn`, `badge`, `card`.
+Tailwind CSS v4, no component framework and no CSS imports beyond Tailwind
+itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
+Tailwind's own bare `data-*` variants (`group-data-pressed:`), so the `shadcn`
+package is a CLI run through `bunx` and not a dependency.
+
+Tokens: `bg-background`, `text-foreground` (plus `/15`, `/60`, `/70` opacity
+steps), `bg-muted`, `bg-primary`, `text-primary-foreground`, `border-border`,
+`outline-ring`. The opacity steps are load-bearing for contrast — `foreground/60`
+measures 4.64:1 light and 6.19:1 dark, so do not swap it for `muted-foreground`.
+
+Components live in `src/components/ui/` as cva variants:
+
+- `button.tsx` — `buttonVariants` (`default` | `primary` | `ghost`, `sm` |
+  `icon-sm`) plus a `Button` over Base UI's primitive. Apply `buttonVariants()`
+  directly to `<a>`/`<Link>`; the primitive is a client component and adds
+  nothing to an anchor.
+- `badge.tsx` — `Badge` / `badgeVariants` (`ghost` | `soft`)
+- `link-variants.ts` — `linkVariants` (`underline: always | hover`,
+  `tone: default | primary`), a cva function rather than a component because
+  the call sites are `<a>`, `next/link`, and markdown-rendered anchors
+- `toggle.tsx` / `toggle-variants.ts` — Base UI `ToggleGroup` and `Toggle`; the
+  plain class strings live in the non-client half so Server Components can use
+  them
+
+**daisyUI was removed on 2026-08-30.** It shipped ~288 KB of CSS for the 774
+bytes the site used, because Tailwind v4 cannot tree-shake plain rules in
+`@layer`. See [Status](../docs/Status.md).
 
 ### Client Components
 
 Components that use browser APIs or React hooks need `'use client'`. Everything else is a Server Component — keep it that way:
 
 - `src/components/layout/Navigation.tsx` — `usePathname`
-- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, `data-theme`
-- `src/components/work/WorkList.tsx` — kind filter buttons (`useState`)
+- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, the `dark` class
+- `src/components/ui/toggle.tsx` — Base UI `Toggle` / `ToggleGroup`
+- `src/components/work/WorkList.tsx` — kind filter (`useState`)
 - `src/app/(site)/error.tsx` — error boundaries must be Client Components
-- `src/components/ui/ProtectedMailLink.tsx` — decodes the address on click
 
 ### Component Organization
 
@@ -111,9 +148,9 @@ src/components/
   icons/    ← brand SVGs (GitHub, LinkedIn)
   layout/   ← Navigation and Footer
   mdx/      ← MDXContent renderer (react-markdown, Server Component)
-  theme/    ← ThemeToggle / ThemeProvider (DaisyUI data-theme)
-  ui/       ← PageHeader, SectionLabel, ProtectedMailLink
-  work/     ← WorkCard (kind-driven) and WorkList (filter buttons)
+  theme/    ← ThemeToggle / ThemeProvider (`dark` class)
+  ui/       ← PageHeader, SectionLabel, button/badge/toggle variants
+  work/     ← WorkCard (kind-driven) and WorkList (ToggleGroup filter)
 ```
 
 `PageHeader` is the masthead for `/work` and `/about` — h1 at the same scale as
@@ -129,6 +166,12 @@ Only one, and it's optional:
 - `NEXT_PUBLIC_SITE_URL` — defaults to `https://skuzmin.dev`; drives `metadataBase`, canonicals, the sitemap, robots.txt, and the OG card's domain line via [src/lib/site.ts](../src/lib/site.ts)
 
 The build reads content from the filesystem, so **it needs no credentials and no network.** A clean clone builds with an empty environment — that's worth preserving.
+
+**Run `bun run build:clean` before pushing.** A local `node_modules` can keep a
+package alive after it leaves `package.json` — `bunx shadcn` left one behind,
+and `globals.css` imported a stylesheet from it, so every local build passed
+while Vercel's clean install failed. The A/B harness cannot catch this: it
+compares two built sites, not the dependency graph.
 
 ## History
 

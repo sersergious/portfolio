@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import { WorkCard } from '@/components/work/WorkCard';
 import { PageHeader } from '@/components/ui/PageHeader';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle';
 import type { WorkSummary } from '@/lib/work-content';
 
 type Filter = 'all' | 'project' | 'research';
@@ -38,29 +39,33 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
       >
         {/*
           A segmented control, not tabs: there is no panel to switch between,
-          only one list that filters in place. `join` groups the buttons; the
-          selected one keeps the default `btn` fill while the rest go ghost, so
-          both states sit at full base-content and need no contrast patching.
+          only one list that filters in place. The pressed item keeps the
+          default button fill while the rest go ghost, so both states sit at
+          full foreground and need no contrast patching.
+
+          Base UI supplies roving arrow-key focus and `data-pressed`, which the
+          hand-rolled `aria-pressed` version did not have. Deselecting is
+          ignored: this is a filter, so something is always selected.
         */}
-        <div role="group" aria-label="Filter work" className="join mt-8">
+        <ToggleGroup
+          aria-label="Filter work"
+          value={[filter]}
+          onValueChange={next => {
+            if (next.length > 0) setFilter(next[0] as Filter);
+          }}
+          className="mt-8"
+        >
           {FILTERS.map(option => (
-            <button
+            <ToggleGroupItem
               key={option.value}
-              type="button"
-              aria-pressed={filter === option.value}
-              onClick={() => setFilter(option.value)}
-              className={cn(
-                'btn join-item btn-sm gap-2',
-                filter !== option.value && 'btn-ghost'
-              )}
+              value={option.value}
+              pressed={filter === option.value}
             >
               {option.label}
-              <span className="badge badge-sm badge-ghost">
-                {counts[option.value]}
-              </span>
-            </button>
+              <Badge>{counts[option.value]}</Badge>
+            </ToggleGroupItem>
           ))}
-        </div>
+        </ToggleGroup>
       </PageHeader>
 
       {/* Cards are h3s; without this the page would jump h1 -> h3. */}
@@ -72,13 +77,13 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
       </p>
 
       {shown.length > 0 ? (
-        <div className="divide-y divide-base-content/15 border-y border-base-content/15">
+        <div className="divide-y divide-foreground/15 border-y border-foreground/15">
           {shown.map(item => (
             <WorkCard key={item.slug} item={item} />
           ))}
         </div>
       ) : (
-        <p className="rounded-box border border-dashed border-base-content/15 p-8 text-center text-base-content/60">
+        <p className="rounded-lg border border-dashed border-foreground/15 p-8 text-center text-foreground/60">
           {items.length === 0
             ? 'Nothing published yet. Check back soon.'
             : 'Nothing here yet — try another filter.'}

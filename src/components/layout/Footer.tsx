@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github, Linkedin } from '@/components/icons/brand-icons';
-import { ProtectedMailLink } from '@/components/ui/ProtectedMailLink';
-import { EMAIL_B64 } from '@/lib/profile';
+import { EMAIL } from '@/lib/profile';
+import { linkVariants } from '@/components/ui/link-variants';
+import { cn } from '@/lib/utils';
 
 const pages = [
   { href: '/', label: 'Overview' },
@@ -21,8 +22,8 @@ const externals = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-base-content/15 py-8">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-base-content/70 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
+    <footer className="mt-auto border-t border-foreground/15 py-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-foreground/70 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
         <div className="flex items-center gap-2 lg:justify-self-start">
           <Image
             src="/images/logo.png"
@@ -38,7 +39,7 @@ export function Footer() {
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {pages.map(page => (
               <li key={page.href}>
-                <Link href={page.href} className="link link-hover">
+                <Link href={page.href} className={linkVariants()}>
                   {page.label}
                 </Link>
               </li>
@@ -53,7 +54,10 @@ export function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link link-hover inline-flex items-center gap-1.5"
+                className={cn(
+                  linkVariants(),
+                  'inline-flex items-center gap-1.5'
+                )}
               >
                 <Icon className="h-4 w-4" />
                 {label}
@@ -62,9 +66,9 @@ export function Footer() {
             </li>
           ))}
           <li>
-            <ProtectedMailLink encoded={EMAIL_B64} className="link link-hover">
+            <a href={`mailto:${EMAIL}`} className={linkVariants()}>
               Email
-            </ProtectedMailLink>
+            </a>
           </li>
         </ul>
       </div>

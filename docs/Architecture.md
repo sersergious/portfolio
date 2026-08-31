@@ -34,16 +34,34 @@ paths — list and `:slug` — 308 to their `/work` equivalents via `redirects()
 
 ## Theming
 
-DaisyUI v5, two built-in themes:
+Two themes as CSS custom properties in `src/styles/globals.css`, in shadcn's
+two-tier shape: real properties on `:root` and `.dark`, aliased into Tailwind's
+namespace by `@theme inline`. Both tiers exist because `@theme inline` does not
+emit its variables to the document — it only inlines them into utilities — and
+components reach tokens from arbitrary values such as
+`color-mix(in oklab, var(--muted), #000 7%)`.
 
-- **Light** → `light` (`--default`)
-- **Dark** → `dark` (`--prefersdark`, auto via `prefers-color-scheme: dark`)
+`color-scheme` is set on both themes; without it the browser paints scrollbars,
+form controls and the canvas in the wrong mode.
 
-Theme switching is handled by `next-themes` (`ThemeProvider` in `(site)/layout.tsx`, `attribute="data-theme"`, `defaultTheme="system"`). It injects its own blocking script, so there is no FOUC and no hand-written inline script.
+Theme switching is `next-themes` (`ThemeProvider` in `(site)/layout.tsx`,
+`attribute="class"`, `defaultTheme="system"`), with a `prefers-color-scheme`
+block repeating the dark tokens under `:root:not(.light):not(.dark)` so the dark
+palette survives with JS off.
 
 ## Styling
 
-Tailwind CSS v4 + DaisyUI v5, configured in `src/styles/globals.css` via `@import 'daisyui/daisyui.css'`. PostCSS via `@tailwindcss/postcss`. Key semantic classes: `bg-base-100/200/300`, `text-base-content`, `text-base-content/60`, `border-base-300`, `bg-primary`, `text-primary`, `btn`, `badge`, `card`.
+Tailwind CSS v4, no component framework and no CSS imports beyond Tailwind
+itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
+Tailwind's own bare `data-*` variants (`group-data-pressed:`).
+
+Tokens: `bg-background`, `text-foreground` (with `/15`, `/60`, `/70` opacity
+steps), `bg-muted`, `bg-primary`, `text-primary-foreground`, `border-border`,
+`outline-ring`. Components are cva variants in `src/components/ui/`:
+`buttonVariants`, `badgeVariants`, `linkVariants`, and Base UI `ToggleGroup` /
+`Toggle`.
+
+daisyUI was removed on 2026-08-30 — see [[Status]].
 
 ## Client Components
 
@@ -51,9 +69,10 @@ Components using browser APIs or hooks need `'use client'`. Everything else is a
 Server Component:
 
 - `src/components/layout/Navigation.tsx` — `usePathname`
-- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, `data-theme`
-- `src/components/work/WorkList.tsx` — kind filter tabs (`useState`)
-- `src/components/ui/ProtectedMailLink.tsx` — decodes the address on click
+- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, the `dark` class
+- `src/components/ui/toggle.tsx` — Base UI `Toggle` / `ToggleGroup`
+- `src/components/work/WorkList.tsx` — kind filter (`useState`)
+- `src/app/(site)/error.tsx` — error boundaries must be Client Components
 
 ## Component Organization
 
@@ -65,9 +84,9 @@ src/components/
   icons/    ← brand SVGs (GitHub, LinkedIn)
   layout/   ← Navigation and Footer
   mdx/      ← MDXContent renderer (react-markdown, Server Component)
-  theme/    ← ThemeToggle / ThemeProvider (DaisyUI data-theme)
-  ui/       ← SectionLabel, ProtectedMailLink
-  work/     ← WorkCard (kind-driven) and WorkList (filter tabs)
+  theme/    ← ThemeToggle / ThemeProvider (`dark` class)
+  ui/       ← PageHeader, SectionLabel, button/badge/toggle variants
+  work/     ← WorkCard (kind-driven) and WorkList (ToggleGroup filter)
 ```
 
 `WorkCard` renders both kinds — icon, subtitle line, and meta links branch on
