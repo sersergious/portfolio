@@ -39,7 +39,7 @@ export function About() {
         flip
         aside={
           <figure className="border-l-2 border-primary pl-5">
-            <blockquote className="text-foreground/80">
+            <blockquote className="text-muted-foreground">
               Surface Evolver is the clear example of my passion for modernizing
               legacy software. I transformed a powerful but inaccessible
               decades-old program into a cross-platform desktop app with a
@@ -131,7 +131,7 @@ export function About() {
         </p>
       </Band>
 
-      <p className="mt-14 border-t border-foreground/15 pt-6 text-foreground/70">
+      <p className="mt-14 border-t border-border pt-6 text-muted-foreground">
         Anything not covered here — just ask.
       </p>
     </div>
@@ -163,7 +163,7 @@ function Band({
   const hasSide = Boolean(image || aside);
 
   return (
-    <section className="pt-14">
+    <section className="pt-16">
       <SectionLabel>{label}</SectionLabel>
 
       <div
@@ -208,7 +208,7 @@ function Band({
 
 function TagList({ items }: { items: string[] }) {
   return (
-    <ul className="flex flex-wrap gap-x-5 gap-y-2 text-foreground/70">
+    <ul className="flex flex-wrap gap-x-5 gap-y-2 text-muted-foreground">
       {items.map(item => (
         <li key={item} className="flex items-center gap-2">
           <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/40" />

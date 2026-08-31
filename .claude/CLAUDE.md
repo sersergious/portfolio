@@ -89,6 +89,12 @@ The dark `primary` is a hand-solved value, not a pick: the most saturated
 in-gamut chroma at the lightness holding primary-as-text at 5.6:1 on the
 background. The light half is solved the same way at 6.5:1.
 
+The sheet is one grid on `body::before`, ruled at `--module` (2rem) across the
+whole document. Structural rhythm — section padding, nav height, the rule under
+a section label — is a multiple of that module; intra-section spacing is
+typographic and deliberately is not. Do not add a second grid: two with
+different origins cannot align.
+
 `color-scheme` is set explicitly on both themes. Without it the browser paints
 scrollbars, form controls and the canvas in the wrong mode.
 
@@ -105,17 +111,33 @@ itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
 Tailwind's own bare `data-*` variants (`group-data-pressed:`), so the `shadcn`
 package is a CLI run through `bunx` and not a dependency.
 
-Tokens: `bg-background`, `text-foreground` (plus `/15`, `/60`, `/70` opacity
-steps), `bg-muted`, `bg-primary`, `text-primary-foreground`, `border-border`,
-`outline-ring`. The opacity steps are load-bearing for contrast — `foreground/60`
-measures 4.64:1 light and 6.19:1 dark, so do not swap it for `muted-foreground`.
+Tokens: `background`, `foreground`, `muted-foreground` (secondary prose),
+`subtle-foreground` (card descriptions, meta rows), `muted` (surfaces),
+`primary` / `primary-foreground`, `border`, `ring`.
+
+Text tone is a named role, never an opacity step. Every value is solved
+against a contrast target on **both** grounds it can appear on — `subtle-
+foreground` is 52% and not 55% because 55% measured 4.12:1 on `muted`.
+Measured, light / dark: foreground 16.94 / 14.45, muted-foreground 7.39 /
+8.25, subtle-foreground 5.27 / 5.64. Opacity survives only for a disabled
+state and two decorative marks, which is what it is honestly for.
+
+Hover and active mix toward `--foreground`, never toward black: one
+expression for both themes, and contrast always increases. Mixing black is
+right in light and backwards in dark.
+
+`--border` and the sheet's grid line must stay in different visual registers.
+They were both 1px and 1.26:1 apart once, and every section divider read as a
+stray grid line. Separation is now 1.57x light / 2.46x dark — darken one and
+you must re-check the other.
 
 Components live in `src/components/ui/` as cva variants:
 
-- `button.tsx` — `buttonVariants` (`default` | `primary` | `ghost`, `sm` |
-  `icon-sm`) plus a `Button` over Base UI's primitive. Apply `buttonVariants()`
-  directly to `<a>`/`<Link>`; the primitive is a client component and adds
-  nothing to an anchor.
+- `button.tsx` — `buttonVariants` (`default` | `primary` | `ghost`; `sm` |
+  `md` | `icon-sm`) plus a `Button` over Base UI's primitive. Apply
+  `buttonVariants()` directly to `<a>`/`<Link>`; the primitive is a client
+  component and adds nothing to an anchor. `md` is for the hero's two real
+  actions only — the rest of the site is deliberately dense at `sm`.
 - `badge.tsx` — `Badge` / `badgeVariants` (`ghost` | `soft`)
 - `link-variants.ts` — `linkVariants` (`underline: always | hover`,
   `tone: default | primary`), a cva function rather than a component because
@@ -154,8 +176,10 @@ src/components/
 ```
 
 `PageHeader` is the masthead for `/work` and `/about` — h1 at the same scale as
-a detail page, optional lead, optional children (the filter row), and the home
-page's graph-paper backdrop.
+a detail page, optional lead, optional children (the filter row). It draws no
+backdrop of its own: the sheet is one grid on `body::before` spanning the whole
+document, and a second grid with a different origin is what made the page look
+like it had two.
 
 `WorkCard` renders both kinds — icon, subtitle line, and meta links branch on `item.kind`. Don't add a second card component; extend this one.
 

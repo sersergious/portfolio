@@ -15,9 +15,9 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-foreground/15 bg-background/80 backdrop-blur-md">
-      {/* Taller on md+ so the larger avatar keeps its breathing room. */}
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-6 md:h-16">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      {/* 64px = two modules, so the content below starts on a grid line. */}
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-6">
         <Link
           href="/"
           className="flex shrink-0 items-center gap-2"
@@ -48,7 +48,7 @@ export function Navigation() {
                 'rounded-lg px-2.5 py-1.5 text-sm whitespace-nowrap transition-colors hover:bg-muted sm:px-3',
                 pathname.startsWith(link.href)
                   ? 'font-medium text-foreground'
-                  : 'text-foreground/60'
+                  : 'text-subtle-foreground'
               )}
             >
               {link.label}

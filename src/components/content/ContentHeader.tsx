@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { buttonVariants } from '@/components/ui/button';
 import { linkVariants } from '@/components/ui/link-variants';
@@ -31,10 +32,11 @@ export function ContentHeader({ item }: { item: WorkItem }) {
           href="/work"
           className={cn(
             linkVariants(),
-            'font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase'
+            'inline-flex items-center gap-1.5 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase'
           )}
         >
-          ← All work
+          <ArrowLeft className="h-3.5 w-3.5" />
+          All work
         </Link>
 
         <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance md:text-5xl">
@@ -43,19 +45,19 @@ export function ContentHeader({ item }: { item: WorkItem }) {
 
         {/* A paper is introduced by its authors, a project by what it does. */}
         {item.kind === 'research' && item.authors && item.authors.length > 0 ? (
-          <p className="mt-6 text-lg leading-relaxed text-foreground/70">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             {item.authors.join(', ')}
           </p>
         ) : (
           item.description && (
-            <p className="mt-6 text-lg leading-relaxed text-foreground/70 md:text-xl">
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
               {item.description}
             </p>
           )
         )}
 
         {/* Facts, in the same mono voice as the hero credentials line. */}
-        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-foreground/70">
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted-foreground">
           {language && (
             <span className="flex items-center gap-1.5">
               <span

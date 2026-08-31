@@ -77,13 +77,13 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
       </p>
 
       {shown.length > 0 ? (
-        <div className="divide-y divide-foreground/15 border-y border-foreground/15">
+        <div className="divide-y divide-border border-y border-border">
           {shown.map(item => (
             <WorkCard key={item.slug} item={item} />
           ))}
         </div>
       ) : (
-        <p className="rounded-lg border border-dashed border-foreground/15 p-8 text-center text-foreground/60">
+        <p className="rounded-lg border border-dashed border-border p-8 text-center text-subtle-foreground">
           {items.length === 0
             ? 'Nothing published yet. Check back soon.'
             : 'Nothing here yet — try another filter.'}

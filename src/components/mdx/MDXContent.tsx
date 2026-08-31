@@ -7,7 +7,7 @@ import { linkVariants } from '@/components/ui/link-variants';
 const components: Components = {
   h1: ({ children, ...props }) => (
     <h2
-      className="mt-8 mb-4 scroll-mt-20 border-b border-foreground/15 pb-2 text-2xl font-semibold first:mt-0"
+      className="mt-8 mb-4 scroll-mt-20 border-b border-border pb-2 text-2xl font-semibold first:mt-0"
       {...props}
     >
       {children}
@@ -15,7 +15,7 @@ const components: Components = {
   ),
   h2: ({ children, ...props }) => (
     <h3
-      className="mt-8 mb-4 scroll-mt-20 border-b border-foreground/15 pb-2 text-xl font-semibold first:mt-0"
+      className="mt-8 mb-4 scroll-mt-20 border-b border-border pb-2 text-xl font-semibold first:mt-0"
       {...props}
     >
       {children}
@@ -43,7 +43,7 @@ const components: Components = {
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="my-4 border-l-4 border-foreground/15 pl-4 text-foreground/60"
+      className="my-4 border-l-4 border-border pl-4 text-subtle-foreground"
       {...props}
     >
       {children}
@@ -84,7 +84,7 @@ const components: Components = {
       alt={alt ?? ''}
       loading="lazy"
       decoding="async"
-      className="my-4 h-auto w-full rounded-lg border border-foreground/15"
+      className="my-4 h-auto w-full rounded-lg border border-border"
       {...props}
     />
   ),
@@ -102,18 +102,18 @@ const components: Components = {
   ),
   th: ({ children, ...props }) => (
     <th
-      className="border border-foreground/15 px-3 py-1.5 text-left font-semibold"
+      className="border border-border px-3 py-1.5 text-left font-semibold"
       {...props}
     >
       {children}
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-foreground/15 px-3 py-1.5" {...props}>
+    <td className="border border-border px-3 py-1.5" {...props}>
       {children}
     </td>
   ),
-  hr: props => <hr className="my-6 border-foreground/15" {...props} />,
+  hr: props => <hr className="my-6 border-border" {...props} />,
 };
 
 export function MDXContent({ source }: { source: string }) {

@@ -20,24 +20,19 @@ export function PageHeader({
 }) {
   return (
     <header className="relative isolate pt-12 pb-2 md:pt-16">
-      <div
-        aria-hidden
-        className="blueprint pointer-events-none absolute top-0 left-1/2 -z-10 h-[26rem] w-screen -translate-x-1/2"
-      />
-
       <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
         {title}
       </h1>
 
       {lead && (
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-foreground/70 md:text-xl">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
           {lead}
         </p>
       )}
 
       {/* Same treatment as the facts line on a work detail page. */}
       {facts && facts.length > 0 && (
-        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-foreground/70">
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted-foreground">
           {facts.map(fact => (
             <span key={fact}>{fact}</span>
           ))}

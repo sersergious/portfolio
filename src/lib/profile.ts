@@ -19,14 +19,22 @@ export const STACK: { label: string; items: string[]; dots?: boolean }[] = [
 ];
 
 /**
- * One mono line on the home hero, a facts row in the /about header. Kept here
- * so the two can't drift apart.
+ * The title block's fields, in drawing order. Labelled rather than positional:
+ * the home page reads them as a title block and /about reads the values as a
+ * facts row, and indexing into a bare array to find "the institution one"
+ * would break the first time the order changed.
  */
-export const CREDENTIALS = [
-  'BS Computer Science & Mathematical Sciences',
-  'University of Scranton',
-  'Pennsylvania, USA',
-];
+export const IDENTITY = [
+  { label: 'Degree', value: 'BS Computer Science & Mathematical Sciences' },
+  { label: 'Institution', value: 'University of Scranton' },
+  { label: 'Location', value: 'Pennsylvania, USA' },
+] as const;
+
+/** Availability is the one field that changes; it lives beside the rest. */
+export const STATUS = 'Available for hire';
+
+/** Values only — the facts row in the /about header. Derived so it can't drift. */
+export const CREDENTIALS: string[] = IDENTITY.map(f => f.value);
 
 /** One constant — hero, contact section, and footer all point at the same inbox. */
 export const EMAIL = 'sergeykuzmin495@gmail.com';

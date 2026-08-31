@@ -49,7 +49,7 @@ export default async function WorkDetailPage({ params }: Props) {
       <ContentHeader item={item} />
 
       {embed && (
-        <section className="pt-14">
+        <section className="pt-16">
           <SectionLabel>
             {item.kind === 'research' ? 'Presentation' : 'Demo'}
           </SectionLabel>
@@ -68,7 +68,7 @@ export default async function WorkDetailPage({ params }: Props) {
       )}
 
       {item.content.trim() && (
-        <section className="pt-14">
+        <section className="pt-16">
           <SectionLabel>Write-up</SectionLabel>
           <MDXContent source={item.content} />
         </section>

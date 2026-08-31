@@ -211,13 +211,13 @@ export default function KitchenSinkPage() {
           />
         </Spec>
         <Spec id="radius-box">
-          <div className="h-8 w-16 rounded-lg border border-foreground/15 bg-muted" />
+          <div className="h-8 w-16 rounded-lg border border-border bg-muted" />
         </Spec>
         <Spec id="radius-field">
-          <div className="h-8 w-16 rounded-lg border border-foreground/15 bg-muted" />
+          <div className="h-8 w-16 rounded-lg border border-border bg-muted" />
         </Spec>
         <Spec id="rule">
-          <span className="block h-px w-16 bg-foreground/15" />
+          <span className="block h-px w-16 bg-border" />
         </Spec>
       </Group>
     </main>
@@ -233,7 +233,7 @@ function Group({
 }) {
   return (
     <section className="mb-10">
-      <h2 className="mb-4 font-mono text-xs tracking-[0.18em] text-foreground/70 uppercase">
+      <h2 className="mb-4 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
         {label}
       </h2>
       <div className="flex flex-wrap items-start gap-6">{children}</div>
