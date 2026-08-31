@@ -1,11 +1,42 @@
 ---
 tags: [project/portfolio, type/status]
-updated: 2026-08-30
+updated: 2026-08-31
 ---
 
 # Status
 
 Part of [[Overview]].
+
+## Done: redesign — the sheet, one hue axis, a real mono (2026-08-31)
+
+The migration's contract was that nothing changed appearance, so the site
+came out of it looking like a daisyUI theme wearing shadcn's mechanics. This
+fixes what that inheritance got wrong and commits to the drafting concept
+the site already had.
+
+**Foundation.** JetBrains Mono, latin subset, one weight, 20.7KB, local so
+the build still needs no network — the mono labels are the concept's voice
+and `ui-monospace` made them look like three different sites depending on
+the visitor's OS. One hue axis at 245deg for neutrals and accent alike; the
+light neutral used to be violet-cast at hue 286, fighting the blue accent
+41deg away. Tones became named roles solved against contrast targets rather
+than opacity steps. The background/muted step went from 1.06:1 — literally
+indistinguishable — to 1.12 / 1.18. Hover mixes toward the foreground, so a
+dark primary button no longer _loses_ contrast when you point at it.
+
+**Signature.** The grid is ruled down the whole document at a 2rem module
+and the structural rhythm rides it. A title block spans the bottom of the
+hero the way a drawing's does — Degree, Institution, Location, Status — in
+place of two scattered mono lines. The sheet rules itself in once on load,
+600ms, behind prefers-reduced-motion, animating only the drawing so nothing
+gates content paint: LCP 44ms, CLS 0.0.
+
+**Two fixes from looking at the page.** The grid was briefly drawn twice,
+with origins that could not align. And the section dividers sat in the same
+visual register as the grid lines — both 1px, 1.26:1 apart — so every
+divider read as stray paper. Separation is now 1.57x light / 2.46x dark.
+
+Harness: `REF=design-ref scripts/ab.sh` gates future work against this.
 
 ## Done: daisyUI replaced by shadcn/ui on Base UI (2026-08-30)
 
