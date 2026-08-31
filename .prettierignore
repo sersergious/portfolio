@@ -10,3 +10,6 @@ src/routeTree.gen.ts
 .agents
 .claude
 .ab
+
+# Generated and rewritten by `next dev`; formatting it only causes churn.
+AGENTS.md
