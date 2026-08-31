@@ -20,10 +20,6 @@ export default async function HomePage() {
     <>
       {/* Hero */}
       <section className="relative isolate pt-16 pb-24 md:pt-24 md:pb-32">
-        <div
-          aria-hidden
-          className="blueprint draw-sheet pointer-events-none absolute top-0 left-1/2 -z-10 h-[720px] w-screen -translate-x-1/2"
-        />
         <div className="flex flex-col-reverse items-center gap-8 md:flex-row md:items-center md:justify-between md:gap-12">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">

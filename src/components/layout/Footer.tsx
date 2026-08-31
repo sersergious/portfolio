@@ -20,9 +20,13 @@ const externals = [
   },
 ];
 
+/**
+ * Opaque background on purpose: the sheet ends where the drawing ends. Letting
+ * the grid run on through the footer left the page with no bottom edge.
+ */
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-border py-8">
+    <footer className="mt-auto border-t border-border bg-background py-8">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 text-sm text-muted-foreground lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8">
         <div className="flex items-center gap-2 lg:justify-self-start">
           <Image

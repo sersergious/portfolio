@@ -20,11 +20,6 @@ export function PageHeader({
 }) {
   return (
     <header className="relative isolate pt-12 pb-2 md:pt-16">
-      <div
-        aria-hidden
-        className="blueprint pointer-events-none absolute top-0 left-1/2 -z-10 h-[26rem] w-screen -translate-x-1/2"
-      />
-
       <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
         {title}
       </h1>
