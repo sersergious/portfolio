@@ -163,7 +163,7 @@ function Band({
   const hasSide = Boolean(image || aside);
 
   return (
-    <section className="pt-14">
+    <section className="pt-16">
       <SectionLabel>{label}</SectionLabel>
 
       <div

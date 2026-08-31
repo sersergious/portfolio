@@ -51,15 +51,22 @@ const buttonVariants = cva(
         // surface, which is daisyUI's behaviour and easy to lose in a port.
         ghost: [
           'border-transparent bg-transparent text-foreground outline-foreground',
-          'hover:bg-[color-mix(in_oklab,var(--muted),#000_7%)]',
-          'hover:border-[color-mix(in_oklab,var(--muted),#000_7%)]',
-          'active:bg-[color-mix(in_oklab,var(--muted),#000_5%)]',
-          'active:border-[color-mix(in_oklab,var(--muted),#000_7%)]',
+          'hover:bg-[color-mix(in_oklab,var(--muted),var(--foreground)_10%)]',
+          'hover:border-[color-mix(in_oklab,var(--muted),var(--foreground)_14%)]',
+          'active:bg-[color-mix(in_oklab,var(--muted),var(--foreground)_16%)]',
+          'active:border-[color-mix(in_oklab,var(--muted),var(--foreground)_20%)]',
           'focus-visible:bg-muted focus-visible:border-muted',
         ],
       },
       size: {
         sm: 'h-8 px-3',
+        /*
+         * The hero's two real actions. Everything else on the site stays at
+         * `sm`, which suits a dense technical page — but a 32px, 12px-semibold
+         * control was carrying the weight of a primary call to action through
+         * font-weight alone, which is work the size should be doing.
+         */
+        md: 'h-10 px-4 text-[0.8125rem]',
         'icon-sm': 'h-8 w-8 px-0',
       },
     },

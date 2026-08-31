@@ -16,7 +16,7 @@ export function SectionLabel({
   as?: 'h2' | 'h3';
 }) {
   return (
-    <div className="mb-6 flex items-center gap-4">
+    <div className="mb-8 flex items-center gap-4">
       <Tag className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
         {children}
       </Tag>

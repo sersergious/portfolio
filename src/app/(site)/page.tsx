@@ -5,7 +5,8 @@ import { Github, Linkedin } from '@/components/icons/brand-icons';
 import { getAllWork } from '@/lib/work-content';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
-import { CREDENTIALS, EMAIL, PRESS, STACK } from '@/lib/profile';
+import { EMAIL, PRESS, STACK } from '@/lib/profile';
+import { TitleBlock } from '@/components/home/TitleBlock';
 import { WorkCard } from '@/components/work/WorkCard';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { buttonVariants } from '@/components/ui/button';
@@ -18,21 +19,13 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate pt-16 pb-20 md:pt-24 md:pb-28">
+      <section className="relative isolate pt-16 pb-24 md:pt-24 md:pb-32">
         <div
           aria-hidden
-          className="blueprint pointer-events-none absolute top-0 left-1/2 -z-10 h-[720px] w-screen -translate-x-1/2"
+          className="blueprint draw-sheet pointer-events-none absolute top-0 left-1/2 -z-10 h-[720px] w-screen -translate-x-1/2"
         />
-        <div className="flex flex-col-reverse items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-12">
+        <div className="flex flex-col-reverse items-center gap-8 md:flex-row md:items-center md:justify-between md:gap-12">
           <div className="max-w-2xl">
-            <p className="mb-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
-              <span
-                aria-hidden
-                className="inline-block h-2 w-2 aspect-square rounded-2xl align-middle bg-[var(--success-value)] text-[var(--success-value)]"
-              />
-              Available for hire
-            </p>
-
             <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
               Serhii Kuzmin
             </h1>
@@ -51,20 +44,19 @@ export default async function HomePage() {
               and React.
             </p>
 
-            <p className="mt-5 font-mono text-xs text-muted-foreground">
-              {CREDENTIALS.join(' · ')}
-            </p>
-
             <div className="mt-8 flex flex-wrap items-center gap-2">
               <a
                 href="/docs/resume.pdf"
                 download
-                className={buttonVariants({ variant: 'primary' })}
+                className={buttonVariants({ variant: 'primary', size: 'md' })}
               >
                 <Download className="h-4 w-4" />
                 Résumé
               </a>
-              <a href={`mailto:${EMAIL}`} className={buttonVariants()}>
+              <a
+                href={`mailto:${EMAIL}`}
+                className={buttonVariants({ size: 'md' })}
+              >
                 <Mail className="h-4 w-4" />
                 Email me
               </a>
@@ -106,6 +98,8 @@ export default async function HomePage() {
           />
         </div>
 
+        <TitleBlock className="draw-sheet draw-delay-2 mt-16" />
+
         <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-muted-foreground">
           Simplicity is the ultimate sophistication — Leonardo da Vinci, by way
           of Apple’s first brochure, 1977
@@ -113,7 +107,7 @@ export default async function HomePage() {
       </section>
 
       {/* Stack */}
-      <section className="py-14">
+      <section className="py-16">
         <SectionLabel>Stack</SectionLabel>
         <dl className="space-y-6">
           {STACK.map(group => (
@@ -134,7 +128,7 @@ export default async function HomePage() {
       </section>
 
       {/* Work */}
-      <section className="py-14">
+      <section className="py-16">
         <SectionLabel href="/work" linkLabel="All work">
           Recent work
         </SectionLabel>
@@ -146,7 +140,7 @@ export default async function HomePage() {
       </section>
 
       {/* Press */}
-      <section className="py-14">
+      <section className="py-16">
         <SectionLabel>Press</SectionLabel>
         <p className="mb-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
           In August 2022 I left Ukraine to start my degree at the University of
@@ -184,7 +178,7 @@ export default async function HomePage() {
       </section>
 
       {/* Contact */}
-      <section className="py-14">
+      <section className="py-16">
         <SectionLabel>Contact</SectionLabel>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-md text-base leading-relaxed text-muted-foreground">
