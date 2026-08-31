@@ -10,6 +10,7 @@
 #   REF=<sha> scripts/ab.sh --pages      # page screenshots only
 #   REF=<sha> scripts/ab.sh --styles     # computed styles only
 #   REF=<sha> scripts/ab.sh --no-build   # reuse both builds
+#   REF=<sha> scripts/ab.sh --record     # report differences, never fail
 #
 # Two oracles, because neither is sufficient alone:
 #
@@ -33,6 +34,9 @@ OUT=.ab
 # moment the two sides stop sharing a dependency set, which is the entire point
 # of this migration.
 WT=${AB_WT:-$PWD/../.portfolio-ab-ref}
+# The "new" side is the working tree by default. Override to compare two
+# arbitrary refs — e.g. to re-verify a claim about a commit you are not on.
+NEW_DIR=${NEW_DIR:-.}
 # Pixel budget per full page. The measured jitter floor is 0-2 on 3.26M pixels;
 # anything above this is a real geometry change, not capture noise.
 BUDGET=${BUDGET:-8}
@@ -53,15 +57,16 @@ VIEWPORTS=(390x844 768x1024 1280x900)
 INTERACTIVE=(btn-default btn-primary btn-ghost btn-square btn-anchor
   link-plain link-hover link-primary togglegroup toggle-off)
 
-DO_PAGES=1 DO_STYLES=1 DO_BUILD=1
+DO_PAGES=1 DO_STYLES=1 DO_BUILD=1 RECORD=0
 for a in "$@"; do case $a in
   --pages) DO_STYLES=0 ;;
   --styles) DO_PAGES=0 ;;
   --no-build) DO_BUILD=0 ;;
+  --record) RECORD=1 ;;
   *) echo "unknown flag: $a" >&2; exit 2 ;;
 esac; done
 
-mkdir -p "$OUT"/{ref,diff,styles}
+mkdir -p "$OUT"/{ref,new,diff,styles}
 FAILURES=$OUT/failures.txt
 : >"$FAILURES"
 
@@ -77,8 +82,8 @@ if [[ $DO_BUILD == 1 ]]; then
   # Separate install: the reference has daisyUI, HEAD increasingly does not.
   (cd "$WT" && bun install --silent && NEXT_PUBLIC_E2E=1 bun run build >/dev/null)
 
-  echo "==> HEAD build"
-  NEXT_PUBLIC_E2E=1 bun run build >/dev/null
+  echo "==> new build ($NEW_DIR)"
+  (cd "$NEW_DIR" && bun install --silent && NEXT_PUBLIC_E2E=1 bun run build >/dev/null)
 fi
 
 # ---------------------------------------------------------------- serve
@@ -133,7 +138,7 @@ assert_styled() { # port
 }
 echo "==> serving ref:$PORT_REF new:$PORT_NEW"
 serve "$WT" "$PORT_REF"
-serve . "$PORT_NEW"
+serve "$NEW_DIR" "$PORT_NEW"
 
 # ---------------------------------------------------------------- helpers
 
@@ -154,6 +159,25 @@ ab() { agent-browser --session "$1" "${@:2}"; }
 abopen() { # session url
   ab "$1" open "$2" >/dev/null
   ab "$1" wait --load networkidle >/dev/null 2>&1 || true
+
+  # next/image lazy-loads below the fold. A full-page capture renders those
+  # regions whether or not the browser has fetched them, and because the image
+  # boxes reserve their space the document height is already stable — so a
+  # height check passes while the pixels are still blank. That is what produced
+  # 161223 differing pixels on /about, twice, with the identical count both
+  # times: not jitter, a reproducible mid-load capture.
+  #
+  # Scroll the whole page to trigger the loads, return to the top, then wait
+  # for every image to actually be decoded.
+  ab "$1" eval --stdin >/dev/null 2>&1 <<'JS' || true
+(() => {
+  const h = document.documentElement.scrollHeight;
+  for (let y = 0; y < h; y += window.innerHeight) window.scrollTo(0, y);
+  window.scrollTo(0, 0);
+  return h;
+})();
+JS
+  ab "$1" wait --fn '[...document.images].every(i => i.complete && i.naturalWidth > 0)' >/dev/null 2>&1 || true
   ab "$1" wait --fn 'window.__h === document.documentElement.scrollHeight || (window.__h = document.documentElement.scrollHeight, false)' >/dev/null 2>&1 || true
 }
 
@@ -194,7 +218,52 @@ setup_side() { # session theme w h
   ab "$1" network route "**ytimg.com**" --abort >/dev/null 2>&1 || true
 }
 
-fail() { echo "FAIL  $*" | tee -a "$FAILURES"; }
+# Compare the two sides for one cell, retrying BOTH captures on a mismatch.
+#
+# Two independent problems live here, both found the hard way:
+#
+#   1. `diff screenshot` takes its own capture internally, and that capture is
+#      intermittently unpainted — two explicit screenshots of the same pages
+#      came back byte-for-byte identical while a diff between them reported
+#      313526 differing pixels. So both sides are captured explicitly and
+#      compared as files. PNG output is deterministic for identical content
+#      from one encoder, so `cmp` answers exactly the question a gate asks.
+#   2. Either capture can be the unpainted one. Retrying only the new side
+#      leaves a bad baseline in place and every retry then "confirms" it, which
+#      is how /about kept failing in dark. The retry re-takes both.
+#
+# A real regression reproduces across attempts; a capture flake does not.
+diff_cell() { # cell url
+  local cell=$1 url=$2
+  local base="$OUT/ref/$cell.png" cand="$OUT/new/$cell.png"
+  local verdict px best= bestpx=999999999
+
+  for _ in 1 2 3; do
+    abopen ab-ref "http://localhost:$PORT_REF$url"
+    ab ab-ref screenshot --full html "$base" >/dev/null
+    abopen ab-new "http://localhost:$PORT_NEW$url"
+    ab ab-new screenshot --full html "$cand" >/dev/null
+
+    if cmp -s "$base" "$cand"; then
+      echo "ok 0"
+      return
+    fi
+
+    verdict=$(ab ab-new diff screenshot --full --baseline "$base" \
+          -t "$THRESH" -o "$OUT/diff/$cell.png" --json | read_diff)
+    case $verdict in
+      ok\ *) px=${verdict#ok } ;;
+      *)     px=999999999 ;;
+    esac
+    if [[ $px -lt $bestpx ]]; then bestpx=$px; best=$verdict; fi
+    [[ $px -le $BUDGET ]] && break
+  done
+  echo "$best"
+}
+
+fail() {
+  if [[ $RECORD == 1 ]]; then echo "diff  $*"; else echo "FAIL  $*" | tee -a "$FAILURES"; fi
+}
 pass() { echo "ok    $*"; }
 
 # ---------------------------------------------------------------- pages
@@ -210,18 +279,19 @@ if [[ $DO_PAGES == 1 ]]; then
       for url in "${URLS[@]}"; do
         slug=$(echo "${url#/}" | tr / _); slug=${slug:-home}
         cell="$slug-$theme-$w"
-        base="$OUT/ref/$cell.png"
 
-        abopen ab-ref "http://localhost:$PORT_REF$url"
-        ab ab-ref screenshot --full html "$base" >/dev/null
-
-        abopen ab-new "http://localhost:$PORT_NEW$url"
-        verdict=$(ab ab-new diff screenshot --full --baseline "$base" \
-              -t "$THRESH" -o "$OUT/diff/$cell.png" --json | read_diff)
+        verdict=$(diff_cell "$cell" "$url")
 
         case $verdict in
-          ok\ *)   pass "$cell (${verdict#ok } px)" ;;
-          *)        fail "$cell — $verdict (see $OUT/diff/$cell.png)" ;;
+          ok\ *)
+            px=${verdict#ok }
+            if [[ $px -le $BUDGET ]]; then
+              pass "$cell ($px px)"
+            else
+              fail "$cell — $px px > $BUDGET (see $OUT/diff/$cell.png)"
+            fi
+            ;;
+          *) fail "$cell — $verdict (see $OUT/diff/$cell.png)" ;;
         esac
       done
     done
@@ -334,6 +404,10 @@ fi
 # ---------------------------------------------------------------- report
 
 echo
+if [[ $RECORD == 1 ]]; then
+  echo "recorded — diff images in $OUT/diff/, style dumps in $OUT/styles/"
+  exit 0
+fi
 if [[ -s $FAILURES ]]; then
   echo "FAILED:"; cat "$FAILURES"; exit 1
 fi
