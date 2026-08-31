@@ -30,14 +30,14 @@ export function PageHeader({
       </h1>
 
       {lead && (
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-foreground/70 md:text-xl">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
           {lead}
         </p>
       )}
 
       {/* Same treatment as the facts line on a work detail page. */}
       {facts && facts.length > 0 && (
-        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-foreground/70">
+        <p className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted-foreground">
           {facts.map(fact => (
             <span key={fact}>{fact}</span>
           ))}

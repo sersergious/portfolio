@@ -3,78 +3,89 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * The theme, in shadcn's two-tier shape: real custom properties on `:root` and
- * `.dark`, aliased into Tailwind's namespace by `@theme inline` below.
+ * One hue axis, 245deg, for neutrals and accent alike.
  *
- * The values are daisyUI's, kept verbatim rather than re-picked — this is the
- * last step of a migration whose whole contract was that nothing changes
- * appearance. `background`/`muted`/`foreground` were `base-100`/`base-200`/
- * `base-content`; through stages 1-4 they were `var()` aliases onto the
- * plugin's variables, and all that happens here is that the indirection is
- * resolved and the plugin removed.
+ * The values daisyUI left behind had two different colour logics: the light
+ * neutral was violet-cast (hue 286) and fought the blue accent 41deg away,
+ * while the dark neutral sat 12deg from it. Both themes now derive from the
+ * accent's own hue, which is what "blueprint" was always supposed to mean.
  *
- * `color-scheme` has to be set by hand now. daisyUI set it per theme, and
- * without it the browser paints scrollbars, form controls and the canvas
- * behind the page in the wrong mode.
+ * Every tone is solved against a contrast target rather than being whatever an
+ * opacity happened to produce, and solved on BOTH grounds it can appear on:
+ * `subtle-foreground` is 52% and not 55% because 55% measured 4.12:1 on
+ * `muted` once the surface step widened. Measured ratios, light / dark:
+ *
+ *   foreground        16.96 / 14.43      primary            6.21 / 5.55
+ *   muted-foreground   7.42 /  8.21      primary-foreground 5.95 / 6.34
+ *   subtle-foreground  5.26 /  5.62      (on muted: 4.68 / 4.75)
+ *
+ * The background/muted step is 1.12 light and 1.18 dark. It was 1.06 in both,
+ * which is indistinguishable — a default button was legible only by its
+ * border, and its fill did no work at all.
+ *
+ * `color-scheme` is set by hand on each theme; without it the browser paints
+ * scrollbars, form controls and the canvas behind the page in the wrong mode.
  */
 :root {
   color-scheme: light;
 
-  --background: oklch(100% 0 0);
-  --foreground: oklch(21% 0.006 285.885);
-  --muted: oklch(98% 0 0);
+  --background: oklch(98.5% 0.004 245);
+  --muted: oklch(94.5% 0.008 245);
 
-  /*
-   * Blueprint azure — the same drafting-ink blue as the graph paper behind the
-   * hero. Both values are solved, not picked: the most saturated in-gamut
-   * chroma at the lightness that holds primary-as-text (links, hovered card
-   * titles) at 6.5:1 light / 5.6:1 dark on the background, with the button
-   * label clearing 5.9:1 on the fill.
-   */
+  --foreground: oklch(21% 0.014 245);
+  /* Secondary prose and labels — 26 call sites. */
+  --muted-foreground: oklch(44% 0.02 245);
+  /* Tertiary: card descriptions, meta rows — 8 call sites. */
+  --subtle-foreground: oklch(52% 0.02 245);
+
   --primary-value: oklch(48% 0.109 245);
   --primary-foreground: oklch(97% 0.02 245);
 
   --success-value: oklch(76% 0.177 163.223);
 
-  /* Hairline surfaces with 8px corners — GitHub's chrome. */
-  --radius: 0.5rem;
-
-  /*
-   * `border` is what shadcn's base layer paints onto every element, and it is
-   * the hairline the site already draws everywhere as `foreground/15`.
-   * `ring` is the focus colour: the site's own ink blue rather than shadcn's
-   * neutral grey, so a focus ring reads as part of the design.
-   */
-  --border: color-mix(in oklab, var(--foreground) 15%, transparent);
+  --border: oklch(88% 0.01 245);
   --ring: var(--primary-value);
+
+  /* Hairline surfaces with 8px corners. */
+  --radius: 0.5rem;
 }
 
 .dark {
   color-scheme: dark;
 
-  --background: oklch(25.33% 0.016 252.42);
-  --foreground: oklch(97.807% 0.029 256.847);
-  --muted: oklch(23.26% 0.014 253.1);
+  --background: oklch(25.3% 0.016 245);
+  --muted: oklch(30.5% 0.018 245);
+
+  --foreground: oklch(96.8% 0.02 245);
+  --muted-foreground: oklch(79% 0.026 245);
+  --subtle-foreground: oklch(68.5% 0.026 245);
 
   --primary-value: oklch(68% 0.157 245);
   --primary-foreground: oklch(20% 0.02 245);
+
+  --border: oklch(38% 0.02 245);
 }
 
 /*
- * With JS off next-themes writes no class at all, so the dark half has to be
- * reachable from the media query too. daisyUI used to provide this; the
- * `:not()` pair keeps an explicit choice winning over the system preference.
+ * With JS off next-themes writes no class, so the dark half has to be
+ * reachable from the media query too. The `:not()` pair keeps an explicit
+ * choice winning over the system preference.
  */
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not(.dark) {
     color-scheme: dark;
 
-    --background: oklch(25.33% 0.016 252.42);
-    --foreground: oklch(97.807% 0.029 256.847);
-    --muted: oklch(23.26% 0.014 253.1);
+    --background: oklch(25.3% 0.016 245);
+    --muted: oklch(30.5% 0.018 245);
+
+    --foreground: oklch(96.8% 0.02 245);
+    --muted-foreground: oklch(79% 0.026 245);
+    --subtle-foreground: oklch(68.5% 0.026 245);
 
     --primary-value: oklch(68% 0.157 245);
     --primary-foreground: oklch(20% 0.02 245);
+
+    --border: oklch(38% 0.02 245);
   }
 }
 
@@ -82,10 +93,15 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
   --color-primary: var(--primary-value);
   --color-primary-foreground: var(--primary-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
+
+  /* next/font appends its own metric-adjusted fallback chain after this. */
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
 @layer base {

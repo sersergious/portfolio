@@ -40,18 +40,18 @@ export function WorkCard({ item }: { item: WorkSummary }) {
       {isResearch ? (
         <>
           {item.authors && item.authors.length > 0 && (
-            <p className="mt-2 line-clamp-1 text-foreground/60">
+            <p className="mt-2 line-clamp-1 text-subtle-foreground">
               {item.authors.join(', ')}
             </p>
           )}
           {venue && (
-            <p className="mt-1 line-clamp-1 text-xs text-foreground/70">
+            <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">
               {venue}
             </p>
           )}
         </>
       ) : (
-        <p className="mt-2 line-clamp-2 text-foreground/60">
+        <p className="mt-2 line-clamp-2 text-subtle-foreground">
           {item.description}
         </p>
       )}
@@ -66,7 +66,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
         </ul>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-foreground/60">
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-subtle-foreground">
         {language && (
           <span className="flex items-center gap-1.5">
             <span

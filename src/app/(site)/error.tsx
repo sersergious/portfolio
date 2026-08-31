@@ -15,14 +15,14 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="mt-10 rounded-lg border border-foreground/15 p-12 text-center">
-      <p className="font-mono text-xs text-foreground/70">Error</p>
+    <div className="mt-10 rounded-lg border border-border p-12 text-center">
+      <p className="font-mono text-xs text-muted-foreground">Error</p>
       <h1 className="mt-2 text-xl font-semibold">This page didn’t load</h1>
-      <p className="mt-2 text-foreground/60">
+      <p className="mt-2 text-subtle-foreground">
         Something went wrong rendering this page. Trying again sometimes works.
       </p>
       {error.digest && (
-        <p className="mt-4 font-mono text-xs text-foreground/70">
+        <p className="mt-4 font-mono text-xs text-muted-foreground">
           Reference: {error.digest}
         </p>
       )}

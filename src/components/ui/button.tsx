@@ -4,15 +4,14 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 /**
- * Port of daisyUI's `btn btn-sm`. Every value here was read off the reference
- * build with `getComputedStyle` (see `.ab/styles/ref-*.json`), not transcribed
- * from daisyUI's source — the source is full of `color-mix()` and `calc()`
- * against theme variables, and the resolved value is the thing that has to
- * match.
+ * Hover and active mix toward `--foreground`, not toward black.
  *
- * The hover fills stay written as `color-mix()` rather than baked to a literal
- * so they keep tracking the token in both themes, exactly as daisyUI did:
- * `:hover` mixes 7% black into the button colour, `:active` mixes 5%.
+ * daisyUI mixed 7% black on hover regardless of theme, which is right in light
+ * and backwards in dark: a dark primary button dropped from 5.55:1 to 4.84:1
+ * against the page when you pointed at it, and the default button moved 1.06
+ * to 1.08, which is no feedback at all. Mixing toward the foreground means
+ * light darkens, dark lightens, and contrast always increases — one expression
+ * for both themes, no `dark:` variant.
  *
  * Font size is set as an arbitrary value on purpose. Tailwind's `text-xs`
  * would also pin line-height to 16px, but daisyUI sets only font-size and
@@ -35,18 +34,18 @@ const buttonVariants = cva(
       variant: {
         default: [
           'bg-muted border-muted text-foreground outline-foreground',
-          'hover:bg-[color-mix(in_oklab,var(--muted),#000_7%)]',
-          'hover:border-[color-mix(in_oklab,var(--muted),#000_7%)]',
-          'active:bg-[color-mix(in_oklab,var(--muted),#000_5%)]',
-          'active:border-[color-mix(in_oklab,var(--muted),#000_7%)]',
+          'hover:bg-[color-mix(in_oklab,var(--muted),var(--foreground)_10%)]',
+          'hover:border-[color-mix(in_oklab,var(--muted),var(--foreground)_14%)]',
+          'active:bg-[color-mix(in_oklab,var(--muted),var(--foreground)_16%)]',
+          'active:border-[color-mix(in_oklab,var(--muted),var(--foreground)_20%)]',
         ],
         primary: [
           'bg-primary border-primary text-primary-foreground',
           'outline-[var(--primary-value)]',
-          'hover:bg-[color-mix(in_oklab,var(--primary-value),#000_7%)]',
-          'hover:border-[color-mix(in_oklab,var(--primary-value),#000_7%)]',
-          'active:bg-[color-mix(in_oklab,var(--primary-value),#000_5%)]',
-          'active:border-[color-mix(in_oklab,var(--primary-value),#000_7%)]',
+          'hover:bg-[color-mix(in_oklab,var(--primary-value),var(--foreground)_12%)]',
+          'hover:border-[color-mix(in_oklab,var(--primary-value),var(--foreground)_16%)]',
+          'active:bg-[color-mix(in_oklab,var(--primary-value),var(--foreground)_18%)]',
+          'active:border-[color-mix(in_oklab,var(--primary-value),var(--foreground)_22%)]',
         ],
         // Transparent until touched. Focus fills it back to the default
         // surface, which is daisyUI's behaviour and easy to lose in a port.

@@ -37,7 +37,7 @@ export const linkVariants = cva(
         default: '',
         primary: [
           'text-primary',
-          'hover:text-[color-mix(in_oklab,var(--primary-value)_80%,#000)]',
+          'hover:text-[color-mix(in_oklab,var(--primary-value),var(--foreground)_22%)]',
         ],
       },
     },
