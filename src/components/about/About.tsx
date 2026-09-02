@@ -8,7 +8,7 @@ export function About() {
     <div className="pb-8">
       <PageHeader
         title="About"
-        lead="I grew up in Ukraine, started programming at 13, and now write backend and systems software in Pennsylvania. The short version is that maths came first and the code followed."
+        lead="I grew up in Ukraine, started programming at 13, and now write backend and systems software. The short version is that maths came first and the code followed."
         facts={CREDENTIALS}
       />
 
