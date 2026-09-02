@@ -5,14 +5,15 @@ description: >-
   How readout and depolarising noise propagate into VQE ground-state estimates,
   measured across 1- and 2-qubit circuits on simulated and hardware-calibrated
   backends.
-date: '2025-06-06'
+date: '2026-05-06'
 status: published
 tags:
+  - Python
   - quantum-computing
   - variational-quantum-eigensolvers
-  - research-project
-  - qiskit
-youtubeUrl: 'https://youtu.be/sCCBytSYm5w'
+  - Qiskit
+  - FastAPI
+github: 'https://github.com/sersergious/vqe-web'
 abstract: >-
   The Variational Quantum Eigensolver (VQE) is a hybrid quantum-classical
   algorithm designed to estimate ground state energies of quantum systems. While
@@ -67,7 +68,7 @@ Each sampled result was averaged over 20 repetitions (1000 shots for 1-qubit; 20
 
 ### 1-Qubit System
 
-As readout error increased from 5% to 20%, the depolarizing noise model showed progressively larger leakage into the incorrect state |0⟩ — rising from ~5.3% to ~20.2%. In contrast, the hardware-calibrated FakeManilaV2 backend remained consistently stable at roughly 1.5% leakage across all tested error rates, suggesting that realistic device noise behaves differently from a simple depolarizing model.
+As readout error increased from 5% to 20%, the depolarizing noise model showed progressively larger leakage into the incorrect state |0⟩ — rising from 5.3% to 20.2%. In contrast, the hardware-calibrated FakeManilaV2 backend remained consistently stable at roughly 1.5% leakage across all tested error rates, suggesting that realistic device noise behaves differently from a simple depolarizing model.
 
 ### 2-Qubit System
 
@@ -77,9 +78,17 @@ In the two-qubit case, noise redistributed probability mass away from the correc
 
 ## Conclusion
 
-VQE systems are demonstrably susceptible to readout noise. Even modest error rates can meaningfully distort measurement statistics, reducing the likelihood of identifying the true ground state. The depolarizing noise model tends to overestimate error compared to hardware-calibrated backends, which may reflect the more structured nature of real device noise.
+VQE systems are, as has been demonstrated, susceptible to readout noise. Even modest error rates can meaningfully distort measurement statistics, decreasing the probability of identifying the true ground state. The depolarizing noise model tends to overestimate error compared to hardware-calibrated backends, which may reflect the more structured nature of real device noise.
 
 For practical VQE implementations, noise should be treated as a primary design concern rather than an afterthought. Error mitigation software and techniques — such as measurement error mitigation and noise-aware circuit compilation — should be incorporated from the outset to improve reliability and numerical stability.
+
+---
+
+## Interactive Explorer
+
+The figures above come from standalone scripts, which makes them fixed — asking what happens at a readout error the study never plotted meant editing a constant and re-running. [VQE Explorer](https://github.com/sersergious/vqe-web) removes that step: a FastAPI service imports the same experiment scripts and exposes them as JSON, and a Next.js dashboard drives them across nine scenarios — expectation values, parameter landscapes, COBYLA optimisation traces, and measurement histograms. Every sampling route takes an explicit readout error and RNG seed and echoes both back, so any figure the app draws names the settings that produced it and can be regenerated exactly. The scripts remain runnable on their own and stay the single source of truth for their own noise parameters; the web layer reads them rather than reimplementing them.
+
+One constraint shaped the backend more than any other: Qiskit Aer's hardware-calibrated simulators cost roughly 58 MB each and do not release that memory when dropped, so the app builds one per fake backend and shares it across all nine scenarios instead of constructing one per scenario. It runs locally as a research tool.
 
 ---
 

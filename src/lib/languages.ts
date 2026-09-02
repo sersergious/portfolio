@@ -7,6 +7,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
   kotlin: '#A97BFF',
   c: '#555555',
   'c++': '#f34b7d',
+  rust: '#dea584',
   html: '#e34c26',
   css: '#563d7c',
   'html/css': '#e34c26',

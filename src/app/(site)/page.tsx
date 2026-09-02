@@ -31,13 +31,14 @@ export default async function HomePage() {
               Contact section said it a fourth.
             */}
             <p className="mt-3 text-xl md:text-2xl">
-              Software engineer — backend and systems.
+              Software engineer — backend, systems, and quantitative development.
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-              I write server-side services in Java, Kotlin, and Python, work
-              close to the machine in C, and build the UIs on top in TypeScript
-              and React.
+              I write server-side services in Java, and Python, work
+              close to the machine in C and C++, and build the UIs on top in
+              TypeScript and React. My main focus is on backend and low latency
+              systems.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-2">
