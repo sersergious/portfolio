@@ -55,8 +55,16 @@ Keep those redirects — the old URLs are indexed.
 Content is **markdown files in `content/work/`** — no CMS, no external service, no env vars. **The filename is the slug.** A required `kind` field (`project` | `research`) in the frontmatter is the discriminant:
 
 - **Shared**: `title`, `description`, `date`, `status`, `tags[]`, `youtubeUrl`
-- **Project only**: `github`, `demo`
-- **Research only**: `abstract`, `authors[]`, `journal`, `conference`, `doi`, `arxiv`, `pdf`
+- **Project by convention**: `github`, `demo`
+- **Research by convention**: `abstract`, `authors[]`, `journal`, `conference`, `doi`, `arxiv`, `pdf`
+
+**`kind` gates almost nothing.** It selects the card icon, feeds the `/work`
+filter, and decides whether a card and detail header lead with `authors[]` or
+with `description` — that is the whole list. Every field above is parsed by
+`toSummary()`/`getWorkBySlug()` and rendered by `WorkCard`/`ContentHeader` for
+*either* kind. So a research item can carry a `github` — the VQE entry links its
+companion web app that way — and a project could carry a `pdf`. Treat the split
+above as editorial convention, not a schema.
 
 `status` carries all seven values; `STATUS_BY_KIND` / `statusLabel()` live in [src/lib/work-status.ts](../src/lib/work-status.ts). Nothing validates frontmatter at build time — `toStatus()` falls back when a status is missing or illegal for its kind, which is the only guarantee the old Sanity schema enforced.
 

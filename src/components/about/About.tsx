@@ -55,14 +55,14 @@ export function About() {
           services to mobile apps to highly abstract quantum computing
           simulations. However, my primary focus is on backend development and
           low-level systems programming. I have experience with a variety of
-          programming languages, including C, Python, TypeScript, and Java. I
-          have also worked with different kinds of databases, such as PostgreSQL
-          and SQLite. Additionally, I have exposure to a set of popular backend
-          web frameworks, such as FastAPI. Despite the backend focus, I always
-          make sure that the UI/UX is at the forefront of my work. That is why I
-          have mastered frontend frameworks like React and Next.js to give my
-          apps a nice UI. Finally, I have deployed multiple projects on cloud
-          platforms like AWS.
+          programming languages, including C, C++, Python, TypeScript, and Java.
+          I have also worked with different kinds of databases, such as
+          PostgreSQL and SQLite. Additionally, I have exposure to a set of
+          popular backend web frameworks, such as FastAPI. Despite the backend
+          focus, I always make sure that the UI/UX is at the forefront of my
+          work. That is why I have mastered frontend frameworks like React and
+          Next.js to give my apps a nice UI. Finally, I have deployed multiple
+          projects on cloud platforms like AWS.
         </p>
       </Band>
 

@@ -5,7 +5,7 @@
 export const STACK: { label: string; items: string[]; dots?: boolean }[] = [
   {
     label: 'Languages',
-    items: ['C', 'Python', 'Java', 'Kotlin', 'TypeScript', 'SQL'],
+    items: ['Python', 'C++', 'C', 'Java', 'TypeScript', 'SQL'],
     dots: true,
   },
   {
@@ -14,7 +14,7 @@ export const STACK: { label: string; items: string[]; dots?: boolean }[] = [
   },
   {
     label: 'Frontend',
-    items: ['React', 'Next.js', 'Tailwind CSS', 'Jetpack Compose'],
+    items: ['React', 'Next.js', 'Tailwind CSS'],
   },
 ];
 
