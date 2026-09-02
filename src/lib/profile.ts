@@ -52,9 +52,11 @@ export const MATH_TOPICS = [
 
 export const FOCUS_AREAS = [
   'Quantum computing',
+  'Quantitative Trading',
   'Robotics',
   'Artificial intelligence',
   'Systems engineering',
+  'Data Engineering',
 ];
 
 /**
