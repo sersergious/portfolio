@@ -194,10 +194,6 @@ html {
     animation: sheet-in 600ms ease-out both;
   }
 
-  .draw-sheet {
-    animation: sheet-in 600ms ease-out both;
-  }
-
   .draw-rule {
     transform-origin: left center;
     animation: rule-in 500ms cubic-bezier(0.2, 0, 0, 1) both;
@@ -205,10 +201,6 @@ html {
 
   .draw-delay-1 {
     animation-delay: 120ms;
-  }
-
-  .draw-delay-2 {
-    animation-delay: 260ms;
   }
 }
 

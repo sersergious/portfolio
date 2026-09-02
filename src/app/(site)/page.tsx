@@ -5,8 +5,7 @@ import { Github, Linkedin } from '@/components/icons/brand-icons';
 import { getAllWork } from '@/lib/work-content';
 import { languageColor } from '@/lib/languages';
 import { formatDate } from '@/lib/utils';
-import { EMAIL, PRESS, STACK } from '@/lib/profile';
-import { TitleBlock } from '@/components/home/TitleBlock';
+import { EMAIL, PRESS, STACK, STATUS } from '@/lib/profile';
 import { WorkCard } from '@/components/work/WorkCard';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { buttonVariants } from '@/components/ui/button';
@@ -31,14 +30,14 @@ export default async function HomePage() {
               Contact section said it a fourth.
             */}
             <p className="mt-3 text-xl md:text-2xl">
-              Software engineer — backend, systems, and quantitative development.
+              Software engineer — backend, systems, and quantitative
+              development.
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-              I write server-side services in Java, and Python, work
-              close to the machine in C and C++, and build the UIs on top in
-              TypeScript and React. My main focus is on backend and low latency
-              systems.
+              I write server-side services in Java, and Python, work close to
+              the machine in C and C++, and build the UIs on top in TypeScript
+              and React. My main focus is on backend and low latency systems.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-2">
@@ -95,7 +94,9 @@ export default async function HomePage() {
           />
         </div>
 
-        <TitleBlock className="draw-sheet draw-delay-2 mt-16" />
+        <p className="mt-16 text-base text-muted-foreground">
+          BS in Computer Science & Mathematics — Pennsylvania, USA. {STATUS}.
+        </p>
 
         <p className="mt-16 max-w-2xl border-l-2 border-primary pl-5 text-base leading-relaxed text-muted-foreground">
           Simplicity is the ultimate sophistication — Leonardo da Vinci, by way
