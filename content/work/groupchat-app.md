@@ -15,6 +15,7 @@ tags:
   - Docker
   - Concurrency
 github: 'https://github.com/sersergious/groupchat-app'
+youtubeUrl: 'https://youtu.be/AfZmLXDy5Tc'
 ---
 
 # What it is

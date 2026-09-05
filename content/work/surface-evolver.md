@@ -17,6 +17,7 @@ tags:
   - TypeScript
 github: 'https://github.com/sersergious/surface-evolver'
 demo: 'https://surface-evolver.vercel.app/'
+youtubeUrl: 'https://youtu.be/ypMWVkUXZn8'
 ---
 
 # What it is
