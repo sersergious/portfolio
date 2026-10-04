@@ -41,9 +41,9 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
           default button fill while the rest go ghost, so both states sit at
           full foreground and need no contrast patching.
 
-          Base UI supplies roving arrow-key focus and `data-pressed`, which the
-          hand-rolled `aria-pressed` version did not have. Deselecting is
-          ignored: this is a filter, so something is always selected.
+          Base UI supplies roving arrow-key focus and `data-pressed`.
+          Deselecting is ignored: this is a filter, so something is always
+          selected.
         */}
         <ToggleGroup
           aria-label="Filter work"

@@ -36,6 +36,3 @@ bun-debug.log*
 
 # TypeScript
 *.tsbuildinfo
-
-# Sanity dataset exports — snapshots taken before migrations, not source
-*.tar.gz

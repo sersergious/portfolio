@@ -69,8 +69,7 @@ function toDate(v: unknown): string {
 
 /**
  * Falls back when a document has no `status`, or carries one that isn't legal
- * for its kind — either way the card still renders. This is the only validation
- * that the Sanity schema used to enforce.
+ * for its kind — either way the card still renders.
  */
 function toStatus(value: unknown, kind: WorkKind): WorkStatus {
   const allowed: readonly string[] = STATUS_BY_KIND[kind];
@@ -119,7 +118,7 @@ export async function getAllWorkSlugs(): Promise<string[]> {
   return files.filter(f => f.endsWith('.md')).map(f => f.replace(/\.md$/, ''));
 }
 
-/** Newest first, matching the order the GROQ query used to guarantee. */
+/** Newest first. */
 export async function getAllWork(): Promise<WorkSummary[]> {
   const slugs = await getAllWorkSlugs();
 

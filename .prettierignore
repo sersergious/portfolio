@@ -1,10 +1,7 @@
 node_modules
-.vinxi
-.output
 dist
 build
 coverage
-src/routeTree.gen.ts
 *.tsbuildinfo
 .next
 .agents

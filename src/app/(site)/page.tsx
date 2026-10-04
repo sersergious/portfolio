@@ -24,11 +24,7 @@ export default async function HomePage() {
             <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
               Serhii Kuzmin
             </h1>
-            {/*
-              One positioning line, then one paragraph that adds to it. The
-              hero used to restate the same sentence three times before the
-              Contact section said it a fourth.
-            */}
+            {/* One positioning line, then one paragraph that adds to it. */}
             <p className="mt-3 text-xl md:text-2xl">
               Software engineer — backend, systems, and quantitative
               development.
