@@ -36,3 +36,7 @@ bun-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Vendored agent skills, restored from skills-lock.json
+/.agents
+/.claude/skills

@@ -158,7 +158,8 @@ Components live in `src/components/ui/` as cva variants:
 
 **daisyUI was removed on 2026-08-30.** It shipped ~288 KB of CSS for the 774
 bytes the site used, because Tailwind v4 cannot tree-shake plain rules in
-`@layer`. See [Status](../docs/Status.md).
+`@layer`. The migration notes are in git history (`docs/Status.md` before
+the `docs/` removal).
 
 ### Client Components
 
