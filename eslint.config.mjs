@@ -5,12 +5,7 @@ const eslintConfig = [
   // `.agents` and `.claude` hold vendored skill packs and scratch worktrees —
   // other people's code, and 52k findings that drown the project's own.
   {
-    ignores: [
-      '.next/**',
-      'next-env.d.ts',
-      '.agents/**',
-      '.claude/**',
-    ],
+    ignores: ['.next/**', 'next-env.d.ts', '.agents/**', '.claude/**'],
   },
   ...coreWebVitals,
   ...typescript,
