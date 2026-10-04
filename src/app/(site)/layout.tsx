@@ -1,6 +1,6 @@
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
-import { ThemeProvider } from '@/components/theme/theme-provider';
+import { ThemeProvider } from 'next-themes';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -10,7 +10,7 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class" defaultTheme="system">
       <a
         href="#main"
         className={cn(

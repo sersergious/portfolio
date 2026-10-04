@@ -87,7 +87,8 @@ The markdown body is rendered by `react-markdown` in [src/components/mdx/MDXCont
 ### Theming
 
 Two themes defined as CSS custom properties in `src/styles/globals.css`, in
-shadcn's two-tier shape: real properties on `:root` and `.dark`, aliased into
+shadcn's two-tier shape: real properties on `:root`, each a
+`light-dark(light, dark)` pair, aliased into
 Tailwind's namespace by `@theme inline`. Both tiers are needed — `@theme inline`
 does not emit its variables to the document, it only inlines them into
 utilities, so components reaching a token from an arbitrary value
@@ -103,14 +104,17 @@ a section label — is a multiple of that module; intra-section spacing is
 typographic and deliberately is not. Do not add a second grid: two with
 different origins cannot align.
 
-`color-scheme` is set explicitly on both themes. Without it the browser paints
-scrollbars, form controls and the canvas in the wrong mode.
+`color-scheme` is the theme switch: `:root` is `light dark` (system decides),
+and `.light` / `.dark` pin it. It also stops the browser painting scrollbars,
+form controls and the canvas in the wrong mode. Tailwind's Lightning CSS
+compiles `light-dark()` to a `--lightningcss-light/dark` variable toggle, so
+it works in browsers without native support.
 
 Theme switching is `next-themes` (`ThemeProvider` in `(site)/layout.tsx`,
 `attribute="class"`, `defaultTheme="system"`). It injects its own blocking
 script, so there is no FOUC — `<html>` carries `suppressHydrationWarning` for
-the class it sets. A `prefers-color-scheme` block repeats the dark tokens under
-`:root:not(.light):not(.dark)` so the dark palette still applies with JS off.
+the class it sets. With JS off there is no class, and `color-scheme: light
+dark` falls back to the system preference.
 
 ### Styling
 
@@ -142,28 +146,27 @@ you must re-check the other.
 Components live in `src/components/ui/` as cva variants:
 
 - `button.tsx` — `buttonVariants` (`default` | `primary` | `ghost`; `sm` |
-  `md` | `icon-sm`) plus a `Button` over Base UI's primitive. Apply
-  `buttonVariants()` directly to `<a>`/`<Link>`; the primitive is a client
-  component and adds nothing to an anchor. `md` is for the hero's two real
-  actions only — the rest of the site is deliberately dense at `sm`.
+  `md` | `icon-sm`). No component: apply `buttonVariants()` directly to
+  `<button>`, `<a>` or `<Link>`. `md` is for the hero's two real actions
+  only — the rest of the site is deliberately dense at `sm`.
 - `badge.tsx` — `Badge` / `badgeVariants` (`ghost` | `soft`)
 - `link-variants.ts` — `linkVariants` (`underline: always | hover`,
   `tone: default | primary`), a cva function rather than a component because
   the call sites are `<a>`, `next/link`, and markdown-rendered anchors
-- `toggle.tsx` / `toggle-variants.ts` — Base UI `ToggleGroup` and `Toggle`; the
-  plain class strings live in the non-client half so Server Components can use
-  them
+- `toggle.tsx` — `ToggleGroupItem` over Base UI's `Toggle`, for the `/work`
+  filter
 
 **daisyUI was removed on 2026-08-30.** It shipped ~288 KB of CSS for the 774
 bytes the site used, because Tailwind v4 cannot tree-shake plain rules in
-`@layer`. See [Status](../docs/Status.md).
+`@layer`. The migration notes are in git history (`docs/Status.md` before
+the `docs/` removal).
 
 ### Client Components
 
 Components that use browser APIs or React hooks need `'use client'`. Everything else is a Server Component — keep it that way:
 
 - `src/components/layout/Navigation.tsx` — `usePathname`
-- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, the `dark` class
+- `src/components/theme/theme-toggle.tsx` — `useTheme`, the `dark` class
 - `src/components/ui/toggle.tsx` — Base UI `Toggle` / `ToggleGroup`
 - `src/components/work/WorkList.tsx` — kind filter (`useState`)
 - `src/app/(site)/error.tsx` — error boundaries must be Client Components
@@ -178,7 +181,7 @@ src/components/
   icons/    ← brand SVGs (GitHub, LinkedIn)
   layout/   ← Navigation and Footer
   mdx/      ← MDXContent renderer (react-markdown, Server Component)
-  theme/    ← ThemeToggle / ThemeProvider (`dark` class)
+  theme/    ← ThemeToggle (`dark` class)
   ui/       ← PageHeader, SectionLabel, button/badge/toggle variants
   work/     ← WorkCard (kind-driven) and WorkList (ToggleGroup filter)
 ```
@@ -202,8 +205,7 @@ The build reads content from the filesystem, so **it needs no credentials and no
 **Run `bun run build:clean` before pushing.** A local `node_modules` can keep a
 package alive after it leaves `package.json` — `bunx shadcn` left one behind,
 and `globals.css` imported a stylesheet from it, so every local build passed
-while Vercel's clean install failed. The A/B harness cannot catch this: it
-compares two built sites, not the dependency graph.
+while Vercel's clean install failed.
 
 ## History
 

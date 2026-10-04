@@ -11,7 +11,7 @@ import { statusLabel } from '@/lib/work-status';
 import type { WorkItem } from '@/lib/work-content';
 
 export function ContentHeader({ item }: { item: WorkItem }) {
-  const [language, ...topics] = item.tags ?? [];
+  const [language, ...topics] = item.tags;
 
   const actions = [
     item.github && { href: item.github, label: 'View code' },

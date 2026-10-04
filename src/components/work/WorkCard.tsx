@@ -3,7 +3,6 @@ import { ExternalLink, PlayCircle, FolderGit2, ScrollText } from 'lucide-react';
 import { Github } from '@/components/icons/brand-icons';
 import { Badge, badgeVariants } from '@/components/ui/badge';
 import { languageColor } from '@/lib/languages';
-import { formatYear } from '@/lib/utils';
 import { statusLabel } from '@/lib/work-status';
 import type { WorkSummary } from '@/lib/work-content';
 
@@ -14,7 +13,7 @@ const KIND_ICON = {
 
 export function WorkCard({ item }: { item: WorkSummary }) {
   // First tag is the primary language (project) or field (research).
-  const [language, ...topics] = item.tags ?? [];
+  const [language, ...topics] = item.tags;
   const isResearch = item.kind === 'research';
   const Icon = KIND_ICON[item.kind];
   const venue = item.journal ?? item.conference;
@@ -76,7 +75,7 @@ export function WorkCard({ item }: { item: WorkSummary }) {
             {language}
           </span>
         )}
-        <span>{formatYear(item.date)}</span>
+        <span>{item.date.slice(0, 4)}</span>
         {item.github && (
           <MetaLink href={item.github} icon={Github} label="Code" />
         )}

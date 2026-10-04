@@ -8,18 +8,16 @@ export function SectionLabel({
   children,
   href,
   linkLabel,
-  as: Tag = 'h2',
 }: {
   children: React.ReactNode;
   href?: string;
   linkLabel?: string;
-  as?: 'h2' | 'h3';
 }) {
   return (
     <div className="mb-8 flex items-center gap-4">
-      <Tag className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
+      <h2 className="font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
         {children}
-      </Tag>
+      </h2>
       <span className="h-px flex-1 bg-border" />
       {href && (
         <Link

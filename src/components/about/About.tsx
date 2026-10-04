@@ -58,11 +58,11 @@ export function About() {
           programming languages, including C, C++, Python, TypeScript, and Java.
           I have also worked with different kinds of databases, such as
           PostgreSQL and SQLite. Additionally, I have exposure to a set of
-          popular backend web frameworks, such as FastAPI. Despite the heavy backend
-          and low level focus, I always make sure that the UI/UX is at the forefront 
-          of my work. That is why I have mastered frontend frameworks like React and
-          Next.js to give my apps a nice UI. Finally, I have deployed multiple
-          projects on cloud platforms like AWS.
+          popular backend web frameworks, such as FastAPI. Despite the heavy
+          backend and low level focus, I always make sure that the UI/UX is at
+          the forefront of my work. That is why I have mastered frontend
+          frameworks like React and Next.js to give my apps a nice UI. Finally,
+          I have deployed multiple projects on cloud platforms like AWS.
         </p>
       </Band>
 
@@ -89,9 +89,9 @@ export function About() {
           presented my first results at a conference.
         </p>
         <p>
-          Quantum computing is the only starting point. However, my curiosity is wider
-          than that — I’m drawn to where computer science meets and applied math meet
-          each other and can have direct applications.
+          Quantum computing is the only starting point. However, my curiosity is
+          wider than that — I’m drawn to where computer science meets and
+          applied math meet each other and can have direct applications.
         </p>
         <TagList items={FOCUS_AREAS} />
       </Band>
@@ -160,22 +160,16 @@ function Band({
   flip?: boolean;
   children: React.ReactNode;
 }) {
-  const hasSide = Boolean(image || aside);
-
   return (
     <section className="pt-16">
       <SectionLabel>{label}</SectionLabel>
 
       <div
-        className={
-          hasSide
-            ? `grid gap-8 md:grid-cols-2 md:gap-12 ${
-                // A photo balances centred; a quote or list should hang from
-                // the first line of the prose it sits beside.
-                image ? 'items-center' : 'items-start'
-              }`
-            : 'max-w-3xl'
-        }
+        className={`grid gap-8 md:grid-cols-2 md:gap-12 ${
+          // A photo balances centred; a quote or list should hang from the
+          // first line of the prose it sits beside.
+          image ? 'items-center' : 'items-start'
+        }`}
       >
         <div
           className={`space-y-4 text-base leading-relaxed ${
