@@ -2,9 +2,6 @@
  * The masthead for a top-level page. Same type scale as a work detail page, so
  * /work and /about read as siblings of the pages they lead into rather than as
  * a different kind of document.
- *
- * The graph-paper backdrop is the home page's device, reused: it marks the top
- * of a page and fades out before the content starts.
  */
 export function PageHeader({
   title,
@@ -19,7 +16,7 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="relative isolate pt-12 pb-2 md:pt-16">
+    <header className="pt-12 pb-2 md:pt-16">
       <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
         {title}
       </h1>

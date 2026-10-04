@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = await getWorkBySlug(slug);
   if (!item) return {};
 
-  const title = item.title.trim();
+  const { title } = item;
   return {
     title,
     description: item.description,
@@ -67,7 +67,7 @@ export default async function WorkDetailPage({ params }: Props) {
         </section>
       )}
 
-      {item.content.trim() && (
+      {item.content && (
         <section className="pt-16">
           <SectionLabel>Write-up</SectionLabel>
           <MDXContent source={item.content} />

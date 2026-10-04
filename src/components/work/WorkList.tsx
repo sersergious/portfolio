@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { WorkCard } from '@/components/work/WorkCard';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Badge } from '@/components/ui/badge';
@@ -20,14 +20,11 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
   const [filter, setFilter] = useState<Filter>('all');
 
   // Counts come from the full list, so they don't move as you filter.
-  const counts = useMemo(
-    () => ({
-      all: items.length,
-      project: items.filter(i => i.kind === 'project').length,
-      research: items.filter(i => i.kind === 'research').length,
-    }),
-    [items]
-  );
+  const counts = {
+    all: items.length,
+    project: items.filter(i => i.kind === 'project').length,
+    research: items.filter(i => i.kind === 'research').length,
+  };
 
   const shown =
     filter === 'all' ? items : items.filter(item => item.kind === filter);
@@ -85,9 +82,7 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
         </div>
       ) : (
         <p className="rounded-lg border border-dashed border-border p-8 text-center text-subtle-foreground">
-          {items.length === 0
-            ? 'Nothing published yet. Check back soon.'
-            : 'Nothing here yet — try another filter.'}
+          Nothing here yet — try another filter.
         </p>
       )}
     </div>

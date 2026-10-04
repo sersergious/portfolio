@@ -142,10 +142,9 @@ you must re-check the other.
 Components live in `src/components/ui/` as cva variants:
 
 - `button.tsx` — `buttonVariants` (`default` | `primary` | `ghost`; `sm` |
-  `md` | `icon-sm`) plus a `Button` over Base UI's primitive. Apply
-  `buttonVariants()` directly to `<a>`/`<Link>`; the primitive is a client
-  component and adds nothing to an anchor. `md` is for the hero's two real
-  actions only — the rest of the site is deliberately dense at `sm`.
+  `md` | `icon-sm`). No component: apply `buttonVariants()` directly to
+  `<button>`, `<a>` or `<Link>`. `md` is for the hero's two real actions
+  only — the rest of the site is deliberately dense at `sm`.
 - `badge.tsx` — `Badge` / `badgeVariants` (`ghost` | `soft`)
 - `link-variants.ts` — `linkVariants` (`underline: always | hover`,
   `tone: default | primary`), a cva function rather than a component because
@@ -162,7 +161,7 @@ bytes the site used, because Tailwind v4 cannot tree-shake plain rules in
 Components that use browser APIs or React hooks need `'use client'`. Everything else is a Server Component — keep it that way:
 
 - `src/components/layout/Navigation.tsx` — `usePathname`
-- `src/components/theme/theme-toggle.tsx`, `theme-provider.tsx` — localStorage, the `dark` class
+- `src/components/theme/theme-toggle.tsx` — `useTheme`, the `dark` class
 - `src/components/ui/toggle.tsx` — Base UI `Toggle` / `ToggleGroup`
 - `src/components/work/WorkList.tsx` — kind filter (`useState`)
 - `src/app/(site)/error.tsx` — error boundaries must be Client Components
@@ -177,7 +176,7 @@ src/components/
   icons/    ← brand SVGs (GitHub, LinkedIn)
   layout/   ← Navigation and Footer
   mdx/      ← MDXContent renderer (react-markdown, Server Component)
-  theme/    ← ThemeToggle / ThemeProvider (`dark` class)
+  theme/    ← ThemeToggle (`dark` class)
   ui/       ← PageHeader, SectionLabel, button/badge/toggle variants
   work/     ← WorkCard (kind-driven) and WorkList (ToggleGroup filter)
 ```

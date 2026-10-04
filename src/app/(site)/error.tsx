@@ -1,6 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 /**
  * Catches a failed render inside the site shell. Content is read from the
@@ -26,9 +27,13 @@ export default function Error({
           Reference: {error.digest}
         </p>
       )}
-      <Button type="button" variant="primary" onClick={reset} className="mt-6">
+      <button
+        type="button"
+        onClick={reset}
+        className={cn(buttonVariants({ variant: 'primary' }), 'mt-6')}
+      >
         Try again
-      </Button>
+      </button>
     </div>
   );
 }

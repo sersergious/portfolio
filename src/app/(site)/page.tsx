@@ -219,7 +219,7 @@ function StackRow({
             {dots && (
               <span
                 className="h-2.5 w-2.5 shrink-0 rounded-full"
-                style={{ backgroundColor: languageColor(item.split(' / ')[0]) }}
+                style={{ backgroundColor: languageColor(item) }}
               />
             )}
             {item}

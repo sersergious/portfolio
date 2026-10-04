@@ -27,10 +27,6 @@ export function formatDate(
   });
 }
 
-export function formatYear(iso: string) {
-  return formatDate(iso, { year: 'numeric' });
-}
-
 /**
  * Embed URL for a YouTube watch/short/embed link, or `null` when the ID can't
  * be read — callers render nothing rather than an `embed/undefined` iframe.

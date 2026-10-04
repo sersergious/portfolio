@@ -1,19 +1,12 @@
 import type { SVGProps } from 'react';
 
 // lucide-react v1 dropped brand icons for trademark reasons; inline the two we
-// use (simple-icons paths), keeping a lucide-compatible props API.
-type BrandIconProps = SVGProps<SVGSVGElement> & { size?: number | string };
+// use (simple-icons paths). Sized by className, like the lucide icons beside them.
+type BrandIconProps = SVGProps<SVGSVGElement>;
 
-function BrandIcon({ size = 24, children, ...props }: BrandIconProps) {
+function BrandIcon({ children, ...props }: BrandIconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
       {children}
     </svg>
   );

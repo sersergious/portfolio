@@ -1,7 +1,4 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
-import { cva, type VariantProps } from 'class-variance-authority';
-
-import { cn } from '@/lib/utils';
+import { cva } from 'class-variance-authority';
 
 /**
  * Hover and active mix toward `--foreground`, not toward black.
@@ -74,25 +71,4 @@ const buttonVariants = cva(
   }
 );
 
-/**
- * Only for a real `<button>`. Base UI's primitive is a client component, and
- * most "buttons" on this site are links — use `buttonVariants()` directly on an
- * `<a>` or `<Link>` there and keep the page free of client JS.
- */
-function Button({
-  className,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<typeof ButtonPrimitive> &
-  VariantProps<typeof buttonVariants>) {
-  return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
-}
-
-export { Button, buttonVariants };
+export { buttonVariants };
