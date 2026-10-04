@@ -14,6 +14,7 @@ tags:
   - Qiskit
   - FastAPI
 github: 'https://github.com/sersergious/vqe-web'
+youtubeUrl: 'https://youtu.be/sCCBytSYm5w'
 abstract: >-
   The Variational Quantum Eigensolver (VQE) is a hybrid quantum-classical
   algorithm designed to estimate ground state energies of quantum systems. While

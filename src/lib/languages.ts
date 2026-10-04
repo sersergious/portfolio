@@ -1,19 +1,12 @@
 // GitHub linguist colors — intentionally theme-independent, like any chart legend.
 const LANGUAGE_COLORS: Record<string, string> = {
+  // ponytail: only languages that appear; add a linguist colour when a new one does.
   typescript: '#3178c6',
-  javascript: '#f1e05a',
   python: '#3572A5',
   java: '#b07219',
-  kotlin: '#A97BFF',
   c: '#555555',
   'c++': '#f34b7d',
-  rust: '#dea584',
-  html: '#e34c26',
-  css: '#563d7c',
-  'html/css': '#e34c26',
-  postgresql: '#336791',
   sql: '#e38c00',
-  shell: '#89e051',
 };
 
 /**

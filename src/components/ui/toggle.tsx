@@ -1,48 +1,16 @@
 'use client';
 
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
-import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
 
 import { buttonVariants } from '@/components/ui/button';
-import { joinItem, swapShell } from '@/components/ui/toggle-variants';
 import { cn } from '@/lib/utils';
 
 /**
- * Base UI toggles wearing the button's clothes. The layout classes they share
- * with /kitchen-sink live in `toggle-variants.ts`.
+ * One segment of the /work filter. The -1px margin collapses neighbouring
+ * borders into one hairline; the focus z-index keeps a focused item's ring from
+ * being clipped by the next one. `rounded-none` must come after the button's
+ * `rounded-lg` for tailwind-merge to drop it.
  */
-
-/** A single toggle that looks like a ghost icon button. */
-export function IconToggle({
-  className,
-  ...props
-}: React.ComponentProps<typeof TogglePrimitive>) {
-  return (
-    <TogglePrimitive
-      className={cn(
-        'group',
-        buttonVariants({ variant: 'ghost', size: 'icon-sm' }),
-        swapShell,
-        className
-      )}
-      {...props}
-    />
-  );
-}
-
-/** The segmented control on /work. Horizontal, one item pressed at a time. */
-export function ToggleGroup({
-  className,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive>) {
-  return (
-    <ToggleGroupPrimitive
-      className={cn('inline-flex items-stretch', className)}
-      {...props}
-    />
-  );
-}
-
 export function ToggleGroupItem({
   className,
   pressed,
@@ -52,7 +20,7 @@ export function ToggleGroupItem({
     <TogglePrimitive
       className={cn(
         buttonVariants({ variant: pressed ? 'default' : 'ghost' }),
-        joinItem,
+        'rounded-none first:rounded-l-lg last:rounded-r-lg -ml-px first:ml-0 focus:z-1',
         'gap-2',
         className
       )}
