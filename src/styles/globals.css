@@ -41,8 +41,6 @@
   --primary-value: oklch(48% 0.109 245);
   --primary-foreground: oklch(97% 0.02 245);
 
-  --success-value: oklch(76% 0.177 163.223);
-
   --border: oklch(82% 0.012 245);
   --ring: var(--primary-value);
 

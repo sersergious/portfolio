@@ -4,7 +4,8 @@ import { useMemo, useState } from 'react';
 import { WorkCard } from '@/components/work/WorkCard';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Badge } from '@/components/ui/badge';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle';
+import { ToggleGroup } from '@base-ui/react/toggle-group';
+import { ToggleGroupItem } from '@/components/ui/toggle';
 import type { WorkSummary } from '@/lib/work-content';
 
 type Filter = 'all' | 'project' | 'research';
@@ -53,7 +54,7 @@ export function WorkList({ items }: { items: WorkSummary[] }) {
           onValueChange={next => {
             if (next.length > 0) setFilter(next[0] as Filter);
           }}
-          className="mt-8"
+          className="mt-8 inline-flex items-stretch"
         >
           {FILTERS.map(option => (
             <ToggleGroupItem

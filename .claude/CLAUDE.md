@@ -150,9 +150,8 @@ Components live in `src/components/ui/` as cva variants:
 - `link-variants.ts` — `linkVariants` (`underline: always | hover`,
   `tone: default | primary`), a cva function rather than a component because
   the call sites are `<a>`, `next/link`, and markdown-rendered anchors
-- `toggle.tsx` / `toggle-variants.ts` — Base UI `ToggleGroup` and `Toggle`; the
-  plain class strings live in the non-client half so Server Components can use
-  them
+- `toggle.tsx` — `ToggleGroupItem` over Base UI's `Toggle`, for the `/work`
+  filter
 
 **daisyUI was removed on 2026-08-30.** It shipped ~288 KB of CSS for the 774
 bytes the site used, because Tailwind v4 cannot tree-shake plain rules in
@@ -202,8 +201,7 @@ The build reads content from the filesystem, so **it needs no credentials and no
 **Run `bun run build:clean` before pushing.** A local `node_modules` can keep a
 package alive after it leaves `package.json` — `bunx shadcn` left one behind,
 and `globals.css` imported a stylesheet from it, so every local build passed
-while Vercel's clean install failed. The A/B harness cannot catch this: it
-compares two built sites, not the dependency graph.
+while Vercel's clean install failed.
 
 ## History
 

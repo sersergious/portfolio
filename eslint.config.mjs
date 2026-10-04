@@ -10,7 +10,6 @@ const eslintConfig = [
       'next-env.d.ts',
       '.agents/**',
       '.claude/**',
-      '.ab/**',
     ],
   },
   ...coreWebVitals,
