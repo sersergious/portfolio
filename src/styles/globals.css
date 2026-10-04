@@ -3,96 +3,56 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * One hue axis, 245deg, for neutrals and accent alike.
+ * One hue axis, 245deg, for neutrals and accent alike. Each token is
+ * `light-dark(light, dark)`, so the theme is just `color-scheme`: next-themes
+ * pins it with `.light` / `.dark`, and with JS off the system preference picks.
  *
- * The values daisyUI left behind had two different colour logics: the light
- * neutral was violet-cast (hue 286) and fought the blue accent 41deg away,
- * while the dark neutral sat 12deg from it. Both themes now derive from the
- * accent's own hue, which is what "blueprint" was always supposed to mean.
- *
- * Every tone is solved against a contrast target rather than being whatever an
- * opacity happened to produce, and solved on BOTH grounds it can appear on:
- * `subtle-foreground` is 52% and not 55% because 55% measured 4.12:1 on
- * `muted` once the surface step widened. Measured ratios, light / dark:
+ * Every tone is solved against a contrast target, on BOTH grounds it can
+ * appear on: `subtle-foreground` is 52% and not 55% because 55% measured 4.12:1
+ * on `muted`. Measured ratios, light / dark:
  *
  *   foreground        16.96 / 14.43      primary            6.21 / 5.55
  *   muted-foreground   7.42 /  8.21      primary-foreground 5.95 / 6.34
  *   subtle-foreground  5.26 /  5.62      (on muted: 4.68 / 4.75)
  *
- * The background/muted step is 1.12 light and 1.18 dark. It was 1.06 in both,
- * which is indistinguishable — a default button was legible only by its
- * border, and its fill did no work at all.
+ * The background/muted step is 1.12 light and 1.18 dark; at 1.06 a default
+ * button's fill was invisible.
  *
- * `color-scheme` is set by hand on each theme; without it the browser paints
- * scrollbars, form controls and the canvas behind the page in the wrong mode.
+ * `color-scheme` also stops the browser painting scrollbars, form controls and
+ * the canvas in the wrong mode.
  */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
-  --background: oklch(98.5% 0.004 245);
-  --muted: oklch(94.5% 0.008 245);
+  --background: light-dark(oklch(98.5% 0.004 245), oklch(25.3% 0.016 245));
+  --muted: light-dark(oklch(94.5% 0.008 245), oklch(30.5% 0.018 245));
 
-  --foreground: oklch(21% 0.014 245);
-  /* Secondary prose and labels — 26 call sites. */
-  --muted-foreground: oklch(44% 0.02 245);
-  /* Tertiary: card descriptions, meta rows — 8 call sites. */
-  --subtle-foreground: oklch(52% 0.02 245);
+  --foreground: light-dark(oklch(21% 0.014 245), oklch(96.8% 0.02 245));
+  /* Secondary prose and labels. */
+  --muted-foreground: light-dark(oklch(44% 0.02 245), oklch(79% 0.026 245));
+  /* Tertiary: card descriptions, meta rows. */
+  --subtle-foreground: light-dark(oklch(52% 0.02 245), oklch(68.5% 0.026 245));
 
-  --primary-value: oklch(48% 0.109 245);
-  --primary-foreground: oklch(97% 0.02 245);
+  --primary-value: light-dark(oklch(48% 0.109 245), oklch(68% 0.157 245));
+  --primary-foreground: light-dark(oklch(97% 0.02 245), oklch(20% 0.02 245));
 
-  --border: oklch(82% 0.012 245);
+  --border: light-dark(oklch(82% 0.012 245), oklch(50% 0.022 245));
   --ring: var(--primary-value);
-
-  /* Hairline surfaces with 8px corners. */
-  --radius: 0.5rem;
 
   /*
    * The drawing module. Every vertical rhythm on the page is a multiple of
-   * this, and the sheet's grid is ruled at exactly this pitch — which is what
-   * makes the grid structure rather than decoration: rules and section labels
-   * land on its lines instead of floating over them.
+   * this, and the sheet's grid is ruled at exactly this pitch, so rules and
+   * section labels land on its lines instead of floating over them.
    */
   --module: 2rem;
 }
 
-.dark {
-  color-scheme: dark;
-
-  --background: oklch(25.3% 0.016 245);
-  --muted: oklch(30.5% 0.018 245);
-
-  --foreground: oklch(96.8% 0.02 245);
-  --muted-foreground: oklch(79% 0.026 245);
-  --subtle-foreground: oklch(68.5% 0.026 245);
-
-  --primary-value: oklch(68% 0.157 245);
-  --primary-foreground: oklch(20% 0.02 245);
-
-  --border: oklch(50% 0.022 245);
+.light {
+  color-scheme: light;
 }
 
-/*
- * With JS off next-themes writes no class, so the dark half has to be
- * reachable from the media query too. The `:not()` pair keeps an explicit
- * choice winning over the system preference.
- */
-@media (prefers-color-scheme: dark) {
-  :root:not(.light):not(.dark) {
-    color-scheme: dark;
-
-    --background: oklch(25.3% 0.016 245);
-    --muted: oklch(30.5% 0.018 245);
-
-    --foreground: oklch(96.8% 0.02 245);
-    --muted-foreground: oklch(79% 0.026 245);
-    --subtle-foreground: oklch(68.5% 0.026 245);
-
-    --primary-value: oklch(68% 0.157 245);
-    --primary-foreground: oklch(20% 0.02 245);
-
-    --border: oklch(50% 0.022 245);
-  }
+.dark {
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -126,20 +86,12 @@
  * The sheet.
  *
  * Exactly one grid, drawn on a pseudo-element that spans the whole document so
- * it can be animated on load. It used to be a 720px panel behind the hero that
- * faded out — decoration — and stage B added a second grid on the body without
- * removing the first. Two grids with different origins cannot align: the panels
- * were positioned from their own box, the body's from the document, so the page
- * showed one grid laid over another.
- *
+ * it can be animated on load. Two grids with different origins cannot align.
  * It scrolls with the content, because paper does.
  *
  * The grid and the rules have to sit in different visual registers or the eye
- * reads every divider as a stray grid line. They were both 1px and only 1.26:1
- * apart in light — measurably indistinguishable. The grid is now 3% of the
- * foreground and `--border` is darker, which puts a rule at 1.57x the grid's
- * contrast in light and 2.44x in dark: paper against structure, not two
- * hairlines competing.
+ * reads every divider as a stray grid line. At 3% of the foreground against
+ * `--border`, a rule is 1.57x the grid's contrast in light and 2.44x in dark.
  */
 body {
   position: relative;
@@ -164,27 +116,13 @@ html {
 }
 
 /*
- * The one orchestrated moment: on first load the sheet is ruled in before the
- * content it holds. Only the drawing itself animates — grid, rules, the title
- * block's frame. The copy and the portrait are painted immediately, so nothing
- * here can delay largest-contentful-paint.
+ * On first load the sheet fades in under the content. Only the grid animates;
+ * the copy and the portrait paint immediately, so this cannot delay LCP.
  */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes sheet-in {
     from {
       opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes rule-in {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
     }
   }
 
@@ -192,17 +130,6 @@ html {
     animation: sheet-in 600ms ease-out both;
   }
 
-  .draw-rule {
-    transform-origin: left center;
-    animation: rule-in 500ms cubic-bezier(0.2, 0, 0, 1) both;
-  }
-
-  .draw-delay-1 {
-    animation-delay: 120ms;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }

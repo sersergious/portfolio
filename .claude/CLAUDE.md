@@ -87,7 +87,8 @@ The markdown body is rendered by `react-markdown` in [src/components/mdx/MDXCont
 ### Theming
 
 Two themes defined as CSS custom properties in `src/styles/globals.css`, in
-shadcn's two-tier shape: real properties on `:root` and `.dark`, aliased into
+shadcn's two-tier shape: real properties on `:root`, each a
+`light-dark(light, dark)` pair, aliased into
 Tailwind's namespace by `@theme inline`. Both tiers are needed — `@theme inline`
 does not emit its variables to the document, it only inlines them into
 utilities, so components reaching a token from an arbitrary value
@@ -103,14 +104,17 @@ a section label — is a multiple of that module; intra-section spacing is
 typographic and deliberately is not. Do not add a second grid: two with
 different origins cannot align.
 
-`color-scheme` is set explicitly on both themes. Without it the browser paints
-scrollbars, form controls and the canvas in the wrong mode.
+`color-scheme` is the theme switch: `:root` is `light dark` (system decides),
+and `.light` / `.dark` pin it. It also stops the browser painting scrollbars,
+form controls and the canvas in the wrong mode. Tailwind's Lightning CSS
+compiles `light-dark()` to a `--lightningcss-light/dark` variable toggle, so
+it works in browsers without native support.
 
 Theme switching is `next-themes` (`ThemeProvider` in `(site)/layout.tsx`,
 `attribute="class"`, `defaultTheme="system"`). It injects its own blocking
 script, so there is no FOUC — `<html>` carries `suppressHydrationWarning` for
-the class it sets. A `prefers-color-scheme` block repeats the dark tokens under
-`:root:not(.light):not(.dark)` so the dark palette still applies with JS off.
+the class it sets. With JS off there is no class, and `color-scheme: light
+dark` falls back to the system preference.
 
 ### Styling
 
