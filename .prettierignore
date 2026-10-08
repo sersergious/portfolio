@@ -9,3 +9,4 @@ coverage
 
 # Generated and rewritten by `next dev`; formatting it only causes churn.
 AGENTS.md
+pnpm-lock.yaml

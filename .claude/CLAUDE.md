@@ -5,12 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-bun run dev          # Start Next.js dev server
-bun run build        # Production build (outputs to .next/)
-bun run start        # Serve production build
-bun run lint         # ESLint
-bun run format       # Prettier (write)
-bun run format:check # Prettier (check only)
+pnpm run dev          # Start Next.js dev server
+pnpm run build        # Production build (outputs to .next/)
+pnpm run start        # Serve production build
+pnpm run lint         # ESLint
+pnpm run format       # Prettier (write)
+pnpm run format:check # Prettier (check only)
 ```
 
 No test suite is configured.
@@ -121,7 +121,7 @@ dark` falls back to the system preference.
 Tailwind CSS v4, no component framework and no CSS imports beyond Tailwind
 itself. PostCSS via `@tailwindcss/postcss`. Base UI's state styling uses
 Tailwind's own bare `data-*` variants (`group-data-pressed:`), so the `shadcn`
-package is a CLI run through `bunx` and not a dependency.
+package is a CLI run through `pnpm dlx` and not a dependency.
 
 Tokens: `background`, `foreground`, `muted-foreground` (secondary prose),
 `subtle-foreground` (card descriptions, meta rows), `muted` (surfaces),
@@ -202,7 +202,7 @@ Only one, and it's optional:
 
 The build reads content from the filesystem, so **it needs no credentials and no network.** A clean clone builds with an empty environment — that's worth preserving.
 
-**Run `bun run build:clean` before pushing.** A local `node_modules` can keep a
+**Run `pnpm run build:clean` before pushing.** A local `node_modules` can keep a
 package alive after it leaves `package.json` — `bunx shadcn` left one behind,
 and `globals.css` imported a stylesheet from it, so every local build passed
 while Vercel's clean install failed.

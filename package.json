@@ -6,17 +6,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:clean": "rm -rf node_modules && bun install --frozen-lockfile && bun run build",
+    "build:clean": "rm -rf node_modules && pnpm install --frozen-lockfile && pnpm run build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "//engines": "Node must be declared even though installs use Bun: `next` is a Node program (#!/usr/bin/env node, engines.node >=20.9.0). Declaring only `bun` here left Vercel provisioning a Bun-only build with no node on PATH, so `next build` died with `env: 'node': No such file or directory` (exit 127).",
+  "//engines": "Node must be declared even though installs use pnpm: `next` is a Node program (#!/usr/bin/env node, engines.node >=20.9.0). Declaring only a package manager here once left Vercel provisioning a Bun-only build with no node on PATH, so `next build` died with `env: 'node': No such file or directory` (exit 127).",
   "engines": {
-    "node": ">=20.9.0",
-    "bun": ">=1.0"
+    "node": ">=22"
   },
+  "packageManager": "pnpm@12.10.1",
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "class-variance-authority": "^0.7.1",
